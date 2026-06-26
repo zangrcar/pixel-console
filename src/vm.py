@@ -16,6 +16,7 @@ OP_ORIGINV = 0x0F
 OP_PSET = 0x10
 OP_RECT = 0x12
 OP_FRECT = 0x13
+OP_TEXT = 0x15
 
 
 class VMError(Exception):
@@ -38,6 +39,14 @@ class PixelVM:
         value = code[self.pc]
         self.pc += 1
         return value
+    
+    def read_text(self, code, length):
+        if self.pc + length >= len(code):
+            raise VMError("Unexpected end of bytecode")
+        value = bytes(code[self.pc:self.pc+length]).decode("ascii")
+        self.pc += length
+        return value
+        
     
     def read_i8(self, code):
         raw = self.read_u8(code)
@@ -138,5 +147,12 @@ class PixelVM:
                 h = self.read_u8(code)
                 self.fb.frect(x, y, w, h, self.mode)
 
+            elif opcode == OP_TEXT:
+                x = self.read_u8(code)
+                y = self.read_u8(code)
+                length = self.read_u8(code)
+                text = self.read_text(code, length)
+                self.fb.displayText(x, y, text, self.mode)
+                
             else:
                 raise VMError(f"Unknown opcode: 0x{opcode:02X}")

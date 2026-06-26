@@ -1,0 +1,5 @@
+clear 0
+text 0 0 "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+text 0 12 "0123456789"
+show
+end

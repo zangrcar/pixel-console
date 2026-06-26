@@ -1,4 +1,4 @@
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
 
 WIDTH = 128
 HEIGHT = 64
@@ -42,6 +42,20 @@ class FrameBuffer:
             for px in range(x, x + w):
                 self.pset(px, py, mode)
                 
+    def displayText(self, x, y, text, mode=1):
+        font = ImageFont.load_default()
+
+        img = Image.new("1", (WIDTH, HEIGHT), 0)
+        draw = ImageDraw.Draw(img)
+
+        draw.text((x, y), text, font=font, fill=1)
+
+        for py in range(HEIGHT):
+            for px in range(WIDTH):
+                if img.getpixel((px, py)):
+                    self.pset(px, py, mode)
+        
+                               
     def save_png(self, path, scale=4):
         img = Image.new("1", (WIDTH, HEIGHT), 0)
 

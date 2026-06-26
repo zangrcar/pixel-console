@@ -1,0 +1,11 @@
+setv 0 16
+mode 2
+
+loop:
+randv 1 127
+randv 2 63
+originv V1,V2
+pset 0 0
+frame 2
+djnz 0 loop
+end

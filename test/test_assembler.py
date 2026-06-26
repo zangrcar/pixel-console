@@ -8,3 +8,11 @@ def test_assembler_hello():
 
     vm = PixelVM()
     vm.run(code)
+    
+def test_assembler_twinkle():
+    assemble_file("prog/twinkle.pxla", "output/twinkle.bin")
+    with open("output/twinkle.bin", "rb") as f:
+        code = f.read()
+
+    vm = PixelVM()
+    vm.run(code)
