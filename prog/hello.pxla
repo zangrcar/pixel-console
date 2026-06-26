@@ -1,0 +1,6 @@
+clear 0
+mode 1
+rect 0 0 128 64
+frect 20 20 30 15
+frame 60
+end

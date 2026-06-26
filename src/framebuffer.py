@@ -1,0 +1,54 @@
+from PIL import Image, ImageDraw
+
+WIDTH = 128
+HEIGHT = 64
+
+class FrameBuffer:
+    def __init__(self):
+        self.pixels = [[0 for _ in range(WIDTH)] for _ in range(HEIGHT)]
+        
+    def clear(self, color=0):
+        color = 1 if color else 0
+        for x in range(WIDTH):
+            for y in range(HEIGHT):
+                self.pixels[y][x]=color
+                
+    def pset(self, x, y, mode=1):
+        if not (0<=x<WIDTH and 0<=y<HEIGHT):
+            return
+        
+        if mode == 0:
+            self.pixels[y][x] = 0
+        elif mode == 1:
+            self.pixels[y][x] = 1
+        elif mode == 2:
+            self.pixels[y][x] ^= 1
+        elif mode == 3:
+            self.pixels[y][x] ^= 1
+        else:
+            raise ValueError(f"Invalid draw mode: {mode}")
+        
+    def rect(self, x, y, w, h, mode=1):
+        for px in range(x, x + w):
+            self.pset(px, y, mode)
+            self.pset(px, y + h - 1, mode)
+
+        for py in range(y, y + h):
+            self.pset(x, py, mode)
+            self.pset(x + w - 1, py, mode)
+
+    def frect(self, x, y, w, h, mode=1):
+        for py in range(y, y + h):
+            for px in range(x, x + w):
+                self.pset(px, py, mode)
+                
+    def save_png(self, path, scale=4):
+        img = Image.new("1", (WIDTH, HEIGHT), 0)
+
+        for y in range(HEIGHT):
+            for x in range(WIDTH):
+                if self.pixels[y][x]:
+                    img.putpixel((x, y), 1)
+
+        img = img.resize((WIDTH * scale, HEIGHT * scale))
+        img.save(path)
