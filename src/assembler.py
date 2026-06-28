@@ -27,7 +27,8 @@ OPCODES = {
     "font": 0x16,
     "spr": 0x17,
     "sprv": 0x18,
-    "move": 0x019
+    "move": 0x19,
+    "moveorig": 0x19
 }
 
 FORMATS = {
@@ -56,7 +57,8 @@ FORMATS = {
     "font": ["u8"],
     "spr": ["u8", "u8", "sprite", "u8"],
     "sprv": ["varpair", "sprite", "u8"],
-    "move": ["i8", "i8"]
+    "move": ["i8", "i8"],
+    "moveorig": ["i8", "i8"],
 }
 
 

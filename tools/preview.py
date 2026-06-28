@@ -12,6 +12,7 @@ from src.container import wrap_program, unwrap_program
 from src.inspect import inspect_bytes
 from src.vm import PixelVM
 from run import load_program_sprites, resolve_input_and_output
+from src.validator import validate_program
 
 
 def preview(input_arg: str, output_arg: str | None = None) -> None:
@@ -32,6 +33,8 @@ def preview(input_arg: str, output_arg: str | None = None) -> None:
     inspect_bytes(program)
 
     loaded_code, loaded_sprites = unwrap_program(program)
+    
+    validate_program(loaded_code, loaded_sprites)
 
     frames = []
 

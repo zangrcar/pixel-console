@@ -7,6 +7,7 @@ from src.assembler import assemble_text
 from src.container import wrap_program, unwrap_program
 from src.vm import PixelVM
 from src.inspect import inspect_bytes
+from src.validator import validate_program
 
 
 def resolve_input_and_output(input_arg: str, output_arg: str | None = None) -> tuple[Path, Path]:
@@ -58,6 +59,8 @@ def build_and_run(input_path: Path, output_path: Path | None = None) -> None:
     inspect_bytes(program)
 
     loaded_code, loaded_sprites = unwrap_program(program)
+    
+    validate_program(loaded_code, loaded_sprites)
 
     vm = PixelVM(card_sprites=loaded_sprites)
     vm.run(loaded_code)

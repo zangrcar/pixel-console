@@ -14,6 +14,7 @@ from src.assembler import assemble_text
 from src.container import wrap_program, unwrap_program
 from src.vm import PixelVM
 from run import load_program_sprites, resolve_input_and_output
+from src.validator import validate_program
 
 
 WIDTH = 128
@@ -43,6 +44,8 @@ def play(input_arg: str):
     program = wrap_program(code, sprites=sprites)
 
     loaded_code, loaded_sprites = unwrap_program(program)
+    
+    validate_program(loaded_code, loaded_sprites)
 
     frames = []
     last_frame_index = None
