@@ -1,0 +1,8 @@
+clear 1
+mode 0
+line 10 10 20 20
+line 50 50 30 30
+line 80 20 40 40
+line 90 50 110 40
+show
+end

@@ -1,5 +1,5 @@
-clear 0
-mode 1
+clear 1
+mode 0
 rect 0 0 128 64
 frect 20 20 30 15
 frame 60

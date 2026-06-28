@@ -3,20 +3,30 @@ from src.framebuffer import FrameBuffer
 
 
 OP_END = 0x00
+OP_NOP = 0x01
 OP_CLEAR = 0x02
 OP_MODE = 0x03
 OP_SHOW = 0x04
+OP_WAIT = 0x05
 OP_FRAME = 0x06
+OP_JMP = 0x07
 OP_SETV = 0x08
 OP_ADDV = 0x09
 OP_RANDV = 0x0A
+OP_JNZ = 0x0B
+OP_JLT = 0x0C
 OP_DJNZ = 0x0D
 OP_ORIGIN = 0x0E
 OP_ORIGINV = 0x0F
 OP_PSET = 0x10
+OP_LINE = 0x11
 OP_RECT = 0x12
 OP_FRECT = 0x13
+OP_INVRECT = 0x14
 OP_TEXT = 0x15
+OP_FONT = 0x16
+OP_SPR = 0x17
+OP_SPRV = 0x18
 
 
 class VMError(Exception):
@@ -41,7 +51,7 @@ class PixelVM:
         return value
     
     def read_text(self, code, length):
-        if self.pc + length >= len(code):
+        if self.pc + length > len(code):
             raise VMError("Unexpected end of bytecode")
         value = bytes(code[self.pc:self.pc+length]).decode("ascii")
         self.pc += length
@@ -76,6 +86,9 @@ class PixelVM:
 
             if opcode == OP_END:
                 return
+            
+            if opcode == OP_NOP:
+                pass
 
             elif opcode == OP_CLEAR:
                 color = self.read_u8(code)
@@ -83,15 +96,26 @@ class PixelVM:
 
             elif opcode == OP_MODE:
                 self.mode = self.read_u8(code)
+                if self.mode > 3:
+                    raise VMError(f"Invalid draw mode: {self.mode}")
 
             elif opcode == OP_SHOW:
                 self.save_frame()
+            
+            elif opcode == OP_WAIT:
+                # For laptop testing we ignore real timing for now.
+                # Later, ticks can mean 1/60 second units.
+                return
 
             elif opcode == OP_FRAME:
                 ticks = self.read_u8(code)
                 self.save_frame()
                 # For laptop testing we ignore real timing for now.
                 # Later, ticks can mean 1/60 second units.
+                
+            elif opcode == OP_JMP:
+                offset = self.read_i16(code)
+                self.pc += offset
                 
             elif opcode == OP_SETV:
                 var = self.read_u8(code)
@@ -106,7 +130,22 @@ class PixelVM:
                 var = self.read_u8(code)
                 max = self.read_u8(code)
                 
-                self.vars[var] = random.randint(1, max)
+                self.vars[var] = random.randint(0, max)
+                
+            elif opcode == OP_JNZ:
+                var = self.read_u8(code)
+                offset = self.read_i16(code)
+                
+                if self.vars[var] != 0:
+                    self.pc += offset
+                    
+            elif opcode == OP_JLT:
+                var = self.read_u8(code)
+                val = self.read_u8(code)
+                offset = self.read_i16(code)
+                
+                if self.vars[var] < val:
+                    self.pc += offset
                 
             elif opcode == OP_DJNZ:
                 var = self.read_u8(code)
@@ -132,27 +171,45 @@ class PixelVM:
                 x = self.read_u8(code)
                 y = self.read_u8(code)
                 self.fb.pset(self.ox + x, self.oy + y, self.mode)
+                
+            elif opcode == OP_LINE:
+                x0 = self.read_u8(code)
+                y0 = self.read_u8(code)
+                x1 = self.read_u8(code)
+                y1 = self.read_u8(code)
+                self.fb.line(self.ox + x0, self.oy + y0, x1, y1, self.mode)
 
             elif opcode == OP_RECT:
                 x = self.read_u8(code)
                 y = self.read_u8(code)
                 w = self.read_u8(code)
                 h = self.read_u8(code)
-                self.fb.rect(x, y, w, h, self.mode)
+                self.fb.rect(self.ox + x, self.oy + y, w, h, self.mode)
 
             elif opcode == OP_FRECT:
                 x = self.read_u8(code)
                 y = self.read_u8(code)
                 w = self.read_u8(code)
                 h = self.read_u8(code)
-                self.fb.frect(x, y, w, h, self.mode)
+                self.fb.frect(self.ox + x, self.oy + y, w, h, self.mode)
+                
+            elif opcode == OP_INVRECT:
+                x = self.read_u8(code)
+                y = self.read_u8(code)
+                w = self.read_u8(code)
+                h = self.read_u8(code)
+                self.fb.frect(self.ox + x, self.oy + y, w, h, 3)
 
             elif opcode == OP_TEXT:
                 x = self.read_u8(code)
                 y = self.read_u8(code)
                 length = self.read_u8(code)
                 text = self.read_text(code, length)
-                self.fb.displayText(x, y, text, self.mode)
+                self.fb.displayText(self.ox + x, self.oy + y, text, self.mode)
+                
+            elif opcode == OP_FONT:
+                # fonts will be implemented later.
+                pass
                 
             else:
                 raise VMError(f"Unknown opcode: 0x{opcode:02X}")
