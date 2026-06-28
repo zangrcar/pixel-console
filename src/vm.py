@@ -1,5 +1,6 @@
 import random
 from src.framebuffer import FrameBuffer
+from src.sprite import BUILTIN_SPRITES
 
 
 OP_END = 0x00
@@ -27,14 +28,14 @@ OP_TEXT = 0x15
 OP_FONT = 0x16
 OP_SPR = 0x17
 OP_SPRV = 0x18
-
+OP_MOVE = 0x19
 
 class VMError(Exception):
     pass
 
 
 class PixelVM:
-    def __init__(self):
+    def __init__(self, card_sprites=None, on_frame=None, on_wait=None):
         self.fb = FrameBuffer()
         self.pc = 0
         self.mode = 1
@@ -42,6 +43,10 @@ class PixelVM:
         self.vars = [0]*8
         self.ox = 0
         self.oy = 0
+        self.builtin_sprites = BUILTIN_SPRITES
+        self.card_sprites = card_sprites or []
+        self.on_frame = on_frame
+        self.on_wait = on_wait
 
     def read_u8(self, code):
         if self.pc >= len(code):
@@ -71,17 +76,44 @@ class PixelVM:
             raw -= 0x10000
 
         return raw
+        
+    def emit_frame(self, ticks=1, max_frames=None):
+        if self.on_frame is not None:
+            self.on_frame(self.fb.copy(), ticks)
+        else:
+            path = f"output/frame_{self.frame_number:04}.png"
+            self.fb.save_png(path)
+            print(f"Saved {path}")
 
-    def save_frame(self):
-        path = f"output/frame_{self.frame_number:04}.png"
-        self.fb.save_png(path)
         self.frame_number += 1
-        print(f"Saved {path}")
 
-    def run(self, code):
+
+    def emit_wait(self, ticks):
+        if self.on_wait is not None:
+            self.on_wait(ticks)
+        
+    def get_sprite(self, sprite_id):
+        if sprite_id < 128:
+            if sprite_id >= len(self.builtin_sprites):
+                raise VMError(f"Invalid built-in sprite id: {sprite_id}")
+            return self.builtin_sprites[sprite_id]
+
+        card_index = sprite_id - 128
+
+        if card_index >= len(self.card_sprites):
+            raise VMError(f"Invalid card sprite id: {sprite_id}")
+
+        return self.card_sprites[card_index]
+
+    def run(self, code, max_frames=None, max_steps=50000):
         self.pc = 0
+        steps = 0
 
         while True:
+            steps += 1
+            if steps > max_steps:
+                return
+        
             opcode = self.read_u8(code)
 
             if opcode == OP_END:
@@ -100,18 +132,22 @@ class PixelVM:
                     raise VMError(f"Invalid draw mode: {self.mode}")
 
             elif opcode == OP_SHOW:
-                self.save_frame()
+                self.emit_frame(1, max_frames)
+                if max_frames is not None and self.frame_number >= max_frames:
+                    return
             
             elif opcode == OP_WAIT:
-                # For laptop testing we ignore real timing for now.
-                # Later, ticks can mean 1/60 second units.
-                return
+                ticks = self.read_u8(code)
+                if self.on_wait is not None:
+                    self.on_wait(ticks)
+                pass
 
             elif opcode == OP_FRAME:
                 ticks = self.read_u8(code)
-                self.save_frame()
-                # For laptop testing we ignore real timing for now.
-                # Later, ticks can mean 1/60 second units.
+                self.emit_frame(ticks, max_frames)
+                
+                if max_frames is not None and self.frame_number >= max_frames:
+                    return
                 
             elif opcode == OP_JMP:
                 offset = self.read_i16(code)
@@ -177,7 +213,13 @@ class PixelVM:
                 y0 = self.read_u8(code)
                 x1 = self.read_u8(code)
                 y1 = self.read_u8(code)
-                self.fb.line(self.ox + x0, self.oy + y0, x1, y1, self.mode)
+                self.fb.line(
+                    self.ox + x0, 
+                    self.oy + y0, 
+                    self.ox + x1, 
+                    self.oy + y1, 
+                    self.mode
+                )
 
             elif opcode == OP_RECT:
                 x = self.read_u8(code)
@@ -210,6 +252,47 @@ class PixelVM:
             elif opcode == OP_FONT:
                 # fonts will be implemented later.
                 pass
+            
+            elif opcode == OP_SPR:
+                x = self.read_u8(code)
+                y = self.read_u8(code)
+                sprite_id = self.read_u8(code)
+                frame = self.read_u8(code)
+
+                sprite = self.get_sprite(sprite_id)
+
+                self.fb.sprite(
+                    self.ox + x,
+                    self.oy + y,
+                    sprite,
+                    frame,
+                    self.mode
+                )
+            
+            elif opcode == OP_SPRV:
+                packed = self.read_u8(code)
+                sprite_id = self.read_u8(code)
+                frame = self.read_u8(code)
+
+                x_var = packed >> 4
+                y_var = packed & 0x0F
+
+                sprite = self.get_sprite(sprite_id)
+
+                self.fb.sprite(
+                    self.vars[x_var],
+                    self.vars[y_var],
+                    sprite,
+                    frame,
+                    self.mode
+                )
+            
+            elif opcode == OP_MOVE:
+                dx = self.read_i8(code)
+                dy = self.read_i8(code)
                 
+                self.ox = (self.ox + dx) & 0xFF
+                self.oy = (self.oy + dy) & 0xFF
+            
             else:
                 raise VMError(f"Unknown opcode: 0x{opcode:02X}")

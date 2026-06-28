@@ -1,4 +1,5 @@
 from pathlib import Path
+from src.sprite import SPRITE_IDS
 
 OPCODES = {
     "end": 0x00,
@@ -26,6 +27,7 @@ OPCODES = {
     "font": 0x16,
     "spr": 0x17,
     "sprv": 0x18,
+    "move": 0x019
 }
 
 FORMATS = {
@@ -52,8 +54,9 @@ FORMATS = {
     "invrect": ["u8", "u8", "u8", "u8"],
     "text": ["u8", "u8", "string"],
     "font": ["u8"],
-    "spr": ["u8", "u8", "u8", "u8"],
-    "sprv": ["varpair", "u8", "u8"],
+    "spr": ["u8", "u8", "sprite", "u8"],
+    "sprv": ["varpair", "sprite", "u8"],
+    "move": ["i8", "i8"]
 }
 
 
@@ -110,7 +113,7 @@ def instruction_size(mnemonic, args):
     size = 1  # opcode
 
     for kind, arg in zip(FORMATS[mnemonic], args):
-        if kind in ("u8", "i8", "var", "varpair"):
+        if kind in ("u8", "i8", "var", "varpair", "sprite"):
             size += 1
         elif kind == "rel16":
             size += 2
@@ -216,6 +219,18 @@ def collect_labels(parsed_lines):
 
     return labels
 
+def emit_sprite_id(value):
+    try:
+        return emit_u8(value)
+    except ValueError:
+        pass
+
+    name = value.upper()
+
+    if name not in SPRITE_IDS:
+        raise ValueError(f"unknown sprite name: {value}")
+
+    return [SPRITE_IDS[name]]
 
 def emit_arg(kind, arg, labels, pc_after_instruction):
     if kind == "u8":
@@ -239,9 +254,11 @@ def emit_arg(kind, arg, labels, pc_after_instruction):
 
         offset = labels[arg] - pc_after_instruction
         return emit_i16(offset)
+    
+    if kind == "sprite":
+        return emit_sprite_id(arg)
 
     raise ValueError(f"unknown argument kind: {kind}")
-
 
 def assemble_instruction(mnemonic, args, labels, pc):
     if mnemonic not in OPCODES:

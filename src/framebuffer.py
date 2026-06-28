@@ -79,6 +79,23 @@ class FrameBuffer:
             if e2 < dx:
                 err += dx
                 y0 += sy
+                
+    def sprite(self, x, y, sprite, frame=0, mode=1):
+        if frame < 0 or frame >= sprite.frame_count:
+            raise ValueError("Invalid sprite frame")
+
+        data = sprite.frames[frame]
+        bytes_per_row = (sprite.width + 7) // 8
+
+        for row in range(sprite.height):
+            for col in range(sprite.width):
+                byte_index = row * bytes_per_row + (col // 8)
+                bit_index = 7 - (col % 8)
+
+                byte = data[byte_index]
+
+                if byte & (1 << bit_index):
+                    self.pset(x + col, y + row, mode)
         
     
     def save_png(self, path, scale=4):
@@ -91,3 +108,8 @@ class FrameBuffer:
 
         img = img.resize((WIDTH * scale, HEIGHT * scale))
         img.save(path)
+        
+    def copy(self):
+        other = FrameBuffer()
+        other.pixels = [row[:] for row in self.pixels]
+        return other

@@ -1,0 +1,61 @@
+; Repeating comet field
+; Uses built-in COMET16 sprite id/name
+
+loop:
+clear 0
+mode 1
+spr 112 6 COMET16 0
+spr 72 28 COMET16 1
+spr 24 46 COMET16 2
+frame 4
+
+clear 0
+mode 1
+spr 96 6 COMET16 1
+spr 56 28 COMET16 2
+spr 8 46 COMET16 0
+frame 4
+
+clear 0
+mode 1
+spr 80 6 COMET16 2
+spr 40 28 COMET16 0
+spr 120 46 COMET16 1
+frame 4
+
+clear 0
+mode 1
+spr 64 6 COMET16 0
+spr 24 28 COMET16 1
+spr 104 46 COMET16 2
+frame 4
+
+clear 0
+mode 1
+spr 48 6 COMET16 1
+spr 8 28 COMET16 2
+spr 88 46 COMET16 0
+frame 4
+
+clear 0
+mode 1
+spr 32 6 COMET16 2
+spr 120 28 COMET16 0
+spr 72 46 COMET16 1
+frame 4
+
+clear 0
+mode 1
+spr 16 6 COMET16 0
+spr 104 28 COMET16 1
+spr 56 46 COMET16 2
+frame 4
+
+clear 0
+mode 1
+spr 0 6 COMET16 1
+spr 88 28 COMET16 2
+spr 40 46 COMET16 0
+frame 4
+
+jmp loop

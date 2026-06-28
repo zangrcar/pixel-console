@@ -3,8 +3,10 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from src.assembler import assemble_file
+from src.assembler import assemble_text
+from src.container import wrap_program, unwrap_program
 from src.vm import PixelVM
+from src.inspect import inspect_bytes
 
 
 def resolve_input_and_output(input_arg: str, output_arg: str | None = None) -> tuple[Path, Path]:
@@ -27,19 +29,38 @@ def resolve_input_and_output(input_arg: str, output_arg: str | None = None) -> t
 
     return input_path, output_path
 
+def load_program_sprites(input_path: Path):
+    sprite_path = input_path.with_name(input_path.stem + "_sprites.py")
+
+    if not sprite_path.exists():
+        return []
+
+    namespace = {}
+    exec(sprite_path.read_text(encoding="utf-8"), namespace)
+
+    return namespace.get("SPRITES", [])
 
 def build_and_run(input_path: Path, output_path: Path | None = None) -> None:
     if output_path is None:
         output_path = Path.cwd() / "output" / f"{input_path.stem}.bin"
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    assemble_file(str(input_path), str(output_path))
 
-    with output_path.open("rb") as handle:
-        code = handle.read()
+    source = input_path.read_text(encoding="utf-8")
+    code = assemble_text(source)
 
-    vm = PixelVM()
-    vm.run(code)
+    sprites = load_program_sprites(input_path)
+    program = wrap_program(code, sprites=sprites)
+
+    output_path.write_bytes(program)
+    print(f"Wrote {len(program)} bytes to {output_path}")
+
+    inspect_bytes(program)
+
+    loaded_code, loaded_sprites = unwrap_program(program)
+
+    vm = PixelVM(card_sprites=loaded_sprites)
+    vm.run(loaded_code)
 
 
 def main() -> None:

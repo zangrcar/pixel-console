@@ -1,0 +1,10 @@
+clear 0
+mode 1
+spr 60 28 HEART 0
+frame 10
+clear 0
+spr 56 24 HEART16 1
+mode 0
+spr 60 28 HEART 0
+frame 10
+end
