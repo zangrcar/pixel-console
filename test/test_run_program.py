@@ -10,7 +10,7 @@ def test_run_program_cli(tmp_path):
     output = tmp_path / "demo.bin"
 
     result = subprocess.run(
-        [sys.executable, str(root / "run_program.py"), str(source), "--output", str(output)],
+        [sys.executable, str(root / "run.py"), str(source), "--output", str(output)],
         cwd=root,
         capture_output=True,
         text=True,
@@ -29,7 +29,7 @@ def test_run_program_with_bare_name(tmp_path):
     (prog_dir / "demo.pxla").write_text("end\n", encoding="utf-8")
 
     result = subprocess.run(
-        [sys.executable, str(root / "run_program.py"), "demo"],
+        [sys.executable, str(root / "run.py"), "demo"],
         cwd=tmp_path,
         capture_output=True,
         text=True,
