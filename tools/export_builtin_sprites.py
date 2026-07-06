@@ -11,7 +11,7 @@ def find_project_root() -> Path:
     here = Path(__file__).resolve()
 
     for path in [here.parent, *here.parents, Path.cwd(), *Path.cwd().parents]:
-        if (path / "src" / "sprite.py").exists():
+        if (path / "src" / "sprite_cat.py").exists():
             return path
 
     raise RuntimeError("Could not find project root containing src/sprite.py")
@@ -20,11 +20,11 @@ def find_project_root() -> Path:
 PROJECT_ROOT = find_project_root()
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from src.sprite import BUILTIN_SPRITES, SPRITE_NAMES
+from src.sprite_cat import BUILTIN_SPRITES, SPRITE_NAMES
 
 
-OUTPUT_DIR = PROJECT_ROOT / "output" / "builtin_sprites"
-SCALE = 8
+OUTPUT_DIR = PROJECT_ROOT / "output" / "builtin_sprites_cat"
+SCALE = 1
 
 
 def safe_filename(name: str) -> str:
