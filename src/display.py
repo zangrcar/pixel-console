@@ -5,7 +5,7 @@ from PIL import Image
 from src.framebuffer import HEIGHT, WIDTH, FrameBuffer
 
 
-class OledDisplay:
+class Display:
     def __init__(self):
         import board
         import busio

@@ -3,14 +3,14 @@ from __future__ import annotations
 import time
 
 from src.container import unwrap_program
-from src.display_oled import OledDisplay
+from src.display import Display
 from src.error_screen import show_error
-from src.nfc_reader import NFCReader
+from src.nfc import NFCReader
 from src.validator import validate_program
 from src.vm import PixelVM
 
 
-def run_card(display: OledDisplay, raw_data: bytes) -> None:
+def run_card(display: Display, raw_data: bytes) -> None:
     code, sprites = unwrap_program(raw_data)
     validate_program(code, sprites)
 
@@ -35,7 +35,7 @@ def run_card(display: OledDisplay, raw_data: bytes) -> None:
 
 
 def main() -> None:
-    display = OledDisplay()
+    display = Display()
     nfc = NFCReader()
 
     display.clear()

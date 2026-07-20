@@ -14,1914 +14,4834 @@ def _b(hex_string):
 
 
 # Built-in sprite IDs are stable: 0..127 are SD-card sprites, 128..255 are per-card sprites.
-# Frames are packed as 1-bit row-major data, top-to-bottom, left-to-right, padded to whole bytes per row.
-# This file intentionally contains only >=12px built-ins, mostly 16..32px, for a 128x64 monochrome display.
+# Frames are static 1-bit row-major masks, packed top-to-bottom and padded per row.
+# This bank is an exact static snapshot of the verified sprite_codex.py artwork.
 
-# 000
-HEART12 = Sprite(
+# 000 PIXEL_CAT_00 (32x32, 4 frames)
+PIXEL_CAT_00 = Sprite(
+    width=32,
+    height=32,
+    frame_count=4,
+    frames=[
+        _b(
+            "0080020001c1070001e38f0001ffff0001ffff0001ffff0000fffe0001ffff0001ffff2007ffffc009ffff0003ffffc0"
+            "05ffff0000fffe60007ffcf8003ff8fc007ffc7c007ffc7e00fffe3e00fffe1f00fffe1f00fffe1f01ffff1f01ffff3e"
+            "01ffff7e01fffffc01fffff800ffffe0007fffc0003ff800003ef800001c7000"
+        ),
+        _b(
+            "0040010000e0838000f1c78000ffff8000ffff8000ffff80007fff0000ffff8004ffff8003ffffe000ffff9003ffffc0"
+            "04ffffa0007fff00003ffe00061ffc001f3ffe003f3ffe003e7fff007e7fff007c7fff00f87fff00f8ffff80f8ffff80"
+            "f8ffff807cffff807effff803f7fff801fffff0007fffe0003fffc0000fff800"
+        ),
+        _b(
+            "00c0000001e0000001f0000001f8000003fc000007fe00000fff00000fff00001fff80001fff80003fff80003fffc000"
+            "3fffc0001fffc0000fffc00003ffe0c007fff1f007fff9f80ffffcf80ffffcfc0ffffe7c07fffe3e07fffe3e07ffff3e"
+            "07ffff3e03ffff7c03fffffc03fffff803fffff007ffffc007ffff80039ffe00"
+        ),
+        _b(
+            "000003000000078000000f8000001f8000003fc000007fe00000fff00000fff00001fff80001fff80001fffc0003fffc"
+            "0003fffc0003fff80003fff00307ffc00f8fffe01f9fffe01f3ffff03f3ffff03e7ffff07c7fffe07c7fffe07cffffe0"
+            "7cffffe03effffc03fffffc01fffffc00fffffc003ffffe001ffffe0007ff9c0"
+        ),
+    ],
+)
+
+# 001 PIXEL_CAT_01 (40x43, 4 frames)
+PIXEL_CAT_01 = Sprite(
+    width=40,
+    height=43,
+    frame_count=4,
+    frames=[
+        _b(
+            "000018000000003e000000003f000000001f000000001f800000000f8000000007c000000007c000000007c000000007"
+            "c00000000f800000001f800000001f000000003e000000007c000000007c00000008fe2000001dff7000001ffff00000"
+            "1ffff000001ffff000001ffff000000fffe000001ffff000001ffff200007ffffc00009ffff000003ffffc00005ffff0"
+            "00000fffe0000007ffc0000003ff80000003ff80000003ff80000003ff80000003ff80000001ef00000001ef00000001"
+            "ef00000001ef00000003ef80000003ef80000001c70000"
+        ),
+        _b(
+            "00000000000000000000000000000000000000000004001000000e083800000f1c7800000ffff800000ffff800000fff"
+            "f8000007fff000000ffff800004ffff800003ffffe00000ffff900003ffffc00004ffffa000007fff0000003ffe00000"
+            "03ffc0000003ffe0000007fff0000007fff0000007fff0000007fff0000007fff0000007fff0000007fff0000007fff0"
+            "000007fff0000007fff0000007fff0000003ffe0000003ffe0000001e3c0000001e3c0000001e3c0000001e3c0000001"
+            "e3c0000001e3c0000000c1800000000000000000000000"
+        ),
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000000006001800000f803c00000fc03e000"
+            "007c03f000007e07f800003e0ffc00001f1ffe00001f1ffe00001f3fff00001f3fff00003e7fff00007e7fff803ffc7f"
+            "fffffff83ffffffff01fffffffe007ffffffc007ffffffc003ffffffe003ffffffe003ffffffe003ffffffe001ffffff"
+            "e001ffffffe001fffffff001ffff3ff000fc001ff000fc000ff000fc0003f001f80007e001f00007c000e00007800000"
+            "0000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "00000000000000000000000000000000000000000000000000000000000006000000001f000001803f000003c03e0000"
+            "07c07e00000fc07c00001fe0f800003ff0f800007ff8f800007ff8f80000fffc7c0000fffc7e0000fffe3ffc01fffe1f"
+            "fffffffe0ffffffffc07fffffff803ffffffe003ffffffe007ffffffc007ffffffc007ffffffc007ffffffc007ffffff"
+            "8007ffffff800fffffff800ffcffff800ff8003f000ff0003f000fc0003f0007e0001f8003e0000f8001e00007000000"
+            "0000000000000000000000000000000000000000000000"
+        ),
+    ],
+)
+
+# 002 PIXEL_CAT_02 (23x46, 6 frames)
+PIXEL_CAT_02 = Sprite(
+    width=23,
+    height=46,
+    frame_count=6,
+    frames=[
+        _b(
+            "000c00001f00001f80000f80000f80000f80000f80000f80000f80000f80001f00003f00003e00007c0000f80000f800"
+            "01fc000bfe201fff701ffff01ffff01ffff01ffff00fffe01ffff01ffff27ffffc9ffff03ffffc5ffff00fffe007ffc0"
+            "03ff8003ff8003ff8003ff8003ff0003ef0001ef0001ef8001ef8001e70003e00003e00001c000000000"
+        ),
+        _b(
+            "000300000780000f80000f80001f80001f00001f00003e00003e00003e00007c00007c00007c00007c0000f80000f800"
+            "09fc201ffe701ffff01ffff01ffff01ffff00fffe01ffff01ffff27ffffc9ffff03ffffc5ffff00fffe007ffc003ff80"
+            "03ff8003ff8003ff8003ff8003ff0003ef8001ef8001e70001e00001e00001e00003e00003e00001c000"
+        ),
+        _b(
+            "003000007800007c00007c00007c0000fc0000fc0000f80000f80000f800007c00007c00003c00003c00007c00007c00"
+            "00fe0001ff000bffa01ffff01ffff01ffff01ffff01ffff00fffe01ffff01ffff27ffffc9ffff03ffffc5ffff00fffe0"
+            "07ffc003ff8003ff8003ff8003ff0003ef0001ef0001ef8001ef8001e70003e00003e00001c000000000"
+        ),
+        _b(
+            "00300000780000f80000f80000f80000f80000f80000f80000f80000f80000f80000fc00007c00007c00003e00003e00"
+            "007f0008ffa01dfff01ffff01ffff01ffff01ffff00fffe01ffff01ffff27ffffc9ffff03ffffc5ffff00fffe007ffc0"
+            "03ff8003ff8003ff8003ff8001ff8001ef8001ef0003ef0003ef0001cf00000f80000f80000700000000"
+        ),
+        _b(
+            "00600000f00001f00001f00001f00000f80000f80000f800007c00007c00007c00007c00007c00007c00003e00003e00"
+            "087f201cfff01ffff01ffff01ffff01ffff00fffe01ffff01ffff27ffffc9ffff03ffffc5ffff00fffe007ffc003ff80"
+            "03ff8003ff8003ff8003ff8001ff8003ef8003ef0001cf00000f00000f00000f00000f80000f80000700"
+        ),
+        _b(
+            "000600000f00000f80000f80000f80000f80001f80001f00001f00001f00001f00003e00003e00003e00007c00007c00"
+            "00fe0001ff000bffa01ffff01ffff01ffff01ffff01ffff00fffe01ffff01ffff27ffffc9ffff03ffffc5ffff00fffe0"
+            "07ffc003ff8003ff8003ff8003ff8001ff8001ef8001ef0003ef0003ef0001cf00000f80000f80000700"
+        ),
+    ],
+)
+
+# 003 PIXEL_CAT_03 (23x41, 6 frames)
+PIXEL_CAT_03 = Sprite(
+    width=23,
+    height=41,
+    frame_count=6,
+    frames=[
+        _b(
+            "0000000800201c10701e38f01ffff01ffff01ffff00fffe01ffff09ffff07ffffc1ffff27ffff89ffff40fffe00fffc0"
+            "0fff800fff8007ffc00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffc007ffc007f780"
+            "03c78003c78003c78003c78003c78003c30003c000018000000000"
+        ),
+        _b(
+            "0800201c10701e38f01ffff01ffff01ffff00fffe01ffff09ffff07ffffc1ffff27ffff89ffff40fffe007ffc007ff80"
+            "07ffc007ffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffc007f78007e78003c780"
+            "03c78003c30003c00003c00003c00003c00003c00003c000018000"
+        ),
+        _b(
+            "0000000000000800201c10701e38f01ffff01ffff01ffff00fffe01ffff09ffff07ffffc1ffff27ffff89ffff40fffe0"
+            "07ffc007ffc00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffc007ffc007f780"
+            "03c78003c78003c78003c78003c78003c30003c000018000000000"
+        ),
+        _b(
+            "0000000800201c10701e38f01ffff01ffff01ffff00fffe01ffff09ffff07ffffc1ffff27ffff89ffff40fffe007ffc0"
+            "03ffc003ffc007ffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe007ffe007ffc003dfc0"
+            "03c78003c78003c78003c78003c780018780000780000300000000"
+        ),
+        _b(
+            "0800201c10701e38f01ffff01ffff01ffff00fffe01ffff09ffff07ffffc1ffff27ffff89ffff40fffe007ffc003ff80"
+            "07ffc00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe007ffe003dfc003cfc003c780"
+            "03c780018780000780000780000780000780000780000780000300"
+        ),
+        _b(
+            "0000000000000800201c10701e38f01ffff01ffff01ffff00fffe01ffff09ffff07ffffc1ffff27ffff89ffff40fffe0"
+            "07ffc003ff8007ffc00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe007ffe007ffc003dfc0"
+            "03c78003c78003c78003c78003c780018780000780000300000000"
+        ),
+    ],
+)
+
+# 004 PIXEL_CAT_04 (42x32, 6 frames)
+PIXEL_CAT_04 = Sprite(
+    width=42,
+    height=32,
+    frame_count=6,
+    frames=[
+        _b(
+            "030000000600078000000f0007c000001f0007e000001f000ff000001e001ff800003e003ffc00003e003ffc00003e00"
+            "7ffe00003e007ffe00003e00fffe00007c00ffff0000fc00fffffffff8007ffffffff0003fffffffe0000fffffffc000"
+            "0fffffff80000fffffff800007ffffff000007ffffff000007ffffff000007ffffff000003ffffff000003ffffff0000"
+            "07ffffff80000ff007ff80000ff00fbfc00007f00f0fc00007f01f03c00003e03e07c00003e03c07c00001c038078000"
+        ),
+        _b(
+            "00000001800003000003e00007800003f00007c00001f00007e00001f8000ff00000f8001ff80000f8003ffc0000f800"
+            "3ffc0000f8007ffe0001f0007ffe0001f000fffe0003f000ffff003fe000ffffffffe0007fffffffc0003fffffff8000"
+            "0fffffff80000fffffff000007ffffff000007ffffff000007ffffff000007ffffff000007ffffff00001fffffff0000"
+            "3fffffff80007effffff8000fc7800ff8000f03c007f8000e01e003f0000003e007e0000003e007c0000001c00780000"
+        ),
+        _b(
+            "0000000000000300000c00000780001f000007c0001f800007e0000fc0000ff00007e0001ff80003e0003ffc0003e000"
+            "3ffc0003e0007ffe0003e0007ffe0003e000ffff0003e000ffffc003e000ffffffffe0007fffffffc0003fffffffc000"
+            "0fffffff80000fffffff00000fffffff00000fffffff00000fffffff00001fffffff00001fffffff00001fffffff0000"
+            "1fffffff80003ef800ff80003e7800ffc0003c7801ffc0007c7c03e3c000f83c03c7c000f8180387c000f00000078000"
+        ),
+        _b(
+            "03000000600007800000f80007c00000fc0007e000007c000ff000007e001ff800003e003ffc00003e003ffc00003e00"
+            "7ffe00003e007ffe00007c00fffe0000fc00ffff0003f800fffffffff0007fffffffe0003fffffffc0000fffffff8000"
+            "0fffffff80000fffffff80000fffffff00000fffffff000007ffffff000007ffffff000007ffffff000003ffffff8000"
+            "03ffffffc00007fff7ffe0000ff803fff0000f7803cff0001e7807c0f0001ef80f81f0000cf80f81f00000700f01e000"
+        ),
+        _b(
+            "0000000003000300000007800780000007c007c0000007c007e0000007c00ff0000007c01ff800000f803ffc00000f80"
+            "3ffc00000f807ffe00001f007ffe00003e00fffe0000fe00ffff003ffc00fffffffff8007ffffffff0003fffffffe000"
+            "0fffffff80000fffffff80000fffffff000007ffffff000007ffffff000007ffffff000007ffffff800007ffffffc000"
+            "0ffffeffc0001ff8007f80003e78003f00007c3c007f0000f81e007f0000f03e007f0000e03e001f0000001c001e0000"
+        ),
+        _b(
+            "0000000003800300000007c00780000007c007c000000f8007e000000f800ff000000f801ff800001f003ffc00001f00"
+            "3ffc00001f007ffe00001f007ffe00003e00ffff00007c00ffffc001fc00fffffffff8007ffffffff0003fffffffe000"
+            "0fffffffc0000fffffff80000fffffff80000fffffff80000fffffff800007ffffff800007ffffff800003ffffff8000"
+            "03ffffff000007ffffff000007f807ff80000ff8079f80000f780f8780001ef80f0f80001ef80e0f80001c70000f0000"
+        ),
+    ],
+)
+
+# 005 PIXEL_CAT_05 (42x32, 6 frames)
+PIXEL_CAT_05 = Sprite(
+    width=42,
+    height=32,
+    frame_count=6,
+    frames=[
+        _b(
+            "1800000030003c00000078003e000000f8003e000001f8001e000003fc001f000007fe001f00000fff001f00000fff00"
+            "1f00001fff801f00001fff800f80001fffc00fc0003fffc007ffffffffc003ffffffff8001ffffffff0000fffffffc00"
+            "007ffffffc00007ffffffc00003ffffff800003ffffff800003ffffff800003ffffff800003ffffff000003ffffff000"
+            "007ffffff800007ff803fc0000ff7c03fc0000fc3c03f80000f03e03f80000f81f01f00000f80f01f00000780700e000"
+        ),
+        _b(
+            "00600000000001f00000300003f00000780003e00000f80007e00001f80007c00003fc0007c00007fe0007c0000fff00"
+            "07c0000fff0003e0001fff8003e0001fff8003f0001fffc001ff003fffc001ffffffffc000ffffffff80007fffffff00"
+            "007ffffffc00003ffffffc00003ffffff800003ffffff800003ffffff800003ffffff800003ffffff800003ffffffe00"
+            "007fffffff00007fffffdf80007fc0078fc0007f800f03c0003f001e01c0001f801f0000000f801f00000007800e0000"
+        ),
+        _b(
+            "000000000000000c00003000003e00007800007e0000f80000fc0001f80001f80003fc0001f00007fe0001f0000fff00"
+            "01f0000fff0001f0001fff8001f0001fff8001f0003fffc001f000ffffc001ffffffffc000ffffffff8000ffffffff00"
+            "007ffffffc00003ffffffc00003ffffffc00003ffffffc00003ffffffc00003ffffffe00003ffffffe00003ffffffe00"
+            "007ffffffe00007fc007df0000ffc0079f0000ffe0078f0000f1f00f8f8000f8f00f07c000f8700607c00078000003c0"
+        ),
+        _b(
+            "01800000300007c0000078000fc00000f8000f800001f8001f800003fc001f000007fe001f00000fff001f00000fff00"
+            "1f00001fff800f80001fff800fc0001fffc007f0003fffc003ffffffffc001ffffffff8000ffffffff00007ffffffc00"
+            "007ffffffc00007ffffffc00003ffffffc00003ffffffc00003ffffff800003ffffff800003ffffff800007ffffff000"
+            "00fffffff00001fffbfff80003fff007fc0003fcf007bc0003c0f8079e0003e07c07de0003e07c07cc0001e03c038000"
+        ),
+        _b(
+            "300000000000780000003000f80000007800f8000000f800f8000001f800f8000003fc007c000007fe007c00000fff00"
+            "7c00000fff003e00001fff801f00001fff801fc0001fffc00fff003fffc007ffffffffc003ffffffff8001ffffffff00"
+            "007ffffffc00007ffffffc00003ffffffc00003ffffff800003ffffff800003ffffff800007ffffff80000fffffff800"
+            "00ffdffffc00007f8007fe00003f00079f00003f800f0f80003f801e07c0003f801f03c0003e001f01c0001e000e0000"
+        ),
+        _b(
+            "700000000000f80000003000f800000078007c000000f8007c000001f8007c000003fc003e000007fe003e00000fff00"
+            "3e00000fff003e00001fff801f00001fff800f80003fffc00fe000ffffc007ffffffffc003ffffffff8001ffffffff00"
+            "00fffffffc00007ffffffc00007ffffffc00007ffffffc00007ffffffc00007ffffff800007ffffff800007ffffff000"
+            "003ffffff000003ffffff800007ff807f800007e7807fc0000787c07bc00007c3c07de00007c1c07de00003c00038e00"
+        ),
+    ],
+)
+
+# 006 PIXEL_CAT_06 (52x27, 14 frames)
+PIXEL_CAT_06 = Sprite(
+    width=52,
+    height=27,
+    frame_count=14,
+    frames=[
+        _b(
+            "00100040000000003820e0000000003c71e0000000003fffe0000000003fffe0000000003fffe0000000001fffc00000"
+            "00003fffe0000000003fffe400000000fffff8000000013fffe7e00000007ffffff8000000bffffffe0000001fffffff"
+            "0000000fffffff80000007ffffffc000000fffffffe000001fffffffe000001fffffffe000003fffffffe000003fffff"
+            "ffe000001fffffffc000001fffffff8000000f9fbfff80000000001fff000000000007fe000000000001f80000"
+        ),
+        _b(
+            "000000200080000000007041c00000000078e3c0000000007fffc0000000007fffc0000000007fffc0000000003fff80"
+            "000000007fffc0000000027fffc000000001fffff00000007e7fffc8000001ffffffe0000007ffffffd000000fffffff"
+            "8000001fffffff0000003ffffffe0000007fffffff0000007fffffff8000007fffffff8000007fffffffc000007fffff"
+            "ffc000003fffffff8000001fffffff8000001fffdf9f0000000fff800000000007fe000000000001f800000000"
+        ),
+        _b(
+            "00100040000000003820e0000000003c71e0000000003fffe0000000003fffe0000000003fffe0000000001fffc00000"
+            "00003fffe0000000003fffe400000000fffff8000000013fffe7e00000007ffffff8000000bffffffe0000001fffffff"
+            "0000000fffffff80000007ffffffc000000fffffffe000001fffffffe000001fffffffe000003fffffffe000003fffff"
+            "ffe000001fffffffc000001fffffff8000000f9fbfff80000000001fff000000000007fe000000000001f80000"
+        ),
+        _b(
+            "000000200080000000007041c00000000078e3c0000000007fffc0000000007fffc0000000007fffc0000000003fff80"
+            "000000007fffc0000000027fffc000000001fffff00000007e7fffc8000001ffffffe0000007ffffffd000000fffffff"
+            "8000001fffffff0000003ffffffe0000007fffffff0000007fffffff8000007fffffff8000007fffffffc000007fffff"
+            "ffc000003fffffff8000001fffffff8000001fffdf9f0000000fff800000000007fe000000000001f800000000"
+        ),
+        _b(
+            "0000000000000000200080000000007041c00000000078e3c0000000007fffc0000000007fffc0000000007fffc00000"
+            "00003fff80000000007fffc0000000027fffc800000001fffff0000000007fffcfc0000001fffffff00000027fffffff"
+            "0000003fffffffc000001fffffffe000000ffffffff000001ffffffff000003ffffffff000003fffffffe000007fffff"
+            "ffc000007fffffff8000003fffffff0000001ffffffe00000007fffff000000001fffe00000000000000000000"
+        ),
+        _b(
+            "00000000000000000000100040000000003820e0000000003c71e0000000003fffe0000000003fffe0000000003fffe0"
+            "000000001fffc0000000003fffe0000000013fffe400000000fffff80000003f3fffe0000000fffffff800000fffffff"
+            "e400003fffffffc000007fffffff800000ffffffff000000ffffffff800000ffffffffc000007fffffffc000003fffff"
+            "ffe000001fffffffe000000fffffffc0000007ffffff80000000fffffe0000000007fff8000000000000000000"
+        ),
+        _b(
+            "0000000000000000000000000000000000000000000000300000000000007dffe000000000fffff800000001fffffc00"
+            "000003fffffe00000003ffffff0000000fffffff8000007fffffffc00000ffffffffc000007fffffffe000003fffffff"
+            "e000001fffffffe000000fffffffe000000fffffffe0000007ffffffc0000003ffffff80000000ffffff8000000019ff"
+            "ff00000000007ffe00000000003ff8000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "00000000000000000000000000000000000000000000000000c0000000007ffbe000000001fffff000000003fffff800"
+            "000007fffffc0000000ffffffc0000001fffffff0000003fffffffe000003ffffffff000007fffffffe000007fffffff"
+            "c000007fffffff8000007fffffff0000007fffffff0000003ffffffe0000001ffffffc0000001ffffff00000000ffff9"
+            "8000000007ffe00000000001ffc000000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "0000000000000000000000000000000001fff80000000067fffe00000000ffffff00000001ffffff80000003ffffffc0"
+            "000007ffffffe0000007fffffff000001ffffffff00000fffffffff80001fffffffff80000fffffffff800007fffffff"
+            "f800003ffffffff800001ffffffff000001fffffffe000000fffefffe0000007fe07ffc0000007fc01ff80000007f000"
+            "7e0000000380000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "00000000000000000000000000000001fff80000000007fffe600000000ffffff00000001ffffff80000003ffffffc00"
+            "00007ffffffe000000fffffffe000000ffffffff800001fffffffff00001fffffffff80001fffffffff00001ffffffff"
+            "e00001ffffffffc00000ffffffff8000007fffffff8000007fff7fff0000003ffe07fe0000001ff803fe00000007e000"
+            "fe0000000000001c00000000000000000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "0000000000000000000000018000000000000380000000000007c000000000000fc000000000001fe000000000003ff0"
+            "00000000007ff80000000001fffe00381ff800ffffc07e3fffffffffe07fffffffffffc03fffffffffff800fffffffff"
+            "ff000ffffffffffe001ffffffffffe001ffffffffffc001e7ffffffff8001c1ffffffffe00003fffffffff00007fffff"
+            "ffff0000ffffffffc60001ff9fffffe00001e0000007e00001c0000000c0000000000000000000000000000000"
+        ),
+        _b(
+            "0000000000000000180000000000001c0000000000003e0000000000003f0000000000007f800000000000ffc0000000"
+            "0001ffe00000000007fff8000000003ffff001ff81c07fffffffffc7e03fffffffffffe01fffffffffffc00fffffffff"
+            "ff0007ffffffffff0007ffffffffff8003ffffffffff8001ffffffffe78007ffffffff83800fffffffffc0000fffffff"
+            "ffe000063ffffffff000007fffff9ff800007e0000007800003000000038000000000000000000000000000000"
+        ),
+        _b(
+            "00000000018000000000000380000000000007c000000000000fc000000000001fe000000000003ff000000000007ff8"
+            "0000000001fffe00703ff800ffffc0fc7fffffffffe0ffffffffffffc07fffffffffff801fffffffffff001fffffffff"
+            "fe003ffffffffffe003ffffffffffc003cfffffffff800383ffffffff800007ffffffffe0000ffffffffff0001ffffff"
+            "ffbf0003ff1fffeff60003c0000007fc000380000001fe0000000000007e0000000000000c0000000000000000"
+        ),
+        _b(
+            "00180000000000001c0000000000003e0000000000003f0000000000007f800000000000ffc00000000001ffe0000000"
+            "0007fff8000000003ffff001ffc0e07fffffffffe3f03ffffffffffff01fffffffffffe00fffffffffff8007ffffffff"
+            "ff8007ffffffffffc003ffffffffffc001fffffffff3c001ffffffffc1c007ffffffffe0000ffffffffff0000fdfffff"
+            "fff80006ff7fff8ffc0003fe0000003c0007f80000001c0007e000000000000300000000000000000000000000"
+        ),
+    ],
+)
+
+# 007 PIXEL_CAT_07 (40x35, 3 frames)
+PIXEL_CAT_07 = Sprite(
+    width=40,
+    height=35,
+    frame_count=3,
+    frames=[
+        _b(
+            "000018000000003e000000003f000000001f000000001f800000000f8000000007c000000007c000000007c000000007"
+            "c00000000f800000081fa000001c1f7000001e3ef000001ffff000001ffff000001ffff000000fffe000001ffff00000"
+            "1ffff200007ffffc00009ffff000003ffffc00005ffff200000fffe000000fffe000001ffff000001ffff000001ffff0"
+            "00001ffff000001ffff000001ffff000000fffe000000fffe0000007efc000"
+        ),
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000018000000003c000000003e000000003f000"
+            "000007f80000000ffc0000001ffe0000001ffe0000003fff0000603fff0000f87fff0000fc7fff80007c7fffffc07e3f"
+            "fffff83e1ffffffc1f07fffffe1f07ffffff1f03ffffff9f03ffffffbe03fffffffe03fffffffc03fffffff807ffffff"
+            "e007ffffffc003fffffe000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000000018000000003c000000007c0000000"
+            "0fc00000001fe00000003ff00000007ff80000007ff8060000fffc1f0000fffc3f0000fffe3e0001fffe7e03fffffe7c"
+            "1ffffffcf83ffffff8f87fffffe0f8ffffffe0f9ffffffc07dffffffc07fffffffc03fffffffc01fffffffc007ffffff"
+            "e003ffffffe0007fffffc00000000000000000000000000000000000000000"
+        ),
+    ],
+)
+
+# 008 PIXEL_CAT_08 (23x48, 4 frames)
+PIXEL_CAT_08 = Sprite(
+    width=23,
+    height=48,
+    frame_count=4,
+    frames=[
+        _b(
+            "0003000007800007c00007c00007c00007c00007c0000f80000f80000f80001f00001f00003e00003e00007c00007c00"
+            "00fe0001ff0001ff000bffa01ffff01ffff01ffff01ffff01ffff00fffe01ffff01ffff27ffffc9ffff03ffffc5ffff0"
+            "0fffe007ffc003ff8003ff8003ff8001ef0000c600000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "000000003000007800007c00007c00007c0000f80000f80000f80000f80000f800007c00007c00003c00003c00007c00"
+            "007c0000fe0001ff0009ff201ffff01ffff01ffff01ffff01ffff00fffe01ffff01ffff27ffffc9ffff03ffffc5ffff0"
+            "0fffe007ffc003ff8003ff8003ff8003ff8001ef0001ef0001ef0001ef0000c600000000000000000000000000000000"
+        ),
+        _b(
+            "00000000000001800003c00007c00007c00007c00003e00003e00003e00001f00001f00001f00001f80000f80000f800"
+            "007c00007c0000fe0001ff0003ff800bffa01ffff01ffff01ffff01ffff01ffff00fffe01ffff01ffff27ffffc9ffff0"
+            "3ffffc5ffff00fffe007ffc003ff8003ff8003ff8001ef0001ef0001ef0001ef0001ef0001ef0003ef8003ef8001c700"
+        ),
+        _b(
+            "000000001800003c00003e00003e00003e00007c00007c00007c00007c00007c00003e00003e00003e00003e00007c00"
+            "007c0000fe0001ff0009ff201ffff01ffff01ffff01ffff01ffff00fffe01ffff01ffff27ffffc9ffff03ffffc5ffff0"
+            "0fffe007ffc003ff8003ff8003ff8003ff8001ef0001ef0001ef0001ef0000c600000000000000000000000000000000"
+        ),
+    ],
+)
+
+# 009 PIXEL_CAT_09 (23x40, 4 frames)
+PIXEL_CAT_09 = Sprite(
+    width=23,
+    height=40,
+    frame_count=4,
+    frames=[
+        _b(
+            "0000000000000800201c10701e38f01ffff01ffff01ffff00fffe01ffff09ffff07ffffc1ffff27ffff89ffff40fffe0"
+            "07ffc007ffc00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe007ffc007ffc003c780"
+            "03c78003c780018300000000000000000000000000000000"
+        ),
+        _b(
+            "0800201c10701e38f01ffff01ffff01ffff00fffe01ffff09ffff07ffffc1ffff27ffff89ffff40fffe007ffc003ff80"
+            "07ffc00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe007ffc007ffc007ffc003c78003c780"
+            "03c78003c78003c780018300000000000000000000000000"
+        ),
+        _b(
+            "0000000800201c10701e38f01ffff01ffff01ffff00fffe01ffff09ffff07ffffc1ffff27ffff89ffff40fffe007ffc0"
+            "03ff8007ffc00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe007ffc007ffc003c780"
+            "03c78003c78003c78003c78003c78003c78003c780018300"
+        ),
+        _b(
+            "0800201c10701e38f01ffff01ffff01ffff00fffe01ffff09ffff07ffffc1ffff27ffff89ffff40fffe007ffc003ff80"
+            "07ffc00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe007ffc007ffc007ffc003c78003c780"
+            "03c78003c78003c780018300000000000000000000000000"
+        ),
+    ],
+)
+
+# 010 PIXEL_CAT_10 (48x32, 5 frames)
+PIXEL_CAT_10 = Sprite(
+    width=48,
+    height=32,
+    frame_count=5,
+    frames=[
+        _b(
+            "01800000000003c00000000003e00000000003e00000000001e00000030001f00000078001f000000f8001f000001f80"
+            "01f000003fc001f000007fe000f80000fff000fc0000fff0007ffc01fff8003fffc3fff8001ffffffffc000ffffffffc"
+            "0007fffffffc0007fffffff80003fffffff00003ffffffc00007ffffff800007ffffff80000fffffff80003fffffff80"
+            "007fffffff8000fff9fc7f8001fff001ff0003f7e003fe0003c78003fc0003e7c001c00003e7c000000001e3c0000000"
+        ),
+        _b(
+            "0c00000000001e00000000001e00000003001f00000007801f0000000f800f8000001f800f8000003f8007c000007fc0"
+            "07c00000ffc003e00001ffe003e00003ffe001f00007fff001fff00ffff000fffffffff8007ffffffff81c7ffffffff8"
+            "7ffffffffff0ffffffffffe0ffffffffff8067ffffffffe001fffffffff801fffffffffe07ffffffffff1ffe7ffffbff"
+            "3ffc0fff80fe3fc000000078380000000030000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "0000000000000000000000000600000000000f00000006000f0000000f000f8000001f000f8000003f0007c000007f80"
+            "07e00000ffc003f00001ffe001f80001ffe000fc0003fff0007ff807fff0003ffffffff8001ffffffff8001ffffffff8"
+            "000ffffffff0000fffffffe0001fffffff80001fffffff00003fffffff00007fffffff8001ffffffff8007fffffffff0"
+            "0ffffffffffc0fff9fffeffe0fff000007fe03f8000003ee03c0000001f00380000000f8000000000078000000000038"
+        ),
+        _b(
+            "001800000000007c0000000000fc0000060000f800000f0001f800001f0001f000003f0003e000007f8003e00000ffc0"
+            "03e00001ffe003e00001ffe001f00003fff001f8f803fff000ffff07fff8007ffffffff8003ffffffff8001ffffffff0"
+            "000fffffffe0000fffffff80000fffffff00000fffffff00000fffffff00000fffffff000007ffffff000003fffffe00"
+            "0001f3fffc000001f07ff8000001f001f8000001f803f0000001fc03f0000001fc03f8000000dc03f80000000001f000"
+        ),
+        _b(
+            "0000600000000001f00006000003f0000f000007e0001f00000fc0003f00000f80007f80000f8000ffc0001f8001ffe0"
+            "001f0001ffe0001f0003fff0003e0003fff0003e7803fff8003fff87fff8001ffffffff8001ffffffff0001fffffffe0"
+            "000fffffff80000fffffff80000fffffff00000fffffff000007fffffe000007fffffe000007fffffe000007fffffc00"
+            "0003fffff8000001ffeff0000000ff3fe00000007f7fc00000007fff800000003fb8000000003f80000000001e000000"
+        ),
+    ],
+)
+
+# 011 PIXEL_CAT_11 (48x32, 5 frames)
+PIXEL_CAT_11 = Sprite(
+    width=48,
+    height=32,
+    frame_count=5,
+    frames=[
+        _b(
+            "0000000001800000000003c00000000007c00000000007c000c00000078001e000000f8001f000000f8001f800000f80"
+            "03fc00000f8007fe00000f800fff00001f000fff00003f001fff803ffe001fffc3fffc003ffffffff8003ffffffff000"
+            "3fffffffe0001fffffffe0000fffffffc00003ffffffc00001ffffffe00001ffffffe00001fffffff00001fffffffc00"
+            "01fffffffe0001fe3f9fff0000ff800fff80007fc007efc0003fc001e3c000038003e7c000000003e7c000000003c780"
+        ),
+        _b(
+            "00000000003000000000007800c00000007801e0000000f801f0000000f801f8000001f001fc000001f003fe000003e0"
+            "03ff000003e007ff800007c007ffc00007c00fffe0000f800ffff00fff801fffffffff001ffffffffe001ffffffffe38"
+            "0ffffffffffe07ffffffffff01ffffffffff07ffffffffe61fffffffff807fffffffff80ffffffffffe0ffdffffe7ff8"
+            "7f01fff03ffc1e00000003fc0c000000001c000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "0000000000000000000000000000000000600060000000f000f0000000f000f8000001f000fc000001f001fe000003e0"
+            "03ff000007e007ff80000fc007ff80001f800fffc0003f000fffe01ffe001ffffffffc001ffffffff8001ffffffff800"
+            "0ffffffff00007fffffff00001fffffff80000fffffff80000fffffffc0001fffffffe0001ffffffff800fffffffffe0"
+            "3ffffffffff07ff7fff9fff07fe00000fff077c000001fc00f80000003c01f00000001c01e00000000001c0000000000"
+        ),
+        _b(
+            "000000001800000000003e00006000003f0000f000001f0000f800001f8000fc00000f8001fe000007c003ff000007c0"
+            "07ff800007c007ff800007c00fffc0000f800fffc01f1f801fffe0ffff001ffffffffe001ffffffffc000ffffffff800"
+            "07fffffff00001fffffff00000fffffff00000fffffff00000fffffff00000fffffff00000ffffffe000007fffffc000"
+            "003fffcf8000001ffe0f8000001f800f8000000fc01f8000000fc03f8000001fc03f8000001fc03b0000000f80000000"
+        ),
+        _b(
+            "0000000600000060000f800000f0000fc00000f80007e00000fc0003f00001fe0001f00003ff0001f00007ff8001f800"
+            "07ff8000f8000fffc000f8000fffc0007c001fffc01e7c001fffe1fffc001ffffffff8000ffffffff80007fffffff800"
+            "01fffffff00001fffffff00000fffffff00000fffffff000007fffffe000007fffffe000007fffffe000003fffffe000"
+            "001fffffc000000ff7ff80000007fcff00000003fefe00000001fffe000000001dfc0000000001fc0000000000780000"
+        ),
+    ],
+)
+
+# 012 PIXEL_CAT_12 (29x32, 8 frames)
+PIXEL_CAT_12 = Sprite(
+    width=29,
+    height=32,
+    frame_count=8,
+    frames=[
+        _b(
+            "080020001c1070001e38f0001ffff0001ffff0001ffff0000fffe0001ffff0001ffff2007ffffc009ffff0003ffffc00"
+            "5ffff0000fffe60007ffcf8003ff8fc007ffc7c007ffc7e00fffe3e00fffe1f00fffe1f00fffe1f01ffff1f01ffff3e0"
+            "1ffff7e01fffffc01fffff800ffffe0007fffc0003ffc00003e3800001c00000"
+        ),
+        _b(
+            "080020001c1070001e38f0001ffff0001ffff0001ffff0000fffe0001ffff0001ffff2007ffffc009ffff0003ffffc00"
+            "5ffff0000fffe18007ffc3e003ff83f007ffc1f007ffc1f00fffe1f00fffe1f00fffe1f00fffe1f01ffff1f01ffff3e0"
+            "1ffff7e01fffffc01fffff800ffffe0007fffc0003ffc00003e3800001c00000"
+        ),
+        _b(
+            "0000000000000000081020001c3870001ffff0001ffff0001ffff0001ffff0000fffe0001ffff2007ffffc009ffff000"
+            "3ffffc005ffff1800fffe3e007ffc3f007ffc1f007ffc1f00fffe1f00fffe1f00fffe1f00fffe1f01ffff1f01ffff3e0"
+            "1ffff7e01fffffc01fffff800ffffe0007fffc0003ffc00003e3800001c00000"
+        ),
+        _b(
+            "080020001c1070001e38f0001ffff0001ffff0001ffff0000fffe0001ffff0001ffff2007ffffc009ffff0003ffffc00"
+            "5ffff0000fffe07007ffc0f803ff80f807ffc1f007ffc1f00fffe1f00fffe1f00fffe1f00fffe1f01ffff1f01ffff3e0"
+            "1ffff7e01fffffc01fffff800ffffe0007fffc0003ffc00003e3800001c00000"
+        ),
+        _b(
+            "0000000000000000081020001c3870001ffff0001ffff0001ffff0001ffff0000fffe0001ffff2007ffffc009ffff000"
+            "3ffffc005ffff0700fffe0f807ffc0f807ffc1f007ffc1f00fffe1f00fffe1f00fffe1f00fffe1f01ffff1f01ffff3e0"
+            "1ffff7e01fffffc01fffff800ffffe0007fffc0003ffc00003e3800001c00000"
+        ),
+        _b(
+            "080020001c1070001e38f0001ffff0001ffff0001ffff0000fffe0001ffff0001ffff2007ffffc009ffff0003ffffc00"
+            "5ffff0000fffe18007ffc3e003ff83f007ffc1f007ffc1f00fffe1f00fffe1f00fffe1f00fffe1f01ffff1f01ffff3e0"
+            "1ffff7e01fffffc01fffff800ffffe0007fffc0003ffc00003e3800001c00000"
+        ),
+        _b(
+            "080020001c1070001e38f0001ffff0001ffff0001ffff0000fffe0001ffff0001ffff2007ffffc009ffff0003ffffc00"
+            "5ffff0000fffe18007ffc3e003ff83f007ffc1f007ffc1f00fffe1f00fffe1f00fffe1f00fffe1f01ffff1f01ffff3e0"
+            "1ffff7e01fffffc01fffff800ffffe0007fffc0003ffc00003e3800001c00000"
+        ),
+        _b(
+            "080020001c1070001e38f0001ffff0001ffff0001ffff0000fffe0001ffff0001ffff2007ffffc009ffff0003ffffc00"
+            "5ffff0000fffe60007ffcf8003ff8fc007ffc7c007ffc7e00fffe3e00fffe1f00fffe1f00fffe1f01ffff1f01ffff3e0"
+            "1ffff7e01fffffc01fffff800ffffe0007fffc0003ffc00003e3800001c00000"
+        ),
+    ],
+)
+
+# 013 PIXEL_CAT_13 (36x28, 8 frames)
+PIXEL_CAT_13 = Sprite(
+    width=36,
+    height=28,
+    frame_count=8,
+    frames=[
+        _b(
+            "08002000001c107000001e38f000001ffff000001ffff000001ffff000000fffe000001ffff000001ffff200007ffffc"
+            "00009ffff3f0003ffffffc005fffffff000fffffff8007ffffffc003ffffffe007fffffff00ffffffff00ffffffff01f"
+            "fffffff01ffffffff00fffbfffe00ff03fffc007c01fffc000000fff80000003ff00000000fc000000000000"
+        ),
+        _b(
+            "08002000001c107000001e38f000001ffff000001ffff000001ffff000000fffe000001ffff000001ffff200007ffffc"
+            "00009ffff3f0003ffffffc005fffffff000fffffff8007ffffffc003ffffffe007fffffff00ffffffff00ffffffff01f"
+            "fffffff01ffffffff00fffbfffe00ff03fffc007c03fffc000003fff8000001fff0000000ffc000000000000"
+        ),
+        _b(
+            "0000000000000000000008102000001c387000001ffff000001ffff000001ffff000001ffff000000fffe000001ffff2"
+            "00007ffffff0009ffffffc003fffffff005fffffff800fffffffc007ffffffe007fffffff00ffffffff00ffffffff01f"
+            "fffffff01ffffffff00fffbfffe00ff03fffc007c03fffc000003fff8000001fff0000000ffc000000000000"
+        ),
+        _b(
+            "08002000001c107000001e38f000001ffff000001ffff000001ffff000000fffe000001ffff000001ffff200007ffffc"
+            "00009ffff3f0003ffffffc005fffffff000fffffff8007ffffffc003ffffffe007fffffff00ffffffff00ffffffff01f"
+            "fffffff01ffffffff00fffbfffe00ff007ffc007c00fffc000001fff8000001fff0000001ffc0000000c0000"
+        ),
+        _b(
+            "0000000000000000000008102000001c387000001ffff000001ffff000001ffff000001ffff000000fffe000001ffff2"
+            "00007ffffff0009ffffffc003fffffff005fffffff800fffffffc007ffffffe007fffffff00ffffffff00ffffffff01f"
+            "fffffff01ffffffff00fffbfffe00ff007ffc007c00fffc000001fff8000001fff0000001ffc0000000c0000"
+        ),
+        _b(
+            "08002000001c107000001e38f000001ffff000001ffff000001ffff000000fffe000001ffff000001ffff200007ffffc"
+            "00009ffff3f0003ffffffc005fffffff000fffffff8007ffffffc003ffffffe007fffffff00ffffffff00ffffffff01f"
+            "fffffff01ffffffff00fffbfffe00ff03fffc007c03fffc000003fff8000001fff0000000ffc000000000000"
+        ),
+        _b(
+            "08002000001c107000001e38f000001ffff000001ffff000001ffff000000fffe000001ffff000001ffff200007ffffc"
+            "00009ffff3f0003ffffffc005fffffff000fffffff8007ffffffc003ffffffe007fffffff00ffffffff00ffffffff01f"
+            "fffffff01ffffffff00fffbfffe00ff03fffc007c03fffc000003fff8000001fff0000000ffc000000000000"
+        ),
+        _b(
+            "08002000001c107000001e38f000001ffff000001ffff000001ffff000000fffe000001ffff000001ffff200007ffffc"
+            "00009ffff3f0003ffffffc005fffffff000fffffff8007ffffffc003ffffffe007fffffff00ffffffff00ffffffff01f"
+            "fffffff01ffffffff00fffbfffe00ff03fffc007c01fffc000000fff80000003ff00000000fc000000000000"
+        ),
+    ],
+)
+
+# 014 PIXEL_CAT_14 (28x32, 3 frames)
+PIXEL_CAT_14 = Sprite(
+    width=28,
+    height=32,
+    frame_count=3,
+    frames=[
+        _b(
+            "0c0060001e10f0001ffff0001ffff0001ffff0000fffe0001ffff0001ffff2007ffffc009ffff0003ffffc005ffff000"
+            "0fffe00007ffc60003ff8f8003ff8fc007ffc7c007ffc7e00fffe3e00fffe1f00fffe1f00fffe1f01ffff1f01ffff3e0"
+            "1ffff7e01fffffc01fffff800ffffe0007fffc0003ff800003ef800001c70000"
+        ),
+        _b(
+            "0c0060001e10f0001ffff0001ffff0001ffff0000fffe0001ffff0001ffff0001ffff2007ffffc009ffff0003ffffc00"
+            "5ffff0000fffe60007ffcf8003ff8fc007ffc7c007ffc7e00fffe3e00fffe1f00fffe1f00fffe1f01ffff1f01ffff3e0"
+            "1ffff7e01fffffc01fffff800ffffe0007fffc0003ff800003ef800001c70000"
+        ),
+        _b(
+            "0c0060001e10f0001ffff0001ffff0001ffff0000fffe0001ffff0001ffff2007ffffc009ffff0003ffffc005ffff000"
+            "0fffe00007ffc60003ff8f8003ff8fc007ffc7c007ffc7e00fffe3e00fffe1f00fffe1f00fffe1f01ffff1f01ffff3e0"
+            "1ffff7e01fffffc01fffff800ffffe0007fffc0003ff800003ef800001c70000"
+        ),
+    ],
+)
+
+# 015 PIXEL_CAT_15 (36x27, 3 frames)
+PIXEL_CAT_15 = Sprite(
+    width=36,
+    height=27,
+    frame_count=3,
+    frames=[
+        _b(
+            "0c006000001e10f000001ffff000001ffff000001ffff000000fffe000001ffff000001ffff200007ffffc00009ffff0"
+            "00003ffffff0005ffffffc000fffffff0007ffffff8003ffffffc003ffffffe007fffffff00ffffffff00ffffffff01f"
+            "fffffff01ffffffff00fffffffe00fffffffc007cfdfffc000000fff80000003ff00000000fc00"
+        ),
+        _b(
+            "0c006000001e10f000001ffff000001ffff000001ffff000000fffe000001ffff000001ffff000001ffff200007ffffc"
+            "00009ffff3f0003ffffffc005fffffff000fffffff8007ffffffc003ffffffe007fffffff00ffffffff00ffffffff01f"
+            "fffffff01ffffffff00fffffffe00fffffffc007cfdfffc000000fff80000003ff00000000fc00"
+        ),
+        _b(
+            "0c006000001e10f000001ffff000001ffff000001ffff000000fffe000001ffff000001ffff200007ffffc00009ffff0"
+            "00003ffffff0005ffffffc000fffffff0007ffffff8003ffffffc003ffffffe007fffffff00ffffffff00ffffffff01f"
+            "fffffff01ffffffff00fffffffe00fffffffc007cfdfffc000000fff80000003ff00000000fc00"
+        ),
+    ],
+)
+
+# 016 PIXEL_CAT_16 (23x43, 3 frames)
+PIXEL_CAT_16 = Sprite(
+    width=23,
+    height=43,
+    frame_count=3,
+    frames=[
+        _b(
+            "001800003e00003f00001f00001f80000f800007c00007c00007c00007c0000f80001f80001f00003e00007c00007c00"
+            "0cfe601ffff01ffff01ffff01ffff00fffe01ffff01ffff27ffffc9ffff03ffffc5ffff00fffe007ffc003ff8003ff80"
+            "03ff8003ff8003ff8003ff8001ef0001ef0001ef0001ef0003ef8003ef8001c700"
+        ),
+        _b(
+            "001800003e00003f00001f00001f80000f800007c00007c00007c00007c0000f80001f80001f00003e00007c00007c00"
+            "0cfe601ffff01ffff01ffff01ffff00fffe01ffff01ffff01ffff27ffffc9ffff03ffffc5ffff00fffe007ffc003ff80"
+            "03ff8003ff8003ff8003ff8001ef0001ef0001ef0001ef0003ef8003ef8001c700"
+        ),
+        _b(
+            "001800003e00003f00001f00001f80000f800007c00007c00007c00007c0000f80001f80001f00003e00007c00007c00"
+            "0cfe601ffff01ffff01ffff01ffff00fffe01ffff01ffff27ffffc9ffff03ffffc5ffff00fffe007ffc003ff8003ff80"
+            "03ff8003ff8003ff8003ff8001ef0001ef0001ef0001ef0003ef8003ef8001c700"
+        ),
+    ],
+)
+
+# 017 PIXEL_CAT_17 (27x32, 8 frames)
+PIXEL_CAT_17 = Sprite(
+    width=27,
+    height=32,
+    frame_count=8,
+    frames=[
+        _b(
+            "0000040001020e0003871e0003c7fe0003fffe0003fffe0001fffe0000ffff0001ffff0009ffffc007ffff2001ffff80"
+            "1fffff403dfffe003efffc003e7ffc007e3ffe007c3ffe007c7fff007c7fff007c7fff007c7fff003effff803fffff80"
+            "1fffff800fffffc007ffffc003ffff8001ffff00001ffc00001f7c00000e3800"
+        ),
+        _b(
+            "00002000000070000000f000000cf8000c1ff8000f7ff8000ffff8000ffffc8007ffff0007fffe0003ffff8003fffe00"
+            "33fffc007ffffc007ffff8007dfffc007efffe007c3ffe007c7fff007c7fff007c7fff007c7fff003effff803fffff80"
+            "1fffffc00fffffc007ffffc003ffffc001ffff80001ffc00001f7c00000e3800"
+        ),
+        _b(
+            "0000000000002000000070000000f000000cf8000c1ff8000f7ff8000ffff8000ffffc8007ffff0007fffe0003ffff80"
+            "63fffe00f3fffc00fffffc00fbfffc0079fffe007efffe007c7fff007c7fff007c7fff807c7fff803effffc03fffffc0"
+            "1fffffe00fffffe007ffffe003ffffe001ffffc0001ffd80001f7c00000e3800"
+        ),
+        _b(
+            "00000000000040000000e0000001e0000019f000183ff0001efff0001ffff0001ffff9000ffffe000ffffc0007ffff00"
+            "67fffc00f7fff800fffff800fffff8007bfffc007dfffc007c7ffe007cfffe007cffff007cffff003fffff803fffff80"
+            "3fffffc01fffffc00fffffe007ffffe003ffffc0001ffd80001f7c00000e3800"
+        ),
+        _b(
+            "0000000000002000000070000000f000000cf8000c1ff8000f7ff8000ffff8000ffffc8007ffff0007fffe0003ffff80"
+            "33fffe007bfffc007ffffc007ffffc003dfffe003ffffe003e7fff003e7fff003e7fff803e7fff801fffffc01fffffc0"
+            "1fffffe00fffffe007ffffe003ffffe001ffffc0001ffd80001f7c00000e3800"
+        ),
+        _b(
+            "00000000000040000000e0000001e0000019f000183ff0001efff0001ffff0001ffff9000ffffe000ffffc0007ffff00"
+            "67fffc00f7fff800fffff800fffff8007bfffc007dfffc007c7ffe007cfffe007cffff007cffff003fffff803fffff80"
+            "3fffffc01fffffc00fffffe007ffffe003ffffc0001ffd80001f7c00000e3800"
+        ),
+        _b(
+            "00002000000070000000f000000cf8000c1ff8000f7ff8000ffff8000ffffc8007ffff0007fffe0003ffff8003fffe00"
+            "33fffc007ffffc007ffff8007dfffc007efffe007c3ffe007c7fff007c7fff007c7fff007c7fff003effff803fffff80"
+            "1fffffc00fffffc007ffffc003ffffc001ffff80001ffc00001f7c00000e3800"
+        ),
+        _b(
+            "0000040001020e0003871e0003c7fe0003fffe0003fffe0001fffe0000ffff0001ffff0009ffffc007ffff2001ffff80"
+            "1fffff403dfffe003efffc003e7ffc007e3ffe007c3ffe007c7fff007c7fff007c7fff007c7fff003effff803fffff80"
+            "1fffff800fffffc007ffffc003ffff8001ffff00001ffc00001f7c00000e3800"
+        ),
+    ],
+)
+
+# 018 PIXEL_CAT_18 (27x32, 8 frames)
+PIXEL_CAT_18 = Sprite(
+    width=27,
+    height=32,
+    frame_count=8,
+    frames=[
+        _b(
+            "040000000e0810000f1c38000ffc78000ffff8000ffff8000ffff0001fffe0001ffff0007ffff2009ffffc003ffff000"
+            "5fffff000ffff78007ffef8007ffcf800fff8fc00fff87c01fffc7c01fffc7c01fffc7c01fffc7c03fffef803fffff80"
+            "3fffff007ffffe007ffffc003ffff8001ffff00007ff000007df0000038e0000"
+        ),
+        _b(
+            "0080000001c0000001e0000003e6000003ff060003ffde0003fffe0027fffe001ffffc000ffffc003ffff8000ffff800"
+            "07fff98007ffffc003ffffc007fff7c00fffefc00fff87c01fffc7c01fffc7c01fffc7c01fffc7c03fffef803fffff80"
+            "7fffff007ffffe007ffffc007ffff8003ffff00007ff000007df0000038e0000"
+        ),
+        _b(
+            "000000000080000001c0000001e0000003e6000003ff060003ffde0003fffe0027fffe001ffffc000ffffc003ffff800"
+            "0ffff8c007fff9e007ffffe007fffbe00ffff3c00fffefc01fffc7c01fffc7c03fffc7c03fffc7c07fffef807fffff80"
+            "ffffff00fffffe00fffffc00fffff8007ffff00037ff000007df0000038e0000"
+        ),
+        _b(
+            "000000000040000000e0000000f0000001f3000001ff830001ffef0001ffff0013ffff000ffffe0007fffe001ffffc00"
+            "07fffcc003fffde003ffffe003ffffe007fffbc007fff7c00fffc7c00fffe7c01fffe7c01fffe7c03fffff803fffff80"
+            "7fffff807fffff00fffffe00fffffc007ffff80037ff000007df0000038e0000"
+        ),
+        _b(
+            "000000000080000001c0000001e0000003e6000003ff060003ffde0003fffe0027fffe001ffffc000ffffc003ffff800"
+            "0ffff98007fffbc007ffffc007ffffc00ffff7800fffff801fffcf801fffcf803fffcf803fffcf807fffff007fffff00"
+            "ffffff00fffffe00fffffc00fffff8007ffff00037ff000007df0000038e0000"
+        ),
+        _b(
+            "000000000040000000e0000000f0000001f3000001ff830001ffef0001ffff0013ffff000ffffe0007fffe001ffffc00"
+            "07fffcc003fffde003ffffe003ffffe007fffbc007fff7c00fffc7c00fffe7c01fffe7c01fffe7c03fffff803fffff80"
+            "7fffff807fffff00fffffe00fffffc007ffff80037ff000007df0000038e0000"
+        ),
+        _b(
+            "0080000001c0000001e0000003e6000003ff060003ffde0003fffe0027fffe001ffffc000ffffc003ffff8000ffff800"
+            "07fff98007ffffc003ffffc007fff7c00fffefc00fff87c01fffc7c01fffc7c01fffc7c01fffc7c03fffef803fffff80"
+            "7fffff007ffffe007ffffc007ffff8003ffff00007ff000007df0000038e0000"
+        ),
+        _b(
+            "040000000e0810000f1c38000ffc78000ffff8000ffff8000ffff0001fffe0001ffff0007ffff2009ffffc003ffff000"
+            "5fffff000ffff78007ffef8007ffcf800fff8fc00fff87c01fffc7c01fffc7c01fffc7c01fffc7c03fffef803fffff80"
+            "3fffff007ffffe007ffffc003ffff8001ffff00007ff000007df0000038e0000"
+        ),
+    ],
+)
+
+# 019 PIXEL_CAT_19 (28x32, 5 frames)
+PIXEL_CAT_19 = Sprite(
+    width=28,
+    height=32,
+    frame_count=5,
+    frames=[
+        _b(
+            "080020001c1070001e38f0001ffff0001ffff0001ffff0000fffe0001ffff0001ffff2007ffffc009ffff0003ffffc00"
+            "5ffff0000fffe30007ffc7c003ff87e007ffc3e007ffc3f00fffe1f00fffe1f00fffe1f00fffe1f01ffff1f01ffff3e0"
+            "1ffff7e01fffffc01fffff800ffffe0007fffc0003ff800003ef800001c70000"
+        ),
+        _b(
+            "080020001c1070001e38f0001ffff0001ffff0001ffff0000fffe0001ffff0001ffff2007ffffc009ffff0003ffffc00"
+            "5ffff0000fffe18007ffc3e003ff83f007ffc1f007ffc1f00fffe1f00fffe3e00fffe3e00fffe3e01ffff3e01ffff7c0"
+            "1ffff7c01fffffc01fffff800ffffe0007fffc0003ff800003ef800001c70000"
+        ),
+        _b(
+            "080020001c1070001e38f0001ffff0001ffff0001ffff0000fffe0001ffff0001ffff2007ffffc009ffff0003ffffc00"
+            "5ffff0000fffe0c007ffc1e003ff81f007ffc1f007ffc3e00fffe3e00fffe7c00fffe7c00fffe7c01ffff7c01fffff80"
+            "1fffff801fffff801fffff000ffffe0007fffc0003ff800003ef800001c70000"
+        ),
+        _b(
+            "080020001c1070001e38f0001ffff0001ffff0001ffff0000fffe0001ffff0001ffff2007ffffc009ffff0003ffffc00"
+            "5ffff0000fffe18007ffc3e003ff83f007ffc1f007ffc1f00fffe1f00fffe3e00fffe3e00fffe3e01ffff3e01ffff7c0"
+            "1ffff7c01fffffc01fffff800ffffe0007fffc0003ff800003ef800001c70000"
+        ),
+        _b(
+            "080020001c1070001e38f0001ffff0001ffff0001ffff0000fffe0001ffff0001ffff2007ffffc009ffff0003ffffc00"
+            "5ffff0000fffe30007ffc7c003ff87e007ffc3e007ffc3f00fffe1f00fffe1f00fffe1f00fffe1f01ffff1f01ffff3e0"
+            "1ffff7e01fffffc01fffff800ffffe0007fffc0003ff800003ef800001c70000"
+        ),
+    ],
+)
+
+# 020 PIXEL_CAT_20 (29x32, 5 frames)
+PIXEL_CAT_20 = Sprite(
+    width=29,
+    height=32,
+    frame_count=5,
+    frames=[
+        _b(
+            "00200080007041c00078e3c0007fffc0007fffc0007fffc0003fff80007fffc0027fffc001fffff0007fffc801ffffe0"
+            "027fffd0003fff80001fff000c0ffe003e1fff007e1fff007c3fff80fc3fff80f83fff80f83fff80f87fffc0f87fffc0"
+            "f87fffc07c7fffc07e7fffc03f3fffc01fffff800fffff0003fffe0000fffc00"
+        ),
+        _b(
+            "00200080007041c00078e3c0007fffc0007fffc0007fffc0003fff80007fffc0027fffc001fffff0007fffc801ffffe0"
+            "027fffd0003fff80001fff00180ffe007c1fff00fc1fff00f83fff80f83fff80f83fff807c3fff807c7fffc07c7fffc0"
+            "7c7fffc03e7fffc03e7fffc03f3fffc01fffff800fffff0003fffe0000fffc00"
+        ),
+        _b(
+            "00200080007041c00078e3c0007fffc0007fffc0007fffc0003fff80007fffc0027fffc001fffff0007fffc801ffffe0"
+            "027fffd0003fff80001fff00300ffe00781fff00f81fff00f83fff807c3fff807c3fff803e3fff803e7fffc03e7fffc0"
+            "3e7fffc01f7fffc01f7fffc01fbfffc00fffff8007ffff0003fffe0000fffc00"
+        ),
+        _b(
+            "00200080007041c00078e3c0007fffc0007fffc0007fffc0003fff80007fffc0027fffc001fffff0007fffc801ffffe0"
+            "027fffd0003fff80001fff000c0ffe003e1fff007e1fff007c3fff80fc3fff80f83fff80f83fff80f87fffc0f87fffc0"
+            "f87fffc07c7fffc07e7fffc03f3fffc01fffff800fffff0003fffe0000fffc00"
+        ),
+        _b(
+            "00200080007041c00078e3c0007fffc0007fffc0007fffc0003fff80007fffc0027fffc001fffff0007fffc801ffffe0"
+            "027fffd0003fff80001fff000c0ffe003e1fff007e1fff007c3fff80fc3fff80f83fff80f83fff80f87fffc0f87fffc0"
+            "f87fffc07c7fffc07e7fffc03f3fffc01fffff800fffff0003fffe0000fffc00"
+        ),
+    ],
+)
+
+# 021 PIXEL_CAT_21 (29x32, 5 frames)
+PIXEL_CAT_21 = Sprite(
+    width=29,
+    height=32,
+    frame_count=5,
+    frames=[
+        _b(
+            "030000000780000007c0000007e000000ff000001ff800003ffc00003ffc00007ffe00007ffe0000fffe0000ffff0000"
+            "ffff00007fff00003fff00000fff81801fffc3e01fffe3f03ffff1f03ffff1f83ffff8f81ffff8f81ffff8f81ffffcf8"
+            "1ffffcf80ffffdf00ffffff00fffffe00fffffc01fffff001ffffe000e7ff800"
+        ),
+        _b(
+            "030000000780000007c0000007e000000ff000001ff800003ffc00003ffc00007ffe00007ffe0000fffe0000ffff0000"
+            "ffff00007fff00003fff00000fff80c01fffc1f01fffe1f83ffff0f83ffff0f83ffff8f81ffff9f01ffff9f01ffffdf0"
+            "1ffffdf00fffffe00fffffe00fffffe00fffffc01fffff001ffffe000e7ff800"
+        ),
+        _b(
+            "030000000780000007c0000007e000000ff000001ff800003ffc00003ffc00007ffe00007ffe0000fffe0000ffff0000"
+            "ffff00007fff00003fff00000fff80601fffc0f01fffe0f83ffff0f83ffff1f03ffff9f01ffffbe01ffffbe01fffffe0"
+            "1fffffe00fffffc00fffffc00fffffc00fffff801fffff001ffffe000e7ff800"
+        ),
+        _b(
+            "030000000780000007c0000007e000000ff000001ff800003ffc00003ffc00007ffe00007ffe0000fffe0000ffff0000"
+            "ffff00007fff00003fff00000fff80c01fffc1f01fffe1f83ffff0f83ffff0f83ffff8f81ffff9f01ffff9f01ffffdf0"
+            "1ffffdf00fffffe00fffffe00fffffe00fffffc01fffff001ffffe000e7ff800"
+        ),
+        _b(
+            "030000000780000007c0000007e000000ff000001ff800003ffc00003ffc00007ffe00007ffe0000fffe0000ffff0000"
+            "ffff00007fff00003fff00000fff81801fffc3e01fffe3f03ffff1f03ffff1f83ffff8f81ffff8f81ffff8f81ffffcf8"
+            "1ffffcf80ffffdf00ffffff00fffffe00fffffc01fffff001ffffe000e7ff800"
+        ),
+    ],
+)
+
+# 022 PIXEL_CAT_22 (29x32, 5 frames)
+PIXEL_CAT_22 = Sprite(
+    width=29,
+    height=32,
+    frame_count=5,
+    frames=[
+        _b(
+            "0000060000000f0000001f0000003f0000007f800000ffc00001ffe00001ffe00003fff00003fff00003fff80007fff8"
+            "0007fff80007fff00007ffe00c0fff803e1fffc07e3fffc07c7fffe0fc7fffe0f8ffffe0f8ffffc0f8ffffc0f9ffffc0"
+            "f9ffffc07dffff807fffff803fffff801fffff8007ffffc003ffffc000fff380"
+        ),
+        _b(
+            "0000060000000f0000001f0000003f0000007f800000ffc00001ffe00001ffe00003fff00003fff00003fff80007fff8"
+            "0007fff80007fff00007ffe0180fff807c1fffc0fc3fffc0f87fffe0f87fffe0f8ffffe07cffffc07cffffc07dffffc0"
+            "7dffffc03fffff803fffff803fffff801fffff8007ffffc003ffffc000fff380"
+        ),
+        _b(
+            "0000060000000f0000001f0000003f0000007f800000ffc00001ffe00001ffe00003fff00003fff00003fff80007fff8"
+            "0007fff80007fff00007ffe0300fff80781fffc0f83fffc0f87fffe07c7fffe07cffffe03effffc03effffc03fffffc0"
+            "3fffffc01fffff801fffff801fffff800fffff8007ffffc003ffffc000fff380"
+        ),
+        _b(
+            "0000060000000f0000001f0000003f0000007f800000ffc00001ffe00001ffe00003fff00003fff00003fff80007fff8"
+            "0007fff80007fff00007ffe0180fff807c1fffc0fc3fffc0f87fffe0f87fffe0f8ffffe07cffffc07cffffc07dffffc0"
+            "7dffffc03fffff803fffff803fffff801fffff8007ffffc003ffffc000fff380"
+        ),
+        _b(
+            "0000060000000f0000001f0000003f0000007f800000ffc00001ffe00001ffe00003fff00003fff00003fff80007fff8"
+            "0007fff80007fff00007ffe00c0fff803e1fffc07e3fffc07c7fffe0fc7fffe0f8ffffe0f8ffffc0f8ffffc0f9ffffc0"
+            "f9ffffc07dffff807fffff803fffff801fffff8007ffffc003ffffc000fff380"
+        ),
+    ],
+)
+
+# 023 PIXEL_CAT_23 (23x43, 5 frames)
+PIXEL_CAT_23 = Sprite(
+    width=23,
+    height=43,
+    frame_count=5,
+    frames=[
+        _b(
+            "000600000f80000fc00007c00007c00007c00007c00007c00007c00007c0000f80001f80001f00003e00007c00007c00"
+            "08fe201dff701ffff01ffff01ffff01ffff00fffe01ffff01ffff27ffffc9ffff03ffffc5ffff00fffe007ffc003ff80"
+            "03ff8003ff8003ff8003ff8001ef0001ef0001ef0001ef0003ef8003ef8001c700"
+        ),
+        _b(
+            "0001800003c00007c00007c0000fc0000f80000f80001f00001f00001f00003e00003e00003e00003e00007c00007c00"
+            "08fe201dff701ffff01ffff01ffff01ffff00fffe01ffff01ffff27ffffc9ffff03ffffc5ffff00fffe007ffc003ff80"
+            "03ff8003ff8003ff8003ff8001ef0001ef0001ef0001ef0003ef8003ef8001c700"
+        ),
+        _b(
+            "003000007800007c00007c00007c0000fc0000fc0000f80000f80000f800007c00007c00003c00003c00007c00007c00"
+            "08fe201dff701ffff01ffff01ffff01ffff00fffe01ffff01ffff27ffffc9ffff03ffffc5ffff00fffe007ffc003ff80"
+            "03ff8003ff8003ff8003ff8001ef0001ef0001ef0001ef0003ef8003ef8001c700"
+        ),
+        _b(
+            "0001800003c00007c00007c0000fc0000f80000f80001f00001f00001f00003e00003e00003e00003e00007c00007c00"
+            "08fe201dff701ffff01ffff01ffff01ffff00fffe01ffff01ffff27ffffc9ffff03ffffc5ffff00fffe007ffc003ff80"
+            "03ff8003ff8003ff8003ff8001ef0001ef0001ef0001ef0003ef8003ef8001c700"
+        ),
+        _b(
+            "000600000f80000fc00007c00007c00007c00007c00007c00007c00007c0000f80001f80001f00003e00007c00007c00"
+            "08fe201dff701ffff01ffff01ffff01ffff00fffe01ffff01ffff27ffffc9ffff03ffffc5ffff00fffe007ffc003ff80"
+            "03ff8003ff8003ff8003ff8001ef0001ef0001ef0001ef0003ef8003ef8001c700"
+        ),
+    ],
+)
+
+# 024 PIXEL_CAT_24 (23x37, 5 frames)
+PIXEL_CAT_24 = Sprite(
+    width=23,
+    height=37,
+    frame_count=5,
+    frames=[
+        _b(
+            "0800201c10701e38f01ffff01ffff01ffff00fffe01ffff09ffff07ffffc1ffff27ffff89ffff40fffe007ffc007ff80"
+            "07ffc00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe007ffc007ffc003c78003c780"
+            "03c78003c78003c78003c780018300"
+        ),
+        _b(
+            "0800201c10701e38f01ffff01ffff01ffff00fffe01ffff09ffff07ffffc1ffff27ffff89ffff40fffe007ffc003ff80"
+            "07ffc00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe007ffc007ffc003c78003c780"
+            "03c78003c78003c78003c780018300"
+        ),
+        _b(
+            "0800201c10701e38f01ffff01ffff01ffff00fffe01ffff09ffff07ffffc1ffff27ffff89ffff40fffe007ffc003ff80"
+            "07ffc00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe007ffc007ffc003c78003c780"
+            "03c78003c78003c78003c780018300"
+        ),
+        _b(
+            "0800201c10701e38f01ffff01ffff01ffff00fffe01ffff09ffff07ffffc1ffff27ffff89ffff40fffe007ffc003ff80"
+            "07ffc00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe007ffc007ffc003c78003c780"
+            "03c78003c78003c78003c780018300"
+        ),
+        _b(
+            "0800201c10701e38f01ffff01ffff01ffff00fffe01ffff09ffff07ffffc1ffff27ffff89ffff40fffe007ffc007ff80"
+            "07ffc00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe007ffc007ffc003c78003c780"
+            "03c78003c78003c78003c780018300"
+        ),
+    ],
+)
+
+# 025 PIXEL_CAT_25 (40x32, 5 frames)
+PIXEL_CAT_25 = Sprite(
+    width=40,
+    height=32,
+    frame_count=5,
+    frames=[
+        _b(
+            "000000006003000000f807800000fc07c000007c07e000007e0ff000003e1ff800003e3ffc00003e3ffc00003e7ffe00"
+            "003e7ffe00007cfffe0000fcffff007ff8fffffffff07fffffffc03fffffff800fffffff800fffffff8007ffffffc007"
+            "ffffffc007ffffffc007ffffffc003ffffffc003ffffffc003ffffffe003fffe7fe001f8003fe001f8001fe001f80007"
+            "e003f0000fc003e0000f8001c0000f00"
+        ),
+        _b(
+            "0000000018030000003e078000003f07c000001f07e000001f0ff000001f1ff800003e3ffc00003e3ffc00003e7ffe00"
+            "003e7ffe00007cfffe00007cffff007ffcfffffffff87ffffffff03fffffffe00fffffffc00fffffff8007ffffffc007"
+            "ffffffc007ffffffc007ffffffc003ffffffc003ffffffc003ffffffe003fffe7fe001f8003fe001f8001fe001f80007"
+            "e003f0000fc003e0000f8001c0000f00"
+        ),
+        _b(
+            "000000000c030000001e078000001f07c000001f07e000003e0ff000003e1ff800007c3ffc00007c3ffc00007c7ffe00"
+            "007c7ffe0000f8fffe0000f8ffff007ff8fffffffff07fffffffe03fffffffc00fffffff800fffffff8007ffffffc007"
+            "ffffffc007ffffffc007ffffffc003ffffffc003ffffffc003ffffffe003fffe7fe001f8003fe001f8001fe001f80007"
+            "e003f0000fc003e0000f8001c0000f00"
+        ),
+        _b(
+            "0000000018030000003e078000003f07c000001f07e000001f0ff000001f1ff800003e3ffc00003e3ffc00003e7ffe00"
+            "003e7ffe00007cfffe00007cffff007ffcfffffffff87ffffffff03fffffffe00fffffffc00fffffff8007ffffffc007"
+            "ffffffc007ffffffc007ffffffc003ffffffc003ffffffc003ffffffe003fffe7fe001f8003fe001f8001fe001f80007"
+            "e003f0000fc003e0000f8001c0000f00"
+        ),
+        _b(
+            "000000006003000000f807800000fc07c000007c07e000007e0ff000003e1ff800003e3ffc00003e3ffc00003e7ffe00"
+            "003e7ffe00007cfffe0000fcffff007ff8fffffffff07fffffffc03fffffff800fffffff800fffffff8007ffffffc007"
+            "ffffffc007ffffffc007ffffffc003ffffffc003ffffffc003ffffffe003fffe7fe001f8003fe001f8001fe001f80007"
+            "e003f0000fc003e0000f8001c0000f00"
+        ),
+    ],
+)
+
+# 026 PIXEL_CAT_26 (40x32, 5 frames)
+PIXEL_CAT_26 = Sprite(
+    width=40,
+    height=32,
+    frame_count=5,
+    frames=[
+        _b(
+            "06000000001f000000c03f000001e03e000003e07e000007e07c00000ff07c00001ff87c00003ffc7c00003ffc7c0000"
+            "7ffe3e00007ffe3f00007fff1ffe00ffff0fffffffff03fffffffe01fffffffc01fffffff001fffffff003ffffffe003"
+            "ffffffe003ffffffe003ffffffe003ffffffc003ffffffc007ffffffc007fe7fffc007fc001f8007f8001f8007e0001f"
+            "8003f0000fc001f00007c000f0000380"
+        ),
+        _b(
+            "18000000007c000000c0fc000001e0f8000003e0f8000007e0f800000ff07c00001ff87c00003ffc7c00003ffc7c0000"
+            "7ffe3e00007ffe3e00007fff3ffe00ffff1fffffffff0ffffffffe07fffffffc03fffffff001fffffff003ffffffe003"
+            "ffffffe003ffffffe003ffffffe003ffffffc003ffffffc007ffffffc007fe7fffc007fc001f8007f8001f8007e0001f"
+            "8003f0000fc001f00007c000f0000380"
+        ),
+        _b(
+            "300000000078000000c0f8000001e0f8000003e07c000007e07c00000ff03e00001ff83e00003ffc3e00003ffc3e0000"
+            "7ffe1f00007ffe1f00007fff1ffe00ffff0fffffffff07fffffffe03fffffffc01fffffff001fffffff003ffffffe003"
+            "ffffffe003ffffffe003ffffffe003ffffffc003ffffffc007ffffffc007fe7fffc007fc001f8007f8001f8007e0001f"
+            "8003f0000fc001f00007c000f0000380"
+        ),
+        _b(
+            "18000000007c000000c0fc000001e0f8000003e0f8000007e0f800000ff07c00001ff87c00003ffc7c00003ffc7c0000"
+            "7ffe3e00007ffe3e00007fff3ffe00ffff1fffffffff0ffffffffe07fffffffc03fffffff001fffffff003ffffffe003"
+            "ffffffe003ffffffe003ffffffe003ffffffc003ffffffc007ffffffc007fe7fffc007fc001f8007f8001f8007e0001f"
+            "8003f0000fc001f00007c000f0000380"
+        ),
+        _b(
+            "06000000001f000000c03f000001e03e000003e07e000007e07c00000ff07c00001ff87c00003ffc7c00003ffc7c0000"
+            "7ffe3e00007ffe3f00007fff1ffe00ffff0fffffffff03fffffffe01fffffffc01fffffff001fffffff003ffffffe003"
+            "ffffffe003ffffffe003ffffffe003ffffffc003ffffffc007ffffffc007fe7fffc007fc001f8007f8001f8007e0001f"
+            "8003f0000fc001f00007c000f0000380"
+        ),
+    ],
+)
+
+# 027 PIXEL_CAT_27 (36x29, 3 frames)
+PIXEL_CAT_27 = Sprite(
+    width=36,
+    height=29,
+    frame_count=3,
+    frames=[
+        _b(
+            "000000000008002000001c107000001e38f000001ffff000001ffff000001ffff000000fffe000001ffff000001ffff2"
+            "00007ffffc00009ffff3f0003ffffffc005fffffff000fffffff8007ffffffc003ffffffe007fffffff00ffffffff00f"
+            "fffffff01ffffffff01ffffffff00fffffffe00fffffffc007cfffffc000003fff8000001fff0000000ffc0000000000"
+            "00"
+        ),
+        _b(
+            "08002000001c107000001e38f000001ffff000001ffff000001ffff000000fffe000001ffff000001ffff200007ffffc"
+            "00009ffff3f0003ffffffc005fffffff000fffffff8007ffffffc003ffffffe007fffffff00ffffffff00ffffffff01f"
+            "fffffff01ffffffff00ffffffff00fffffffe007cfc7ffc000000fffc000001fff8000001fff0000001ffc0000000c00"
+            "00"
+        ),
+        _b(
+            "000000000008002000001c107000001e38f000001ffff000001ffff000001ffff000000fffe000001ffff000001ffff2"
+            "00007ffffc00009ffff3f0003ffffffc005fffffff000fffffff8007ffffffc003ffffffe007fffffff00ffffffff00f"
+            "fffffff01ffffffff01ffffffff00fffffffe00fffffffc007cfffffc000003fff8000001fff0000000ffc0000000000"
+            "00"
+        ),
+    ],
+)
+
+# 028 PIXEL_CAT_28 (36x29, 3 frames)
+PIXEL_CAT_28 = Sprite(
+    width=36,
+    height=29,
+    frame_count=3,
+    frames=[
+        _b(
+            "000000000000004001000000e083800000f1c7800000ffff800000ffff800000ffff8000007fff000000ffff800004ff"
+            "ff800003ffffe000fcffff9003ffffffc00fffffffa01fffffff003ffffffe007ffffffc00fffffffe00ffffffff00ff"
+            "ffffff00ffffffff80ffffffff807fffffff003fffffff003fffff3e001fffc000000fff80000003ff00000000000000"
+            "00"
+        ),
+        _b(
+            "00004001000000e083800000f1c7800000ffff800000ffff800000ffff8000007fff000000ffff800004ffff800003ff"
+            "ffe000fcffff9003ffffffc00fffffffa01fffffff003ffffffe007ffffffc00fffffffe00ffffffff00ffffffff00ff"
+            "ffffff80ffffffff80ffffffff007fffffff003ffe3f3e003fff0000001fff8000000fff80000003ff80000000030000"
+            "00"
+        ),
+        _b(
+            "000000000000004001000000e083800000f1c7800000ffff800000ffff800000ffff8000007fff000000ffff800004ff"
+            "ff800003ffffe000fcffff9003ffffffc00fffffffa01fffffff003ffffffe007ffffffc00fffffffe00ffffffff00ff"
+            "ffffff00ffffffff80ffffffff807fffffff003fffffff003fffff3e001fffc000000fff80000003ff00000000000000"
+            "00"
+        ),
+    ],
+)
+
+# 029 PIXEL_CAT_29 (23x46, 11 frames)
+PIXEL_CAT_29 = Sprite(
+    width=23,
+    height=46,
+    frame_count=11,
+    frames=[
+        _b(
+            "001800003e00003f00001f00001f80000f800007c00007c00007c00007c0000f80001f80001f00003e00007c00007c00"
+            "08fe201dff701ffff01ffff01ffff01ffff00fffe01ffff01ffff27ffffc9ffff03ffffc5ffff00fffe007ffc003ff80"
+            "03ff8003ff8003ff8003ff8001ef0001ef0001ef0001ef0003ef8003ef8001c700000000000000000000"
+        ),
+        _b(
+            "001800003e00003f00001f00001f80000f800007c00007c00007c00007c0000f80001f80001f00003e00007c00007c00"
+            "00fe0009ff201ffff01ffff01ffff01ffff00fffe01ffff01ffff27ffffc9ffff03ffffc5ffff00fffe007ffc003ff80"
+            "03ff8003ff8003ff8003ff8001ef0001ef0001ef0001ef0003ef8003ef8001c700000000000000000000"
+        ),
+        _b(
+            "000600000f80000fc00007c00007c00007c00007c00007c00007c00007c0000f80001f80001f00003e00007c00007c00"
+            "00fe0001ff0003ff800bffa01ffff01ffff01ffff01ffff00fffe01ffff27ffffc9ffff03ffffc5ffff00fffe007ffc0"
+            "03ff8003ff8003ff8003ff8001ef0001ef0001ef0001ef0003ef8003ef8001c700000000000000000000"
+        ),
+        _b(
+            "000600000f80000fc00007c00007c00007c00007c00007c00007c00007c0000f80001f80001f00003e00007c00007c00"
+            "00fe0001ff0003ff800bffa01ffff01ffff01ffff01ffff00fffe01ffff27ffffc9ffff03ffffc5ffff00fffe007ffc0"
+            "03ff8003ff8003ff8003ff8001ef0001ef0001ef0001ef0003ef0003ef0001cf00000600000000000000"
+        ),
+        _b(
+            "0001800003c00007c00007c0000fc0000f80000f80001f00001f00001f00003e00003e00003e00003e00007c00007c00"
+            "00fe0001ff0003ff800bffa01ffff01ffff01ffff01ffff00fffe01ffff27ffffc9ffff03ffffc5ffff00fffe007ffc0"
+            "03ff8003ff8003ff8003ff8001ef0001ef0001ef0001ef0003ef0003ef0001cf00000f00000600000000"
+        ),
+        _b(
+            "0001800003c00007c00007c0000fc0000f80000f80001f00001f00001f00003e00003e00003e00003e00007c00007c00"
+            "00fe0001ff0003ff800bffa01ffff01ffff01ffff01ffff00fffe01ffff27ffffc9ffff03ffffc5ffff00fffe007ffc0"
+            "03ff8003ff8003ff8003ff8001ef0001ef0001e78001e78003e78003e78001c3c00003c0000180000000"
+        ),
+        _b(
+            "0001800003c00007c00007c0000fc0000f80000f80001f00001f00001f00003e00003e00003e00003e00007c00007c00"
+            "00fe0001ff0003ff800bffa01ffff01ffff01ffff01ffff00fffe01ffff27ffffc9ffff03ffffc5ffff00fffe007ffc0"
+            "03ff8003ff8003ff8003ff8001ef0001ef0001fe0001fe0003fe0003fc0001fc00007800007800003000"
+        ),
+        _b(
+            "000600000f80000fc00007c00007c00007c00007c00007c00007c00007c0000f80001f80001f00003e00007c00007c00"
+            "00fe0001ff0003ff800bffa01ffff01ffff01ffff01ffff00fffe01ffff27ffffc9ffff03ffffc5ffff00fffe007ffc0"
+            "03ff8003ff8003ff8003ff8001ef0001ef0001ef0001ef0003ef0003ef0001cf00000f00000600000000"
+        ),
+        _b(
+            "000600000f80000fc00007c00007c00007c00007c00007c00007c00007c0000f80001f80001f00003e00007c00007c00"
+            "00fe0001ff0003ff800bffa01ffff01ffff01ffff01ffff00fffe01ffff27ffffc9ffff03ffffc5ffff00fffe007ffc0"
+            "03ff8003ff8003ff8003ff8001ef0001ef0001ef0001ef0003ef0003ef0001cf00000600000000000000"
+        ),
+        _b(
+            "000600000f80000fc00007c00007c00007c00007c00007c00007c00007c0000f80001f80001f00003e00007c00007c00"
+            "00fe0001ff0003ff800bffa01ffff01ffff01ffff01ffff00fffe01ffff27ffffc9ffff03ffffc5ffff00fffe007ffc0"
+            "03ff8003ff8003ff8003ff8001ef0001ef0001ef0001ef0003ef8003ef8001c700000000000000000000"
+        ),
+        _b(
+            "001800003e00003f00001f00001f80000f800007c00007c00007c00007c0000f80001f80001f00003e00007c00007c00"
+            "00fe0009ff201ffff01ffff01ffff01ffff00fffe01ffff01ffff27ffffc9ffff03ffffc5ffff00fffe007ffc003ff80"
+            "03ff8003ff8003ff8003ff8001ef0001ef0001ef0001ef0003ef8003ef8001c700000000000000000000"
+        ),
+    ],
+)
+
+# 030 PIXEL_CAT_30 (23x46, 11 frames)
+PIXEL_CAT_30 = Sprite(
+    width=23,
+    height=46,
+    frame_count=11,
+    frames=[
+        _b(
+            "001800003e00003f00001f00001f80000f800007c00007c00007c00007c0000f80001f80001f00003e00007c00007c00"
+            "08fe201dff701ffff01ffff01ffff01ffff00fffe01ffff01ffff27ffffc9ffff03ffffc5ffff00fffe007ffc003ff80"
+            "03ff8003ff8003ff8003ff8001ef0001ef0001ef0001ef0003ef8003ef8001c700000000000000000000"
+        ),
+        _b(
+            "001800003e00003f00001f00001f80000f800007c00007c00007c00007c0000f80001f80001f00003e00007c00007c00"
+            "00fe0009ff201ffff01ffff01ffff01ffff00fffe01ffff01ffff27ffffc9ffff03ffffc5ffff00fffe007ffc003ff80"
+            "03ff8003ff8003ff8003ff8001ef0001ef0001ef0001ef0003ef8003ef8001c700000000000000000000"
+        ),
+        _b(
+            "000600000f80000fc00007c00007c00007c00007c00007c00007c00007c0000f80001f80001f00003e00007c00007c00"
+            "00fe0001ff0003ff800bffa01ffff01ffff01ffff01ffff00fffe01ffff27ffffc9ffff03ffffc5ffff00fffe007ffc0"
+            "03ff8003ff8003ff8003ff8001ef0001ef0001ef0001ef0003ef8003ef8001c700000000000000000000"
+        ),
+        _b(
+            "000600000f80000fc00007c00007c00007c00007c00007c00007c00007c0000f80001f80001f00003e00007c00007c00"
+            "00fe0001ff0003ff800bffa01ffff01ffff01ffff01ffff00fffe01ffff27ffffc9ffff03ffffc5ffff00fffe007ffc0"
+            "03ff8003ff8003ff8003ff8001ef0001ef0001ef0001ef0001ef8001ef8001e70000c000000000000000"
+        ),
+        _b(
+            "0001800003c00007c00007c0000fc0000f80000f80001f00001f00001f00003e00003e00003e00003e00007c00007c00"
+            "00fe0001ff0003ff800bffa01ffff01ffff01ffff01ffff00fffe01ffff27ffffc9ffff03ffffc5ffff00fffe007ffc0"
+            "03ff8003ff8003ff8003ff8001ef0001ef0001ef0001ef0001ef8001ef8001e70001e00000c000000000"
+        ),
+        _b(
+            "0001800003c00007c00007c0000fc0000f80000f80001f00001f00001f00003e00003e00003e00003e00007c00007c00"
+            "00fe0001ff0003ff800bffa01ffff01ffff01ffff01ffff00fffe01ffff27ffffc9ffff03ffffc5ffff00fffe007ffc0"
+            "03ff8003ff8003ff8003ff8001ef0001ef0003cf0003cf0003cf8003cf80078700078000030000000000"
+        ),
+        _b(
+            "000300000780000f80000f80001f80001f00001f00003e00003e00003e00007c00007c00007c00007c0000f80000f800"
+            "00fe0001ff0003ff800bffa01ffff01ffff01ffff01ffff00fffe01ffff27ffffc9ffff03ffffc5ffff00fffe007ffc0"
+            "03ff8003ff8003ff8003ff8001ef0001ef0000ff0000ff0000ff80007f80007f00003c00003c00001800"
+        ),
+        _b(
+            "000600000f80000fc00007c00007c00007c00007c00007c00007c00007c0000f80001f80001f00003e00007c00007c00"
+            "00fe0001ff0003ff800bffa01ffff01ffff01ffff01ffff00fffe01ffff27ffffc9ffff03ffffc5ffff00fffe007ffc0"
+            "03ff8003ff8003ff8003ff8001ef0001ef0001ef0001ef0001ef8001ef8001e70001e00000c000000000"
+        ),
+        _b(
+            "000600000f80000fc00007c00007c00007c00007c00007c00007c00007c0000f80001f80001f00003e00007c00007c00"
+            "00fe0001ff0003ff800bffa01ffff01ffff01ffff01ffff00fffe01ffff27ffffc9ffff03ffffc5ffff00fffe007ffc0"
+            "03ff8003ff8003ff8003ff8001ef0001ef0001ef0001ef0001ef8001ef8001e70000c000000000000000"
+        ),
+        _b(
+            "000600000f80000fc00007c00007c00007c00007c00007c00007c00007c0000f80001f80001f00003e00007c00007c00"
+            "00fe0001ff0003ff800bffa01ffff01ffff01ffff01ffff00fffe01ffff27ffffc9ffff03ffffc5ffff00fffe007ffc0"
+            "03ff8003ff8003ff8003ff8001ef0001ef0001ef0001ef0003ef8003ef8001c700000000000000000000"
+        ),
+        _b(
+            "001800003e00003f00001f00001f80000f800007c00007c00007c00007c0000f80001f80001f00003e00007c00007c00"
+            "00fe0009ff201ffff01ffff01ffff01ffff00fffe01ffff01ffff27ffffc9ffff03ffffc5ffff00fffe007ffc003ff80"
+            "03ff8003ff8003ff8003ff8001ef0001ef0001ef0001ef0003ef8003ef8001c700000000000000000000"
+        ),
+    ],
+)
+
+# 031 PIXEL_CAT_31 (23x37, 5 frames)
+PIXEL_CAT_31 = Sprite(
+    width=23,
+    height=37,
+    frame_count=5,
+    frames=[
+        _b(
+            "0800201c10701e38f01ffff01ffff01ffff00fffe01ffff09ffff07ffffc1ffff27ffff89ffff40fffe007ffc007ff80"
+            "07ffc00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe007ffc007ffc003c78003c780"
+            "03c78003c78003c78003c780018300"
+        ),
+        _b(
+            "0000000810201c38701ffff01ffff01ffff00fffe01ffff01ffff09ffff07ffffc1ffff27ffff88fffe407ffc007ff80"
+            "07ffc00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe007ffc007ffc003c78003c780"
+            "03c78003c78003c78003c780018300"
+        ),
+        _b(
+            "0000000000000010000838201ffff01ffff01ffff00fffe01ffff01ffff09ffff07ffffc1ffff27ffff88fffe407ffc0"
+            "07ffc00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe007ffc007ffc003c78003c780"
+            "03c78003c78003c78003c780018300"
+        ),
+        _b(
+            "0000000000000010000838201ffff01ffff01ffff00fffe01ffff01ffff09ffff07ffffc1ffff27ffff88fffe407ffc0"
+            "07ffc00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe007ffc007ffc003c78003c780"
+            "03c78003c78003c78003c780018300"
+        ),
+        _b(
+            "0000000810201c38701ffff01ffff01ffff00fffe01ffff01ffff09ffff07ffffc1ffff27ffff88fffe407ffc007ff80"
+            "07ffc00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe007ffc007ffc003c78003c780"
+            "03c78003c78003c78003c780018300"
+        ),
+    ],
+)
+
+# 032 PIXEL_CAT_32 (43x32, 11 frames)
+PIXEL_CAT_32 = Sprite(
+    width=43,
+    height=32,
+    frame_count=11,
+    frames=[
+        _b(
+            "00000000600001800000f80003c00000fc0003e000007c0003f000007e0007f800003e000ffc00001f001ffe00001f00"
+            "1ffe00001f003fff00001f003fff00003e007fff00007e007fff803ffc007ffffffff8003ffffffff0001fffffffe000"
+            "07ffffffc00007ffffffc00003ffffffe00003ffffffe00003ffffffe00003ffffffe00001ffffffe00001ffffffe000"
+            "01fffffff00001ffff3ff00000fc001ff00000fc000ff00000fc0003f00001f80007e00001f00007c00000e000078000"
+        ),
+        _b(
+            "00000000600000000000f80003000000fc0007c000007c0007f000007e0007f800003e0007fc00001f000ffe00001f00"
+            "1ffe00001f001fff00001f003fff00003e003fff00007e007fff803ffc007ffffffff8007ffffffff0003fffffffe000"
+            "1fffffffc00007ffffffc00003ffffffe00003ffffffe00003ffffffe00003ffffffe00001ffffffe00001ffffffe000"
+            "01fffffff00001ffff3ff00000fc001ff00000fc000ff00000fc0003f00001f80007e00001f00007c00000e000078000"
+        ),
+        _b(
+            "000000001800000000003e00000000003f00078000001f000fe000001f800ff800000f8007fc00000f800ffe00000f80"
+            "0ffe00000f801fff00001f001fff00003f003fff0000fe003fff803ffc003ffffffff8007ffffffff0007fffffffe000"
+            "7fffffffc0003fffffffc0001fffffffe00003ffffffe00001ffffffe00001ffffffe00001ffffffe00001ffffffe000"
+            "01fffffff00001ffff3ff00000fc001ff00000fc000ff00000fc0003f00001f80007e00001f00007c00000e000078000"
+        ),
+        _b(
+            "000000001800000000003e00000000003f000f0000001f001fe000001f801ff000000f801ff800000f801ffc00000f80"
+            "3ffe00000f803ffe00001f003fff00003f007fff0000fe007fff803ffc007ffffffff800fffffffff000ffffffffe000"
+            "ffffffffe0007fffffffc0003fffffffe00003ffffffe00001ffffffe00001ffffffe00001ffffffe00001ffffffe000"
+            "01fffffff00001ffff3ff00000fc001ff00000fc000ff00000fc0003f00001f80007e00001f00007c00000e000078000"
+        ),
+        _b(
+            "000000001800000000003e00000000003f000f0000001f001fe000001f801ff000000f801ff800000f801ffc00000f80"
+            "3ffe00000f803ffe00001f003fff00003f007fff0000fe007fff803ffc007ffffffff800fffffffff000ffffffffe000"
+            "ffffffffc0007fffffffc0003fffffffe00007ffffffe00003ffffffe00003ffffffe00003ffffffe00001ffffffe000"
+            "01fffffff00003ffff3ff00007fc001ff00007fc000ff0000f7c0003f0000f380007e00006000007c000000000078000"
+        ),
+        _b(
+            "0000000001800000000003c00000000003e00f00000003e01fe0000003e01ff0000003e01ff8000007c01ffc000007c0"
+            "3ffe000007c03ffe00000f803fff00001f007fff00007f007fff803ffe007ffffffffc00fffffffff800fffffffff000"
+            "ffffffffc0007fffffffc0003fffffffe00003ffffffe00003ffffffe00007ffffffe00007ffffffe0000fffffffe000"
+            "0fbffffff0001f3fff3ff0003e3c001ff0007c7c000ff000787c0003f00070380007e00000000007c000000000078000"
+        ),
+        _b(
+            "0000000001800000000003c00000000003e00f00000003e01fe0000003e01ff0000003e01ff8000007c01ffc000007c0"
+            "3ffe000007c03ffe00000f803fff00001f007fff00007f007fff803ffe007ffffffffc00fffffffff800fffffffff000"
+            "ffffffffc0007fffffffc0003fffffffe00003ffffffe00003ffffffe00007ffffffe00007ffffffe0000fffffffe000"
+            "0fbffffff0001f3fff3ff0001e3c001ff0000c7c000ff000007c0003f00000380007e00000000007c000000000078000"
+        ),
+        _b(
+            "0000000001800000000003c00000000003e00f00000003e01fe0000003e01ff0000003e01ff8000007c01ffc000007c0"
+            "3ffe000007c03ffe00000f803fff00001f007fff00007f007fff803ffe007ffffffffc00fffffffff800fffffffff000"
+            "ffffffffc0007fffffffc0003fffffffe00007ffffffe00003ffffffe00003ffffffe00003ffffffe00001ffffffe000"
+            "01fffffff00003ffff3ff00007fc001ff00007fc000ff0000f7c0003f0000f380007e00006000007c000000000078000"
+        ),
+        _b(
+            "000000001800000000003e00000000003f000f0000001f001fe000001f801ff000000f801ff800000f801ffc00000f80"
+            "3ffe00000f803ffe00001f003fff00003f007fff0000fe007fff803ffc007ffffffff800fffffffff000ffffffffe000"
+            "ffffffffc0007fffffffc0003fffffffe00003ffffffe00001ffffffe00001ffffffe00001ffffffe00001ffffffe000"
+            "01fffffff00001ffff3ff00000fc001ff00000fc000ff00000fc0003f00001f80007e00001f00007c00000e000078000"
+        ),
+        _b(
+            "000000001800000000003e00000000003f00078000001f000fe000001f800ff800000f8007fc00000f800ffe00000f80"
+            "0ffe00000f801fff00001f001fff00003f003fff0000fe003fff803ffc003ffffffff8007ffffffff0007fffffffe000"
+            "7fffffffc0003fffffffc0001fffffffe00003ffffffe00001ffffffe00001ffffffe00001ffffffe00001ffffffe000"
+            "01fffffff00001ffff3ff00000fc001ff00000fc000ff00000fc0003f00001f80007e00001f00007c00000e000078000"
+        ),
+        _b(
+            "000000001800000000003e00030000003f0007c000001f0007f000001f8007f800000f8007fc00000f800ffe00000f80"
+            "1ffe00000f801fff00001f003fff00003f003fff0000fe007fff803ffc007ffffffff8007ffffffff0003fffffffe000"
+            "1fffffffc00007ffffffc00003ffffffe00003ffffffe00003ffffffe00003ffffffe00001ffffffe00001ffffffe000"
+            "01fffffff00001ffff3ff00000fc001ff00000fc000ff00000fc0003f00001f80007e00001f00007c00000e000078000"
+        ),
+    ],
+)
+
+# 033 PIXEL_CAT_33 (43x32, 11 frames)
+PIXEL_CAT_33 = Sprite(
+    width=43,
+    height=32,
+    frame_count=11,
+    frames=[
+        _b(
+            "00000000600001800000f80003c00000fc0003e000007c0003f000007e0007f800003e000ffc00001f001ffe00001f00"
+            "1ffe00001f003fff00001f003fff00003e007fff00007e007fff803ffc007ffffffff8003ffffffff0001fffffffe000"
+            "07ffffffc00007ffffffc00003ffffffe00003ffffffe00003ffffffe00003ffffffe00001ffffffe00001ffffffe000"
+            "01fffffff00001ffff3ff00000fc001ff00000fc000ff00000fc0003f00001f80007e00001f00007c00000e000078000"
+        ),
+        _b(
+            "00000000600000000000f80003000000fc0007c000007c0007f000007e0007f800003e0007fc00001f000ffe00001f00"
+            "1ffe00001f001fff00001f003fff00003e003fff00007e007fff803ffc007ffffffff8007ffffffff0003fffffffe000"
+            "1fffffffc00007ffffffc00003ffffffe00003ffffffe00003ffffffe00003ffffffe00001ffffffe00001ffffffe000"
+            "01fffffff00001ffff3ff00000fc001ff00000fc000ff00000fc0003f00001f80007e00001f00007c00000e000078000"
+        ),
+        _b(
+            "000000001800000000003e00000000003f00078000001f000fe000001f800ff800000f8007fc00000f800ffe00000f80"
+            "0ffe00000f801fff00001f001fff00003f003fff0000fe003fff803ffc003ffffffff8007ffffffff0007fffffffe000"
+            "7fffffffc0003fffffffc0001fffffffe00003ffffffe00001ffffffe00001ffffffe00001ffffffe00001ffffffe000"
+            "01fffffff00001ffff3ff00000fc001ff00000fc000ff00000fc0003f00001f80007e00001f00007c00000e000078000"
+        ),
+        _b(
+            "000000003000000000007c00000000007e000f0000003e001fe000003f001ff000001f001ff800001f001ffc00001f00"
+            "3ffe00001f003ffe00003e003fff00007e007fff0001fc007fff803ff8007ffffffff000ffffffffe000ffffffffc000"
+            "ffffffffc0007fffffffc0003fffffffe00003ffffffe00001ffffffe00001ffffffe00001ffffffe00001ffffffe000"
+            "01fffffff00001ffff3ff00000fc001ff00000fc000ff00000fc0003f00001f80007e00001f00007c00000e000078000"
+        ),
+        _b(
+            "000000001800000000003e00000000003f000f0000001f001fe000001f801ff000000f801ff800000f801ffc00000f80"
+            "3ffe00000f803ffe00001f003fff00003f007fff0000fe007fff803ffc007ffffffff800fffffffff000ffffffffe000"
+            "ffffffffc0007fffffffc0003fffffffe00007ffffffe00003ffffffe00003ffffffe00003ffffffe00007ffffffe000"
+            "0ffffffff0000fefff3ff0001fe0001ff0001fe0000ff0000de00003f00003e00007e00003e00007c00001c000078000"
+        ),
+        _b(
+            "0000000001800000000003c00000000003e00f00000003e01fe0000003e01ff0000003e01ff8000007c01ffc000007c0"
+            "3ffe000007c03ffe00000f803fff00001f007fff00007f007fff803ffe007ffffffffc00fffffffff800fffffffff000"
+            "ffffffffc0007fffffffc0003fffffffe00003ffffffe00007ffffffe0000fffffffe0000fffffffe0001fffffffe000"
+            "3ffffffff0007df7ff3ff00078f0001ff00070f0000ff00000f00003f00001f00007e00001f00007c00000e000078000"
+        ),
+        _b(
+            "0000000001800000000003c00000000003e00f00000003e01fe0000003e01ff0000003e01ff8000007c01ffc000007c0"
+            "3ffe000007c03ffe00000f803fff00001f007fff00007f007fff803ffe007ffffffffc00fffffffff800fffffffff000"
+            "ffffffffc0007fffffffc0003fffffffe00003ffffffe00003ffffffe00007ffffffe00007ffffffe0000fffffffe000"
+            "1ffffffff0001ff7ff3ff0003ef0001ff0007cf0000ff00078f00003f00031f00007e00001f00007c00000e000078000"
+        ),
+        _b(
+            "0000000001800000000003c00000000003e00f00000003e01fe0000003e01ff0000003e01ff8000007c01ffc000007c0"
+            "3ffe000007c03ffe00000f803fff00001f007fff00007f007fff803ffe007ffffffffc00fffffffff800fffffffff000"
+            "ffffffffc0007fffffffc0003fffffffe00007ffffffe00003ffffffe00003ffffffe00003ffffffe00007ffffffe000"
+            "0ffffffff0000fefff3ff0001fe0001ff0001fe0000ff0000de00003f00003e00007e00003e00007c00001c000078000"
+        ),
+        _b(
+            "000000003000000000007c00000000007e000f0000003e001fe000003f001ff000001f001ff800001f001ffc00001f00"
+            "3ffe00001f003ffe00003e003fff00007e007fff0001fc007fff803ff8007ffffffff000ffffffffe000ffffffffc000"
+            "ffffffffc0007fffffffc0003fffffffe00003ffffffe00001ffffffe00001ffffffe00001ffffffe00001ffffffe000"
+            "01fffffff00001ffff3ff00000fc001ff00000fc000ff00000fc0003f00001f80007e00001f00007c00000e000078000"
+        ),
+        _b(
+            "000000001800000000003e00000000003f00078000001f000fe000001f800ff800000f8007fc00000f800ffe00000f80"
+            "0ffe00000f801fff00001f001fff00003f003fff0000fe003fff803ffc003ffffffff8007ffffffff0007fffffffe000"
+            "7fffffffc0003fffffffc0001fffffffe00003ffffffe00001ffffffe00001ffffffe00001ffffffe00001ffffffe000"
+            "01fffffff00001ffff3ff00000fc001ff00000fc000ff00000fc0003f00001f80007e00001f00007c00000e000078000"
+        ),
+        _b(
+            "000000001800000000003e00030000003f0007c000001f0007f000001f8007f800000f8007fc00000f800ffe00000f80"
+            "1ffe00000f801fff00001f003fff00003f003fff0000fe007fff803ffc007ffffffff8007ffffffff0003fffffffe000"
+            "1fffffffc00007ffffffc00003ffffffe00003ffffffe00003ffffffe00003ffffffe00001ffffffe00001ffffffe000"
+            "01fffffff00001ffff3ff00000fc001ff00000fc000ff00000fc0003f00001f80007e00001f00007c00000e000078000"
+        ),
+    ],
+)
+
+# 034 PIXEL_CAT_34 (44x32, 11 frames)
+PIXEL_CAT_34 = Sprite(
+    width=44,
+    height=32,
+    frame_count=11,
+    frames=[
+        _b(
+            "00c00000000003e00000300007e00000780007c00000f8000fc00001f8000f800003fc001f000007fe001f00000fff00"
+            "1f00000fff001f00001fff800f80001fff800fc0001fffc007ff803fffc003ffffffffc001ffffffff8000ffffffff00"
+            "007ffffffc00007ffffffc0000fffffff80000fffffff80000fffffff80000fffffff80000fffffff00000fffffff000"
+            "01fffffff00001ff9ffff00001ff0007e00001fe0007e00001f80007e00000fc0003f000007c0001f000003c0000e000"
+        ),
+        _b(
+            "00c00000000003e00000000007e00000180007c000007c000fc00001fc000f800003fc001f000007fc001f00000ffe00"
+            "1f00000fff001f00001fff000f80001fff800fc0001fff8007ff803fffc003ffffffffc001ffffffffc000ffffffff80"
+            "007fffffff00007ffffffc0000fffffff80000fffffff80000fffffff80000fffffff80000fffffff00000fffffff000"
+            "01fffffff00001ff9ffff00001ff0007e00001fe0007e00001f80007e00000fc0003f000007c0001f000003c0000e000"
+        ),
+        _b(
+            "0300000000000f80000000001f80000000001f0000003c003f000000fe003e000003fe003e000007fc003e00000ffe00"
+            "3e00000ffe001f00001fff001f80001fff000fe0001fff8007ff803fff8003ffffffff8001ffffffffc000ffffffffc0"
+            "007fffffffc0007fffffff8000ffffffff0000fffffff80000fffffff00000fffffff00000fffffff00000fffffff000"
+            "01fffffff00001ff9ffff00001ff0007e00001fe0007e00001f80007e00000fc0003f000007c0001f000003c0000e000"
+        ),
+        _b(
+            "01800000000007c0000000000fc0000000000f8000001e001f800000ff001f000001ff001f000003ff001f000007ff00"
+            "1f00000fff800f80000fff800fc0001fff8007f0001fffc003ff803fffc001ffffffffc000ffffffffe0007fffffffe0"
+            "007fffffffe0007fffffffc000ffffffff8000fffffff80000ffffffe00000ffffffe00000ffffffe00000ffffffe000"
+            "01ffffffe00001ff9fffe00001ff000fc00001fe000fc00001f8000fc00000fc0007e000007c0003e000003c0001c000"
+        ),
+        _b(
+            "0300000000000f80000000001f80000000001f0000001e003f000000ff003e000001ff003e000003ff003e000007ff00"
+            "3e00000fff801f00000fff801f80001fff800fe0001fffc007ff803fffc003ffffffffc001ffffffffe000ffffffffe0"
+            "007fffffffe0007fffffffc000ffffffff8000fffffffc0000fffffff80000fffffff80000fffffff80000fffffff000"
+            "01fffffff00001ff9ffff80001ff0007fc0001fe0007fc0001f80007de0000fc00039e00007c00000c00003c00000000"
+        ),
+        _b(
+            "300000000000780000000000f80000000000f80000000f00f80000007f80f8000000ff807c000001ff807c000003ff80"
+            "7c000007ffc03e000007ffc01f00000fffc01fc0000fffe00fff801fffe007ffffffffe003fffffffff001fffffffff0"
+            "007ffffffff0007fffffffe000ffffffffc000fffffffc0000fffffffc0000fffffffe0000fffffffe0000ffffffff00"
+            "01ffffffdf0001ff9fffcf8001ff0003c7c001fe0003e3e001f80003e1e000fc0001c0e0007c00000000003c00000000"
+        ),
+        _b(
+            "300000000000780000000000f80000000000f80000001e00f8000000ff00f8000001ff007c000003ff007c000007ff00"
+            "7c00000fff803e00000fff801f00001fff801fc0001fffc00fff803fffc007ffffffffc003ffffffffe001ffffffffe0"
+            "007fffffffe0007fffffffc000ffffffff8000fffffff80000fffffff80000fffffffc0000fffffffc0000fffffffe00"
+            "01ffffffbe0001ff9fff9f0001ff00078f0001fe0007c60001f80007c00000fc00038000007c00000000003c00000000"
+        ),
+        _b(
+            "300000000000780000000000f80000000000f80000001e00f8000000ff00f8000001ff007c000003ff007c000007ff00"
+            "7c00000fff803e00000fff801f00001fff801fc0001fffc00fff803fffc007ffffffffc003ffffffffe001ffffffffe0"
+            "007fffffffe0007fffffffc000ffffffff8000fffffffc0000fffffff80000fffffff80000fffffff80000fffffff000"
+            "01fffffff00001ff9ffff80001ff0007fc0001fe0007fc0001f80007de0000fc00039e00007c00000c00003c00000000"
+        ),
+        _b(
+            "01800000000007c0000000000fc0000000000f8000001e001f800000ff001f000001ff001f000003ff001f000007ff00"
+            "1f00000fff800f80000fff800fc0001fff8007f0001fffc003ff803fffc001ffffffffc000ffffffffe0007fffffffe0"
+            "007fffffffe0007fffffffc000ffffffff8000fffffff80000fffffff00000fffffff00000fffffff00000fffffff000"
+            "01fffffff00001ff9ffff00001ff0007e00001fe0007e00001f80007e00000fc0003f000007c0001f000003c0000e000"
+        ),
+        _b(
+            "0300000000000f80000000001f80000000001f0000003c003f000000fe003e000003fe003e000007fc003e00000ffe00"
+            "3e00000ffe001f00001fff001f80001fff000fe0001fff8007ff803fff8003ffffffff8001ffffffffc000ffffffffc0"
+            "007fffffffc0007fffffff8000ffffffff0000fffffff80000fffffff00000fffffff00000fffffff00000fffffff000"
+            "01fffffff00001ff9ffff00001ff0007e00001fe0007e00001f80007e00000fc0003f000007c0001f000003c0000e000"
+        ),
+        _b(
+            "0300000000000f80000000001f80000018001f0000007c003f000001fc003e000003fc003e000007fc003e00000ffe00"
+            "3e00000fff001f00001fff001f80001fff800fe0001fff8007ff803fffc003ffffffffc001ffffffffc000ffffffff80"
+            "007fffffff00007ffffffc0000fffffff80000fffffff80000fffffff80000fffffff80000fffffff00000fffffff000"
+            "01fffffff00001ff9ffff00001ff0007e00001fe0007e00001f80007e00000fc0003f000007c0001f000003c0000e000"
+        ),
+    ],
+)
+
+# 035 PIXEL_CAT_35 (44x32, 11 frames)
+PIXEL_CAT_35 = Sprite(
+    width=44,
+    height=32,
+    frame_count=11,
+    frames=[
+        _b(
+            "00c00000000003e00000300007e00000780007c00000f8000fc00001f8000f800003fc001f000007fe001f00000fff00"
+            "1f00000fff001f00001fff800f80001fff800fc0001fffc007ff803fffc003ffffffffc001ffffffff8000ffffffff00"
+            "007ffffffc00007ffffffc0000fffffff80000fffffff80000fffffff80000fffffff80000fffffff00000fffffff000"
+            "01fffffff00001ff9ffff00001ff0007e00001fe0007e00001f80007e00000fc0003f000007c0001f000003c0000e000"
+        ),
+        _b(
+            "00c00000000003e00000000007e00000180007c000007c000fc00001fc000f800003fc001f000007fc001f00000ffe00"
+            "1f00000fff001f00001fff000f80001fff800fc0001fff8007ff803fffc003ffffffffc001ffffffffc000ffffffff80"
+            "007fffffff00007ffffffc0000fffffff80000fffffff80000fffffff80000fffffff80000fffffff00000fffffff000"
+            "01fffffff00001ff9ffff00001ff0007e00001fe0007e00001f80007e00000fc0003f000007c0001f000003c0000e000"
+        ),
+        _b(
+            "0300000000000f80000000001f80000000001f0000003c003f000000fe003e000003fe003e000007fc003e00000ffe00"
+            "3e00000ffe001f00001fff001f80001fff000fe0001fff8007ff803fff8003ffffffff8001ffffffffc000ffffffffc0"
+            "007fffffffc0007fffffff8000ffffffff0000fffffff80000fffffff00000fffffff00000fffffff00000fffffff000"
+            "01fffffff00001ff9ffff00001ff0007e00001fe0007e00001f80007e00000fc0003f000007c0001f000003c0000e000"
+        ),
+        _b(
+            "01800000000007c0000000000fc0000000000f8000001e001f800000ff001f000001ff001f000003ff001f000007ff00"
+            "1f00000fff800f80000fff800fc0001fff8007f0001fffc003ff803fffc001ffffffffc000ffffffffe0007fffffffe0"
+            "007fffffffe0007fffffffc000ffffffff8000fffffff80000fffffff00000fffffff00000fffffff00000fffffff000"
+            "01fffffff00001ff9ffff00001ff0007e00001fe0007e00001f80007e00000fc0003f000007c0001f000003c0000e000"
+        ),
+        _b(
+            "0300000000000f80000000001f80000000001f0000001e003f000000ff003e000001ff003e000003ff003e000007ff00"
+            "3e00000fff801f00000fff801f80001fff800fe0001fffc007ff803fffc003ffffffffc001ffffffffe000ffffffffe0"
+            "007fffffffe0007fffffffc000ffffffff8000fffffffc0000fffffff80000fffffff80000fffffff80000fffffffc00"
+            "01fffffffe0001ff9ffefe0001ff0000ff0001fe0000ff0001f80000f60000fc0000f800007c0000f800003c00007000"
+        ),
+        _b(
+            "300000000000780000000000f80000000000f80000000f00f80000007f80f8000000ff807c000001ff807c000003ff80"
+            "7c000007ffc03e000007ffc01f00000fffc01fc0000fffe00fff801fffe007ffffffffe003fffffffff001fffffffff0"
+            "007ffffffff0007fffffffe000ffffffffc000fffffffc0000fffffffe0000ffffffff0000ffffffff0000ffffffff80"
+            "01ffffffffc001ff9ffefbe001ff0000f1e001fe0000f0e001f80000f00000fc0000f800007c0000f800003c00007000"
+        ),
+        _b(
+            "300000000000780000000000f80000000000f80000001e00f8000000ff00f8000001ff007c000003ff007c000007ff00"
+            "7c00000fff803e00000fff801f00001fff801fc0001fffc00fff803fffc007ffffffffc003ffffffffe001ffffffffe0"
+            "007fffffffe0007fffffffc000ffffffff8000fffffff80000fffffff80000fffffffc0000fffffffc0000fffffffe00"
+            "01ffffffff0001ff9ffdff0001ff0001ef8001fe0001e7c001f80001e3c000fc0001f180007c0001f000003c0000e000"
+        ),
+        _b(
+            "300000000000780000000000f80000000000f80000001e00f8000000ff00f8000001ff007c000003ff007c000007ff00"
+            "7c00000fff803e00000fff801f00001fff801fc0001fffc00fff803fffc007ffffffffc003ffffffffe001ffffffffe0"
+            "007fffffffe0007fffffffc000ffffffff8000fffffffc0000fffffff80000fffffff80000fffffff80000fffffffc00"
+            "01fffffffe0001ff9ffefe0001ff0000ff0001fe0000ff0001f80000f60000fc0000f800007c0000f800003c00007000"
+        ),
+        _b(
+            "01800000000007c0000000000fc0000000000f8000001e001f800000ff001f000001ff001f000003ff001f000007ff00"
+            "1f00000fff800f80000fff800fc0001fff8007f0001fffc003ff803fffc001ffffffffc000ffffffffe0007fffffffe0"
+            "007fffffffe0007fffffffc000ffffffff8000fffffff80000fffffff00000fffffff00000fffffff00000fffffff000"
+            "01fffffff00001ff9ffff00001ff0007e00001fe0007e00001f80007e00000fc0003f000007c0001f000003c0000e000"
+        ),
+        _b(
+            "0300000000000f80000000001f80000000001f0000003c003f000000fe003e000003fe003e000007fc003e00000ffe00"
+            "3e00000ffe001f00001fff001f80001fff000fe0001fff8007ff803fff8003ffffffff8001ffffffffc000ffffffffc0"
+            "007fffffffc0007fffffff8000ffffffff0000fffffff80000fffffff00000fffffff00000fffffff00000fffffff000"
+            "01fffffff00001ff9ffff00001ff0007e00001fe0007e00001f80007e00000fc0003f000007c0001f000003c0000e000"
+        ),
+        _b(
+            "0300000000000f80000000001f80000018001f0000007c003f000001fc003e000003fc003e000007fc003e00000ffe00"
+            "3e00000fff001f00001fff001f80001fff800fe0001fff8007ff803fffc003ffffffffc001ffffffffc000ffffffff80"
+            "007fffffff00007ffffffc0000fffffff80000fffffff80000fffffff80000fffffff80000fffffff00000fffffff000"
+            "01fffffff00001ff9ffff00001ff0007e00001fe0007e00001f80007e00000fc0003f000007c0001f000003c0000e000"
+        ),
+    ],
+)
+
+# 036 PIXEL_CAT_36 (29x34, 11 frames)
+PIXEL_CAT_36 = Sprite(
+    width=29,
+    height=34,
+    frame_count=11,
+    frames=[
+        _b(
+            "080020001c1070001e38f0001ffff0001ffff0001ffff0000fffe0001ffff0001ffff2007ffffc009ffff0003ffffc00"
+            "5ffff0000fffe60007ffcf8003ff8fc007ffc7c007ffc7e00fffe3e00fffe1f00fffe1f00fffe1f01ffff1f01ffff3e0"
+            "1ffff7e01fffffc01fffff800ffffe0007fffc0003ff800003ef800001c700000000000000000000"
+        ),
+        _b(
+            "00000000081020001c3870001efef0001ffff0001ffff0000fffe0001ffff0001ffff2007ffffc009ffff0003ffffc00"
+            "5ffff0000fffe60007ffcf8003ff8fc007ffc7c007ffc7e00fffe3e00fffe1f00fffe1f00fffe1f01ffff1f01ffff3e0"
+            "1ffff7e01fffffc01fffff800ffffe0007fffc0003ff800003ef800001c700000000000000000000"
+        ),
+        _b(
+            "00000000001000000038000009ff20001ffff0001ffff0001ffff0001ffff0000fffe0001ffff2007ffffc009ffff000"
+            "3ffffc005ffff3000fffe7c007ffc7e003ff83e007ffc3f00fffe1f00fffe1f00fffe1f00fffe1f01ffff3e01ffff7e0"
+            "1fffffc01fffffc01fffff800ffffe0007fffc0003ff800003ef800001c700000000000000000000"
+        ),
+        _b(
+            "00000000001000000038000009ff20001ffff0001ffff0001ffff0001ffff0000fffe0001ffff2007ffffc009ffff000"
+            "3ffffc005ffff3000fffe7c007ffc7e003ff83e007ffc3f00fffe1f00fffe1f00fffe1f00fffe1f01ffff3f01ffff7e0"
+            "1fffffe01fffffc01fffff800ffffe0007fffc0003ff800003ef000001cf00000006000000000000"
+        ),
+        _b(
+            "00000000001000000038000009ff20001ffff0001ffff0001ffff0001ffff0000fffe0001ffff2007ffffc009ffff000"
+            "3ffffc005ffff3000fffe7c007ffc7e003ff83e007ffc3f00fffe1f00fffe1f00fffe1f00fffe1f01ffff1f01ffff3e0"
+            "1ffff7e01fffffc01fffff800ffffe0007fffc0003ff800003ef000001cf0000000f000000060000"
+        ),
+        _b(
+            "00000000001000000038000009ff20001ffff0001ffff0001ffff0001ffff0000fffe0001ffff2007ffffc009ffff000"
+            "3ffffc005ffff1800fffe3e007ffc3f003ff81f007ffc1f00fffe1f00fffe3e00fffe3e00fffe3e01ffff3e01ffff7c0"
+            "1ffff7c01fffffc01fffff800ffffe0007fffc0003ff800003e7800001c3c0000003c00000018000"
+        ),
+        _b(
+            "0000000000080000001c000004ff90000ffff8000ffff8000ffff8000ffff80007fff0000ffff9003ffffe004ffff800"
+            "1ffffe002ffff8c007fff1f003ffe1f801ffc0f803ffe0f807fff0f807fff1f007fff1f007fff1f00ffff9f00ffffbe0"
+            "0ffffbe00fffffe00fffffc007ffff0003fffe0001ffe00001ffc00000fe0000001e0000000c0000"
+        ),
+        _b(
+            "00000000001000000038000009ff20001ffff0001ffff0001ffff0001ffff0000fffe0001ffff2007ffffc009ffff000"
+            "3ffffc005ffff1800fffe3e007ffc3f003ff81f007ffc1f00fffe1f00fffe3e00fffe3e00fffe3e01ffff3e01ffff7c0"
+            "1ffff7c01fffffc01fffff800ffffe0007fffc0003ff800003ef000001cf0000000f000000060000"
+        ),
+        _b(
+            "00000000001000000038000009ff20001ffff0001ffff0001ffff0001ffff0000fffe0001ffff2007ffffc009ffff000"
+            "3ffffc005ffff3000fffe7c007ffc7e003ff83e007ffc3f00fffe1f00fffe1f00fffe1f00fffe1f01ffff1f01ffff3e0"
+            "1ffff7e01fffffc01fffff800ffffe0007fffc0003ff800003ef000001cf00000006000000000000"
+        ),
+        _b(
+            "00000000001000000038000009ff20001ffff0001ffff0001ffff0001ffff0000fffe0001ffff2007ffffc009ffff000"
+            "3ffffc005ffff3000fffe7c007ffc7e003ff83e007ffc3f00fffe1f00fffe1f00fffe1f00fffe1f01ffff1f01ffff3e0"
+            "1ffff7e01fffffc01fffff800ffffe0007fffc0003ff800003ef800001c700000000000000000000"
+        ),
+        _b(
+            "00000000081020001c3870001efef0001ffff0001ffff0000fffe0001ffff0001ffff2007ffffc009ffff0003ffffc00"
+            "5ffff0000fffe60007ffcf8003ff8fc007ffc7c007ffc7e00fffe3e00fffe1f00fffe1f00fffe1f01ffff1f01ffff3e0"
+            "1ffff7e01fffffc01fffff800ffffe0007fffc0003ff800003ef800001c700000000000000000000"
+        ),
+    ],
+)
+
+# 037 PIXEL_CAT_37 (28x34, 11 frames)
+PIXEL_CAT_37 = Sprite(
+    width=28,
+    height=34,
+    frame_count=11,
+    frames=[
+        _b(
+            "080020001c1070001e38f0001ffff0001ffff0001ffff0000fffe0001ffff0001ffff2007ffffc009ffff0003ffffc00"
+            "5ffff0000fffe60007ffcf8003ff8fc007ffc7c007ffc7e00fffe3e00fffe1f00fffe1f00fffe1f01ffff1f01ffff3e0"
+            "1ffff7e01fffffc01fffff800ffffe0007fffc0003ff800003ef800001c700000000000000000000"
+        ),
+        _b(
+            "00000000081020001c3870001efef0001ffff0001ffff0000fffe0001ffff0001ffff2007ffffc009ffff0003ffffc00"
+            "5ffff0000fffe60007ffcf8003ff8fc007ffc7c007ffc7e00fffe3e00fffe1f00fffe1f00fffe1f01ffff1f01ffff3e0"
+            "1ffff7e01fffffc01fffff800ffffe0007fffc0003ff800003ef800001c700000000000000000000"
+        ),
+        _b(
+            "00000000001000000038000009ff20001ffff0001ffff0001ffff0001ffff0000fffe0001ffff2007ffffc009ffff000"
+            "3ffffc005ffff3000fffe7c007ffc7e003ff83e007ffc3f00fffe1f00fffe1f00fffe1f00fffe1f01ffff1f01ffff3e0"
+            "1ffff7e01fffffc01fffff800ffffe0007fffc0003ff800003ef800001c700000000000000000000"
+        ),
+        _b(
+            "00000000001000000038000009ff20001ffff0001ffff0001ffff0001ffff0000fffe0001ffff2007ffffc009ffff000"
+            "3ffffc005ffff3000fffe7c007ffc7e003ff83e007ffc3f00fffe1f00fffe1f00fffe1f00fffe1f01ffff1f01ffff3e0"
+            "1ffff7e01fffffc01fffff800ffffe0007fffc0003ff800001ef800001e7000000c0000000000000"
+        ),
+        _b(
+            "00000000001000000038000009ff20001ffff0001ffff0001ffff0001ffff0000fffe0001ffff2007ffffc009ffff000"
+            "3ffffc005ffff3000fffe7c007ffc7e003ff83e007ffc3f00fffe1f00fffe1f00fffe1f00fffe1f01ffff1f01ffff3e0"
+            "1ffff7e01fffffc01fffff800ffffe0007fffc0003ff800001ef800001e7000001e0000000c00000"
+        ),
+        _b(
+            "00000000001000000038000009ff20001ffff0001ffff0001ffff0001ffff0000fffe0001ffff2007ffffc009ffff000"
+            "3ffffc005ffff1800fffe3e007ffc3f003ff81f007ffc1f00fffe1f00fffe3e00fffe3e00fffe3e01ffff3e01ffff7c0"
+            "1ffff7c01fffffc01fffff800ffffe0007fffc0003ff800003cf8000078700000780000003000000"
+        ),
+        _b(
+            "00000000001000000038000009ff20001ffff0001ffff0001ffff0001ffff0000fffe0001ffff2007ffffc009ffff000"
+            "3ffffc005ffff1800fffe3e007ffc3f003ff81f007ffc1f00fffe1f00fffe3e00fffe3e00fffe3e01ffff3e01ffff7c0"
+            "1ffff7c01fffffc01fffff800ffffe0007fffc0007ff800003ff8000007f00000078000000300000"
+        ),
+        _b(
+            "00000000001000000038000009ff20001ffff0001ffff0001ffff0001ffff0000fffe0001ffff2007ffffc009ffff000"
+            "3ffffc005ffff1800fffe3e007ffc3f003ff81f007ffc1f00fffe1f00fffe3e00fffe3e00fffe3e01ffff3e01ffff7c0"
+            "1ffff7c01fffffc01fffff800ffffe0007fffc0003ff800001ef800001e7000001e0000000c00000"
+        ),
+        _b(
+            "00000000001000000038000009ff20001ffff0001ffff0001ffff0001ffff0000fffe0001ffff2007ffffc009ffff000"
+            "3ffffc005ffff3000fffe7c007ffc7e003ff83e007ffc3f00fffe1f00fffe1f00fffe1f00fffe1f01ffff1f01ffff3e0"
+            "1ffff7e01fffffc01fffff800ffffe0007fffc0003ff800001ef800001e7000000c0000000000000"
+        ),
+        _b(
+            "00000000001000000038000009ff20001ffff0001ffff0001ffff0001ffff0000fffe0001ffff2007ffffc009ffff000"
+            "3ffffc005ffff3000fffe7c007ffc7e003ff83e007ffc3f00fffe1f00fffe1f00fffe1f00fffe1f01ffff1f01ffff3e0"
+            "1ffff7e01fffffc01fffff800ffffe0007fffc0003ff800003ef800001c700000000000000000000"
+        ),
+        _b(
+            "00000000081020001c3870001efef0001ffff0001ffff0000fffe0001ffff0001ffff2007ffffc009ffff0003ffffc00"
+            "5ffff0000fffe60007ffcf8003ff8fc007ffc7c007ffc7e00fffe3e00fffe1f00fffe1f00fffe1f01ffff1f01ffff3e0"
+            "1ffff7e01fffffc01fffff800ffffe0007fffc0003ff800003ef800001c700000000000000000000"
+        ),
+    ],
+)
+
+# 038 PIXEL_CAT_38 (29x32, 5 frames)
+PIXEL_CAT_38 = Sprite(
+    width=29,
+    height=32,
+    frame_count=5,
+    frames=[
+        _b(
+            "00200080007041c00078e3c0007fffc0007fffc0007fffc0003fff80007fffc0027fffc001fffff0007fffc801ffffe0"
+            "027fffd0003fff80001fff00030ffe000f9fff001f9fff001f3fff803f3fff803e3fff807c3fff807c7fffc07c7fffc0"
+            "7c7fffc03e7fffc03f7fffc01fbfffc00fffff8003ffff0001fffe00007ffc00"
+        ),
+        _b(
+            "00000000002040800070e1c0007fffc0007fffc0007fffc0003fff80007fffc0007fffc0027fffc001fffff0007fffc8"
+            "01ffffe0023fff90001fff000c0ffe003e1fff007e1fff007c3fff80fc3fff80f83fff80f83fff80f87fffc0f87fffc0"
+            "f87fffc07c7fffc07e7fffc03f3fffc01fffff800fffff0003fffe0000fffc00"
+        ),
+        _b(
+            "0000000000000000000040000020e080007fffc0007fffc0007fffc0003fff80007fffc0007fffc0027fffc001fffff0"
+            "007fffc801ffffe0023fff90181fff007c1fff00fc1fff00f83fff80f83fff80f83fff807c3fff807c7fffc07c7fffc0"
+            "7c7fffc03e7fffc03e7fffc03f3fffc01fffff800fffff0003fffe0000fffc00"
+        ),
+        _b(
+            "0000000000000000000040000020e080007fffc0007fffc0007fffc0003fff80007fffc0007fffc0027fffc001fffff0"
+            "007fffc801ffffe0023fff90301fff00781fff00f81fff00f83fff807c3fff807c3fff803e3fff803e7fffc03e7fffc0"
+            "3e7fffc01f7fffc01f7fffc01fbfffc00fffff8007ffff0003fffe0000fffc00"
+        ),
+        _b(
+            "00000000002040800070e1c0007fffc0007fffc0007fffc0003fff80007fffc0007fffc0027fffc001fffff0007fffc8"
+            "01ffffe0023fff90001fff000c0ffe003e1fff007e1fff007c3fff80fc3fff80f83fff80f83fff80f87fffc0f87fffc0"
+            "f87fffc07c7fffc07e7fffc03f3fffc01fffff800fffff0003fffe0000fffc00"
+        ),
+    ],
+)
+
+# 039 PIXEL_CAT_39 (31x32, 11 frames)
+PIXEL_CAT_39 = Sprite(
+    width=31,
+    height=32,
+    frame_count=11,
+    frames=[
+        _b(
+            "00c0000001e0000001f0000001f8000003fc000007fe00000fff00000fff00001fff80001fff80003fff80003fffc000"
+            "3fffc0001fffc0000fffc00003ffe0c007fff1f007fff9f80ffffcf80ffffcfc0ffffe7c07fffe3e07fffe3e07ffff3e"
+            "07ffff3e03ffff7c03fffffc03fffff803fffff007ffffc007ffff80039ffe00"
+        ),
+        _b(
+            "000000000180000003e0000003f8000003fc000003fe000007ff00000fff00000fff80001fff80001fffc0003fffc000"
+            "3fffc0003fffe0001fffe0000fffe06003fff0f807fff8fc0ffffc7c0ffffc7e0ffffe3e07fffe3e07fffe3e07ffff3e"
+            "07ffff3e03ffff7c03fffffc03fffff803fffff007ffffc007ffff80039ffe00"
+        ),
+        _b(
+            "0000000000000000078000000fe000000ff8000007fc00000ffe00000fff00001fff00001fff80003fff80003fff8000"
+            "3fffc0007fffc0007fffe0007fffe0603ffff0f81ffff8fc03fffc7c07fffc7e07fffe3e07fffe3e07fffe3e07ffff3e"
+            "07ffff3e03ffff7c03fffffc03fffff803fffff007ffffc007ffff80039ffe00"
+        ),
+        _b(
+            "0000000000000000078000000ff000000ff800000ffc00000ffe00001fff00001fff00001fff80003fff80003fff8000"
+            "3fffc0007fffc0007fffc0007fffe0603ffff0f81ffff8fc03fffc7c07fffc7e07fffe3e07fffe3e07fffe3e07ffff3e"
+            "07ffff3e03ffff7c03fffffc03fffff803fffff007ffffc007ffff80039ffe00"
+        ),
+        _b(
+            "0000000000000000078000000ff000000ff800000ffc00000ffe00001fff00001fff00001fff80003fff80003fff8000"
+            "3fffc0007fffc0007fffc0007fffe0303ffff07c1ffff87e03fffc3e07fffc3e07fffe3e07fffe7c07fffe7c07ffff7c"
+            "07ffff7c03fffff807fffff807fffff80ffffff00fffffc007bfff80001ffe00"
+        ),
+        _b(
+            "0000000000000000078000000ff000000ff800000ffc00000ffe00001fff00001fff00001fff80003fff80003fff8000"
+            "3fffc0007fffc0007fffc0007fffe0303ffff07c1ffff87e03fffc3e07fffc3e07fffe3e07fffe7c0ffffe7c0fffff7c"
+            "1fffff7c1ffffff83ffffff87ffffff8fffffff0f7ffffc0e3bfff80001ffe00"
+        ),
+        _b(
+            "0000000000000000078000000ff000000ff800000ffc00000ffe00001fff00001fff00001fff80003fff80003fff8000"
+            "3fffc0007fffc0007fffc0007fffe0303ffff07c1ffff87e03fffc3e07fffc3e07fffe3e0ffffe7c1ffffe7c1fffff7c"
+            "3fffff7c3ffffff87ffffff87bfffff837fffff007ffffc003bfff80001ffe00"
+        ),
+        _b(
+            "0000000000000000078000000ff000000ff800000ffc00000ffe00001fff00001fff00001fff80003fff80003fff8000"
+            "3fffc0007fffc0007fffc0007fffe0603ffff0f81ffff8fc03fffc7c07fffc7e07fffe3e07fffe3e07fffe3e07ffff3e"
+            "07ffff3e03ffff7c07fffffc07fffff80ffffff00fffffc007bfff80001ffe00"
+        ),
+        _b(
+            "0000000000000000078000000ff000000ff800000ffc00000ffe00001fff00001fff00001fff80003fff80003fff8000"
+            "3fffc0007fffc0007fffe0007fffe0603ffff0f81ffff8fc03fffc7c07fffc7e07fffe3e07fffe3e07fffe3e07ffff3e"
+            "07ffff3e03ffff7c03fffffc03fffff803fffff007ffffc007ffff80039ffe00"
+        ),
+        _b(
+            "0000000000000000078000000fe000000ff8000007fc00000ffe00000fff00001fff00001fff80003fff80003fff8000"
+            "3fffc0007fffc0007fffe0007fffe0603ffff0f81ffff8fc03fffc7c07fffc7e07fffe3e07fffe3e07fffe3e07ffff3e"
+            "07ffff3e03ffff7c03fffffc03fffff803fffff007ffffc007ffff80039ffe00"
+        ),
+        _b(
+            "000000000180000003e0000003f8000003fc000003fe000007ff00000fff00000fff80001fff80001fffc0003fffc000"
+            "3fffc0003fffe0001fffe0000fffe06003fff0f807fff8fc0ffffc7c0ffffc7e0ffffe3e07fffe3e07fffe3e07ffff3e"
+            "07ffff3e03ffff7c03fffffc03fffff803fffff007ffffc007ffff80039ffe00"
+        ),
+    ],
+)
+
+# 040 PIXEL_CAT_40 (31x32, 11 frames)
+PIXEL_CAT_40 = Sprite(
+    width=31,
+    height=32,
+    frame_count=11,
+    frames=[
+        _b(
+            "00c0000001e0000001f0000001f8000003fc000007fe00000fff00000fff00001fff80001fff80003fff80003fffc000"
+            "3fffc0001fffc0000fffc00003ffe0c007fff1f007fff9f80ffffcf80ffffcfc0ffffe7c07fffe3e07fffe3e07ffff3e"
+            "07ffff3e03ffff7c03fffffc03fffff803fffff007ffffc007ffff80039ffe00"
+        ),
+        _b(
+            "000000000180000003e0000003f8000003fc000003fe000007ff00000fff00000fff80001fff80001fffc0003fffc000"
+            "3fffc0003fffe0001fffe0000fffe06003fff0f807fff8fc0ffffc7c0ffffc7e0ffffe3e07fffe3e07fffe3e07ffff3e"
+            "07ffff3e03ffff7c03fffffc03fffff803fffff007ffffc007ffff80039ffe00"
+        ),
+        _b(
+            "0000000000000000078000000fe000000ff8000007fc00000ffe00000fff00001fff00001fff80003fff80003fff8000"
+            "3fffc0007fffc0007fffe0007fffe0603ffff0f81ffff8fc03fffc7c07fffc7e07fffe3e07fffe3e07fffe3e07ffff3e"
+            "07ffff3e03ffff7c03fffffc03fffff803fffff007ffffc007ffff80039ffe00"
+        ),
+        _b(
+            "0000000000000000078000000ff000000ff800000ffc00000ffe00001fff00001fff00001fff80003fff80003fff8000"
+            "3fffc0007fffc0007fffc0007fffe0603ffff0f81ffff8fc03fffc7c07fffc7e07fffe3e07fffe3e07fffe3e07ffff3e"
+            "07ffff3e03ffff7c03fffffc03fffff803fffff007ffffc007ffff80039ffe00"
+        ),
+        _b(
+            "0000000000000000078000000ff000000ff800000ffc00000ffe00001fff00001fff00001fff80003fff80003fff8000"
+            "3fffc0007fffc0007fffc0007fffe0303ffff07c1ffff87e03fffc3e07fffc3e07fffe3e07fffe7c07fffe7c07ffff7c"
+            "07ffff7c0ffffff81ffffff81ffffff80ffffff007ffffc007ffff80039ffe00"
+        ),
+        _b(
+            "0000000000000000078000000ff000000ff800000ffc00000ffe00001fff00001fff00001fff80003fff80003fff8000"
+            "3fffc0007fffc0007fffc0007fffe0303ffff07c1ffff87e03fffc3e07fffc3e0ffffe3e1ffffe7c1ffffe7c3fffff7c"
+            "7fffff7cfbfffff8f3fffff8e3fffff803fffff007ffffc007ffff80039ffe00"
+        ),
+        _b(
+            "0000000000000000078000000ff000000ff800000ffc00000ffe00001fff00001fff00001fff80003fff80003fff8000"
+            "3fffc0007fffc0007fffc0007fffe0303ffff07c1ffff87e03fffc3e07fffc3e07fffe3e0ffffe7c1ffffe7c1fffff7c"
+            "3fffff7c3ffffff87ffffff8fbfffff8f3fffff067ffffc007ffff80039ffe00"
+        ),
+        _b(
+            "0000000000000000078000000ff000000ff800000ffc00000ffe00001fff00001fff00001fff80003fff80003fff8000"
+            "3fffc0007fffc0007fffc0007fffe0603ffff0f81ffff8fc03fffc7c07fffc7e07fffe3e07fffe3e07fffe3e07ffff3e"
+            "07ffff3e0fffff7c1ffffffc1ffffff80ffffff007ffffc007ffff80039ffe00"
+        ),
+        _b(
+            "0000000000000000078000000ff000000ff800000ffc00000ffe00001fff00001fff00001fff80003fff80003fff8000"
+            "3fffc0007fffc0007fffe0007fffe0603ffff0f81ffff8fc03fffc7c07fffc7e07fffe3e07fffe3e07fffe3e07ffff3e"
+            "07ffff3e03ffff7c03fffffc03fffff803fffff007ffffc007ffff80039ffe00"
+        ),
+        _b(
+            "0000000000000000078000000fe000000ff8000007fc00000ffe00000fff00001fff00001fff80003fff80003fff8000"
+            "3fffc0007fffc0007fffe0007fffe0603ffff0f81ffff8fc03fffc7c07fffc7e07fffe3e07fffe3e07fffe3e07ffff3e"
+            "07ffff3e03ffff7c03fffffc03fffff803fffff007ffffc007ffff80039ffe00"
+        ),
+        _b(
+            "000000000180000003e0000003f8000003fc000003fe000007ff00000fff00000fff80001fff80001fffc0003fffc000"
+            "3fffc0003fffe0001fffe0000fffe06003fff0f807fff8fc0ffffc7c0ffffc7e0ffffe3e07fffe3e07fffe3e07ffff3e"
+            "07ffff3e03ffff7c03fffffc03fffff803fffff007ffffc007ffff80039ffe00"
+        ),
+    ],
+)
+
+# 041 PIXEL_CAT_41 (31x32, 11 frames)
+PIXEL_CAT_41 = Sprite(
+    width=31,
+    height=32,
+    frame_count=11,
+    frames=[
+        _b(
+            "0000060000000f0000001f0000003f0000007f800000ffc00001ffe00001ffe00003fff00003fff00003fff80007fff8"
+            "0007fff80007fff00007ffe0060fff801f1fffc03f3fffc03e7fffe07e7fffe07cffffe0f8ffffc0f8ffffc0f9ffffc0"
+            "f9ffffc07dffff807fffff803fffff801fffff8007ffffc003ffffc000fff380"
+        ),
+        _b(
+            "000000000000030000000f8000003f8000007f800000ff800001ffc00001ffe00003ffe00003fff00007fff00007fff8"
+            "0007fff8000ffff8000ffff00c0fffe03e1fff807e3fffc07c7fffe0fc7fffe0f8ffffe0f8ffffc0f8ffffc0f9ffffc0"
+            "f9ffffc07dffff807fffff803fffff801fffff8007ffffc003ffffc000fff380"
+        ),
+        _b(
+            "0000000000000000000003c000000fe000003fe000007fc00000ffe00001ffe00001fff00003fff00003fff80003fff8"
+            "0007fff80007fffc000ffffc0c0ffffc3e1ffff87e3ffff07c7fff80fc7fffc0f8ffffc0f8ffffc0f8ffffc0f9ffffc0"
+            "f9ffffc07dffff807fffff803fffff801fffff8007ffffc003ffffc000fff380"
+        ),
+        _b(
+            "0000000000000000000003c000001fe000003fe000007fe00000ffe00001fff00001fff00003fff00003fff80003fff8"
+            "0007fff80007fffc0007fffc0c0ffffc3e1ffff87e3ffff07c7fff80fc7fffc0f8ffffc0f8ffffc0f8ffffc0f9ffffc0"
+            "f9ffffc07dffff807fffff803fffff801fffff8007ffffc003ffffc000fff380"
+        ),
+        _b(
+            "0000000000000000000003c000001fe000003fe000007fe00000ffe00001fff00001fff00003fff00003fff80003fff8"
+            "0007fff80007fffc0007fffc180ffffc7c1ffff8fc3ffff0f87fff80f87fffc0f8ffffc07cffffc07cffffc07dffffc0"
+            "7dffffc03fffff803fffffc03fffffc01fffffe007ffffe003fffbc000fff000"
+        ),
+        _b(
+            "0000000000000000000003c000001fe000003fe000007fe00000ffe00001fff00001fff00003fff00003fff80003fff8"
+            "0007fff80007fffc0007fffc180ffffc7c1ffff8fc3ffff0f87fff80f87fffc0f8ffffc07cffffc07cffffe07dffffe0"
+            "7dfffff03ffffff03ffffff83ffffffc1ffffffe07ffffde03fffb8e00fff000"
+        ),
+        _b(
+            "0000000000000000000003c000001fe000003fe000007fe00000ffe00001fff00001fff00003fff00003fff80003fff8"
+            "0007fff80007fffc0007fffc180ffffc7c1ffff8fc3ffff0f87fff80f87fffc0f8ffffc07cffffe07cfffff07dfffff0"
+            "7dfffff83ffffff83ffffffc3fffffbc1fffffd807ffffc003fffb8000fff000"
+        ),
+        _b(
+            "0000000000000000000003c000001fe000003fe000007fe00000ffe00001fff00001fff00003fff00003fff80003fff8"
+            "0007fff80007fffc0007fffc0c0ffffc3e1ffff87e3ffff07c7fff80fc7fffc0f8ffffc0f8ffffc0f8ffffc0f9ffffc0"
+            "f9ffffc07dffff807fffffc03fffffc01fffffe007ffffe003fffbc000fff000"
+        ),
+        _b(
+            "0000000000000000000003c000001fe000003fe000007fe00000ffe00001fff00001fff00003fff00003fff80003fff8"
+            "0007fff80007fffc000ffffc0c0ffffc3e1ffff87e3ffff07c7fff80fc7fffc0f8ffffc0f8ffffc0f8ffffc0f9ffffc0"
+            "f9ffffc07dffff807fffff803fffff801fffff8007ffffc003ffffc000fff380"
+        ),
+        _b(
+            "0000000000000000000003c000000fe000003fe000007fc00000ffe00001ffe00001fff00003fff00003fff80003fff8"
+            "0007fff80007fffc000ffffc0c0ffffc3e1ffff87e3ffff07c7fff80fc7fffc0f8ffffc0f8ffffc0f8ffffc0f9ffffc0"
+            "f9ffffc07dffff807fffff803fffff801fffff8007ffffc003ffffc000fff380"
+        ),
+        _b(
+            "000000000000030000000f8000003f8000007f800000ff800001ffc00001ffe00003ffe00003fff00007fff00007fff8"
+            "0007fff8000ffff8000ffff00c0fffe03e1fff807e3fffc07c7fffe0fc7fffe0f8ffffe0f8ffffc0f8ffffc0f9ffffc0"
+            "f9ffffc07dffff807fffff803fffff801fffff8007ffffc003ffffc000fff380"
+        ),
+    ],
+)
+
+# 042 PIXEL_CAT_42 (31x32, 11 frames)
+PIXEL_CAT_42 = Sprite(
+    width=31,
+    height=32,
+    frame_count=11,
+    frames=[
+        _b(
+            "0000060000000f0000001f0000003f0000007f800000ffc00001ffe00001ffe00003fff00003fff00003fff80007fff8"
+            "0007fff80007fff00007ffe0060fff801f1fffc03f3fffc03e7fffe07e7fffe07cffffe0f8ffffc0f8ffffc0f9ffffc0"
+            "f9ffffc07dffff807fffff803fffff801fffff8007ffffc003ffffc000fff380"
+        ),
+        _b(
+            "000000000000030000000f8000003f8000007f800000ff800001ffc00001ffe00003ffe00003fff00007fff00007fff8"
+            "0007fff8000ffff8000ffff00c0fffe03e1fff807e3fffc07c7fffe0fc7fffe0f8ffffe0f8ffffc0f8ffffc0f9ffffc0"
+            "f9ffffc07dffff807fffff803fffff801fffff8007ffffc003ffffc000fff380"
+        ),
+        _b(
+            "0000000000000000000003c000000fe000003fe000007fc00000ffe00001ffe00001fff00003fff00003fff80003fff8"
+            "0007fff80007fffc000ffffc0c0ffffc3e1ffff87e3ffff07c7fff80fc7fffc0f8ffffc0f8ffffc0f8ffffc0f9ffffc0"
+            "f9ffffc07dffff807fffff803fffff801fffff8007ffffc003ffffc000fff380"
+        ),
+        _b(
+            "0000000000000000000003c000001fe000003fe000007fe00000ffe00001fff00001fff00003fff00003fff80003fff8"
+            "0007fff80007fffc0007fffc0c0ffffc3e1ffff87e3ffff07c7fff80fc7fffc0f8ffffc0f8ffffc0f8ffffc0f9ffffc0"
+            "f9ffffc07dffff807fffff803fffff801fffff8007ffffc003ffffc000fff380"
+        ),
+        _b(
+            "0000000000000000000003c000001fe000003fe000007fe00000ffe00001fff00001fff00003fff00003fff80003fff8"
+            "0007fff80007fffc0007fffc180ffffc7c1ffff8fc3ffff0f87fff80f87fffc0f8ffffc07cffffc07cffffc07dffffc0"
+            "7dffffc03fffffe03ffffff03ffffff01fffffe007ffffc003ffffc000fff380"
+        ),
+        _b(
+            "0000000000000000000003c000001fe000003fe000007fe00000ffe00001fff00001fff00003fff00003fff80003fff8"
+            "0007fff80007fffc0007fffc180ffffc7c1ffff8fc3ffff0f87fff80f87fffc0f8ffffe07cfffff07cfffff07dfffff8"
+            "7dfffffc3fffffbe3fffff9e3fffff8e1fffff8007ffffc003ffffc000fff380"
+        ),
+        _b(
+            "0000000000000000000003c000001fe000003fe000007fe00000ffe00001fff00001fff00003fff00003fff80003fff8"
+            "0007fff80007fffc0007fffc180ffffc7c1ffff8fc3ffff0f87fff80f87fffc0f8ffffc07cffffe07cfffff07dfffff0"
+            "7dfffff83ffffff83ffffffc3fffffbe1fffff9e07ffffcc03ffffc000fff380"
+        ),
+        _b(
+            "0000000000000000000003c000001fe000003fe000007fe00000ffe00001fff00001fff00003fff00003fff80003fff8"
+            "0007fff80007fffc0007fffc0c0ffffc3e1ffff87e3ffff07c7fff80fc7fffc0f8ffffc0f8ffffc0f8ffffc0f9ffffc0"
+            "f9ffffc07dffffe07ffffff03ffffff01fffffe007ffffc003ffffc000fff380"
+        ),
+        _b(
+            "0000000000000000000003c000001fe000003fe000007fe00000ffe00001fff00001fff00003fff00003fff80003fff8"
+            "0007fff80007fffc000ffffc0c0ffffc3e1ffff87e3ffff07c7fff80fc7fffc0f8ffffc0f8ffffc0f8ffffc0f9ffffc0"
+            "f9ffffc07dffff807fffff803fffff801fffff8007ffffc003ffffc000fff380"
+        ),
+        _b(
+            "0000000000000000000003c000000fe000003fe000007fc00000ffe00001ffe00001fff00003fff00003fff80003fff8"
+            "0007fff80007fffc000ffffc0c0ffffc3e1ffff87e3ffff07c7fff80fc7fffc0f8ffffc0f8ffffc0f8ffffc0f9ffffc0"
+            "f9ffffc07dffff807fffff803fffff801fffff8007ffffc003ffffc000fff380"
+        ),
+        _b(
+            "000000000000030000000f8000003f8000007f800000ff800001ffc00001ffe00003ffe00003fff00007fff00007fff8"
+            "0007fff8000ffff8000ffff00c0fffe03e1fff807e3fffc07c7fffe0fc7fffe0f8ffffe0f8ffffc0f8ffffc0f9ffffc0"
+            "f9ffffc07dffff807fffff803fffff801fffff8007ffffc003ffffc000fff380"
+        ),
+    ],
+)
+
+# 043 PIXEL_CAT_43 (28x32, 7 frames)
+PIXEL_CAT_43 = Sprite(
+    width=28,
+    height=32,
+    frame_count=7,
+    frames=[
+        _b(
+            "080020001c1070001e38f0001ffff0001ffff0001ffff0000fffe0001ffff0001ffff2007ffffc009ffff0003ffffc00"
+            "5ffff0000fffe60007ffcf8003ff8fc007ffc7c007ffc7e00fffe3e00fffe1f00fffe1f00fffe1f01ffff1f01ffff3e0"
+            "1ffff7e01fffffc01fffff800ffffe0007fffc0003ff800003ef800001c70000"
+        ),
+        _b(
+            "080020001c1070001e38f0001ffff0001ffff0001ffff0000fffe0001ffff0001ffff2007ffffc009ffff0003ffffc00"
+            "5ffff0000fffe60007ffcf8003ff8fc007ffc7c007ffc7e00fffe3e00fffe1f00fffe1f00fffe1f01ffff1f01ffff3e0"
+            "1ffff7e01fffffc01fffff800ffffe0007fffc0003ff800003ef800001c70000"
+        ),
+        _b(
+            "0c0060001e10f0001ffff0001ffff0001ffff0000fffe0001ffff0001ffff2007ffffc009ffff0003ffffc005ffff000"
+            "0fffe00007ffc60003ff8f8003ff8fc007ffc7c007ffc7e00fffe3e00fffe1f00fffe1f00fffe1f01ffff1f01ffff3e0"
+            "1ffff7e01fffffc01fffff800ffffe0007fffc0003ff800003ef800001c70000"
+        ),
+        _b(
+            "0c0060001e10f0001ffff0001ffff0001ffff0000fffe0001ffff0001ffff2007ffffc009ffff0003ffffc005ffff000"
+            "0fffe00007ffc60003ff8f8003ff8fc007ffc7c007ffc7e00fffe3e00fffe1f00fffe1f00fffe1f01ffff1f01ffff3e0"
+            "1ffff7e01fffffc01fffff800ffffe0007fffc0003ff800003ef800001c70000"
+        ),
+        _b(
+            "0c0060001e10f0001ffff0001ffff0001ffff0000fffe0001ffff0001ffff2007ffffc009ffff0003ffffc005ffff000"
+            "0fffe00007ffc60003ff8f8003ff8fc007ffc7c007ffc7e00fffe3e00fffe1f00fffe1f00fffe1f01ffff1f01ffff3e0"
+            "1ffff7e01fffffc01fffff800ffffe0007fffc0003ff800003ef800001c70000"
+        ),
+        _b(
+            "0c0060001e10f0001ffff0001ffff0001ffff0000fffe0001ffff0001ffff2007ffffc009ffff0003ffffc005ffff000"
+            "0fffe00007ffc60003ff8f8003ff8fc007ffc7c007ffc7e00fffe3e00fffe1f00fffe1f00fffe1f01ffff1f01ffff3e0"
+            "1ffff7e01fffffc01fffff800ffffe0007fffc0003ff800003ef800001c70000"
+        ),
+        _b(
+            "080020001c1070001e38f0001ffff0001ffff0001ffff0000fffe0001ffff0001ffff2007ffffc009ffff0003ffffc00"
+            "5ffff0000fffe60007ffcf8003ff8fc007ffc7c007ffc7e00fffe3e00fffe1f00fffe1f00fffe1f01ffff1f01ffff3e0"
+            "1ffff7e01fffffc01fffff800ffffe0007fffc0003ff800003ef800001c70000"
+        ),
+    ],
+)
+
+# 044 PIXEL_CAT_44 (36x27, 2 frames)
+PIXEL_CAT_44 = Sprite(
+    width=36,
+    height=27,
+    frame_count=2,
+    frames=[
+        _b(
+            "08002000001c107000001e38f000001ffff000001ffff000001ffff000000fffe000001ffff000001ffff200007ffffc"
+            "00009ffff3f0003ffffffc005fffffff000fffffff8007ffffffc003ffffffe007fffffff00ffffffff00ffffffff01f"
+            "fffffff01ffffffff00fffffffe00fffffffc007cfdfffc000000fff80000003ff00000000fc00"
+        ),
+        _b(
+            "08002000001c107000001e38f000001ffff000001ffff000001ffff000000fffe000001ffff000001ffff200007fffff"
+            "f0009ffffffc003ffffffe005fffffff000fffffff8007ffffffc007ffffffe00ffffffff00ffffffff01ffffffff01f"
+            "fffffff01ffffffff00fffffffe00fffffffc007cfdfffc000000fff80000003ff00000000fc00"
+        ),
+    ],
+)
+
+# 045 PIXEL_CAT_45 (36x27, 2 frames)
+PIXEL_CAT_45 = Sprite(
+    width=36,
+    height=27,
+    frame_count=2,
+    frames=[
+        _b(
+            "00004001000000e083800000f1c7800000ffff800000ffff800000ffff8000007fff000000ffff800004ffff800003ff"
+            "ffe000fcffff9003ffffffc00fffffffa01fffffff003ffffffe007ffffffc00fffffffe00ffffffff00ffffffff00ff"
+            "ffffff80ffffffff807fffffff003fffffff003fffbf3e001fff0000000ffc00000003f0000000"
+        ),
+        _b(
+            "00004001000000e083800000f1c7800000ffff800000ffff800000ffff8000007fff000000ffff800004ffff8000ffff"
+            "ffe003ffffff9007ffffffc00fffffffa01fffffff003ffffffe007ffffffe00ffffffff00ffffffff00ffffffff80ff"
+            "ffffff80ffffffff807fffffff003fffffff003fffbf3e001fff0000000ffc00000003f0000000"
+        ),
+    ],
+)
+
+# 046 PIXEL_CAT_46 (38x25, 2 frames)
+PIXEL_CAT_46 = Sprite(
+    width=38,
+    height=25,
+    frame_count=2,
+    frames=[
+        _b(
+            "08002000001c107000001e38f000001ffff000001ffff000001ffff000000fffe000001ffff000009ffff200007ffffc"
+            "00001ffff3f0007ffffffc009fffffffc00ffffffff007fffffff803fffffffc07fffffffc0ffffffffc0ffffffff81f"
+            "fffffff01fffffffe00fffffffc007ffffff8001fffffc00007fff8000"
+        ),
+        _b(
+            "08002000001c107000001e38f000001ffff000001ffff000001ffff000000fffe000001ffff000009ffff200007fffff"
+            "f0001ffffffc007fffffff009fffffffc00ffffffff007fffffff807fffffffc0ffffffffc0ffffffffc1ffffffff81f"
+            "fffffff01fffffffe00fffffffc007ffffff8001fffffc00007fff8000"
+        ),
+    ],
+)
+
+# 047 PIXEL_CAT_47 (38x25, 2 frames)
+PIXEL_CAT_47 = Sprite(
+    width=38,
+    height=25,
+    frame_count=2,
+    frames=[
+        _b(
+            "000010004000003820e000003c71e000003fffe000003fffe000003fffe000001fffc000003fffe000013fffe40000ff"
+            "fff8003f3fffe000fffffff80fffffffe43fffffffc07fffffff80ffffffff00ffffffff80ffffffffc07fffffffc03f"
+            "ffffffe01fffffffe00fffffffc007ffffff8000fffffe000007fff800"
+        ),
+        _b(
+            "000010004000003820e000003c71e000003fffe000003fffe000003fffe000001fffc000003fffe000013fffe4003fff"
+            "fff800ffffffe003fffffff80fffffffe43fffffffc07fffffff80ffffffff80ffffffffc0ffffffffc07fffffffe03f"
+            "ffffffe01fffffffe00fffffffc007ffffff8000fffffe000007fff800"
+        ),
+    ],
+)
+
+# 048 PIXEL_CAT_48 (35x20, 2 frames)
+PIXEL_CAT_48 = Sprite(
+    width=35,
+    height=20,
+    frame_count=2,
+    frames=[
+        _b(
+            "0030000000007dffe00000fffff80001fffffc0003fffffe0003ffffff000fffffff807fffffffc0ffffffffc07fffff"
+            "ffe03fffffffe01fffffffe00fffffffe00fffffffe007ffffffc003ffffff8000ffffff800019ffff0000007ffe0000"
+            "003ff800"
+        ),
+        _b(
+            "0030ffe000007dfff80000fffffc0001fffffe0003ffffff0003ffffff800fffffffc07fffffffc0ffffffffe07fffff"
+            "ffe03fffffffe01fffffffe00fffffffe00fffffffe007ffffffc003ffffff8000ffffff800019ffff0000007ffe0000"
+            "003ff800"
+        ),
+    ],
+)
+
+# 049 PIXEL_CAT_49 (35x20, 2 frames)
+PIXEL_CAT_49 = Sprite(
+    width=35,
+    height=20,
+    frame_count=2,
+    frames=[
+        _b(
+            "000001800000fff7c00003ffffe00007fffff0000ffffff8001ffffff8003ffffffe007fffffffc07fffffffe0ffffff"
+            "ffc0ffffffff80ffffffff00fffffffe00fffffffe007ffffffc003ffffff8003fffffe0001ffff300000fffc0000003"
+            "ff800000"
+        ),
+        _b(
+            "00ffe1800003fff7c00007ffffe0000ffffff0001ffffff8003ffffff8007ffffffe007fffffffc0ffffffffe0ffffff"
+            "ffc0ffffffff80ffffffff00fffffffe00fffffffe007ffffffc003ffffff8003fffffe0001ffff300000fffc0000003"
+            "ff800000"
+        ),
+    ],
+)
+
+# 050 PIXEL_CAT_50 (38x21, 2 frames)
+PIXEL_CAT_50 = Sprite(
+    width=38,
+    height=21,
+    frame_count=2,
+    frames=[
+        _b(
+            "00000000000000fffc000033ffff00007fffff8000ffffffc001ffffffe003fffffff003fffffff80ffffffff87fffff"
+            "fffcfffffffffc7ffffffffc3ffffffffc1ffffffffc0ffffffff80ffffffff007fff7fff003ff03ffe003fe00ffc003"
+            "f8003f0001c0000000"
+        ),
+        _b(
+            "0000fffc000003ffff000037ffff80007fffffc000ffffffe001fffffff003fffffff803fffffff80ffffffffc7fffff"
+            "fffcfffffffffc7ffffffffc3ffffffffc1ffffffffc0ffffffff80ffffffff007fff7fff003ff03ffe003fe00ffc003"
+            "f8003f0001c0000000"
+        ),
+    ],
+)
+
+# 051 PIXEL_CAT_51 (38x21, 2 frames)
+PIXEL_CAT_51 = Sprite(
+    width=38,
+    height=21,
+    frame_count=2,
+    frames=[
+        _b(
+            "000000000000fffc000003ffff300007fffff8000ffffffc001ffffffe003fffffff007fffffff007fffffffc0ffffff"
+            "fff8fffffffffcfffffffff8fffffffff0ffffffffe07fffffffc03fffffffc03fffbfff801fff03ff000ffc01ff0003"
+            "f0007f000000000e00"
+        ),
+        _b(
+            "00fffc000003ffff000007ffffb0000ffffff8001ffffffc003ffffffe007fffffff007fffffff00ffffffffc0ffffff"
+            "fff8fffffffffcfffffffff8fffffffff0ffffffffe07fffffffc03fffffffc03fffbfff801fff03ff000ffc01ff0003"
+            "f0007f000000000e00"
+        ),
+    ],
+)
+
+# 052 PIXEL_CAT_52 (50x24, 2 frames)
+PIXEL_CAT_52 = Sprite(
+    width=50,
+    height=24,
+    frame_count=2,
+    frames=[
+        _b(
+            "0030000000000000380000000000007c0000000000007e000000000000ff000000000001ff800000000003ffc0000000"
+            "000ffff0000000007fffe003ff0380ffffffffff8fc07fffffffffffc03fffffffffff801ffffffffffe000fffffffff"
+            "fe000fffffffffff0007ffffffffff0003ffffffffcf000fffffffff07001fffffffff80001fffffffffc0000c7fffff"
+            "ffe00000ffffff3ff00000fc000000f00000600000007000"
+        ),
+        _b(
+            "0030000000000000380000000000007c0000000000007e000000000000ff000000000001ff800000000003ffc0000000"
+            "000ffff0000000007fffffffff0380ffffffffff8fc07fffffffffffc03fffffffffff801ffffffffffe000fffffffff"
+            "fe000fffffffffff0007ffffffffff0003ffffffffcf000fffffffff07001fffffffff80001fffffffffc0000c7fffff"
+            "ffe00000ffffff3ff00000fc000000f00000600000007000"
+        ),
+    ],
+)
+
+# 053 PIXEL_CAT_53 (51x24, 2 frames)
+PIXEL_CAT_53 = Sprite(
+    width=51,
+    height=24,
+    frame_count=2,
+    frames=[
+        _b(
+            "00000000018000000000000380000000000007c000000000000fc000000000001fe000000000003ff000000000007ff8"
+            "0000000001fffe00781ff800ffffc0fe3fffffffffe0ffffffffffffc07fffffffffff801fffffffffff001fffffffff"
+            "fe003ffffffffffe003ffffffffffc003efffffffff8003c1ffffffffe00003fffffffff0000ffffffffff0001ffffff"
+            "ffc60003ff9fffffe00003e0000007e00003c0000000c000"
+        ),
+        _b(
+            "00000000018000000000000380000000000007c000000000000fc000000000001fe000000000003ff000000000007ff8"
+            "0000000001fffe00381fffffffffc07e3fffffffffe07fffffffffffc03fffffffffff800fffffffffff000fffffffff"
+            "fe001ffffffffffe001ffffffffffc001e7ffffffff8001c1ffffffffe00003fffffffff00007fffffffff0000ffffff"
+            "ffc60001ff9fffffe00001e0000007e00001c0000000c000"
+        ),
+    ],
+)
+
+# 054 PIXEL_CAT_54 (51x26, 2 frames)
+PIXEL_CAT_54 = Sprite(
+    width=51,
+    height=26,
+    frame_count=2,
+    frames=[
+        _b(
+            "0030000000000000380000000000007c0000000000007e000000000000ff000000000001ff800000000003ffc0000000"
+            "000ffff0000000007fffe003ff81c0ffffffffffc7e07fffffffffffe03fffffffffffc01fffffffffff000fffffffff"
+            "ff000fffffffffff8007ffffffffff8003ffffffffe78003ffffffff83800fffffffffc0001fffffffffe0001fbfffff"
+            "fff0000dfeffff03f80007fc00000078000ff000000038000fc0000000000006000000000000"
+        ),
+        _b(
+            "0030000000000000380000000000007c0000000000007e000000000000ff000000000001ff800000000003ffc0000000"
+            "000ffff0000000007fffefffff81c0ffffffffffc7e07fffffffffffe03fffffffffffc01fffffffffff000fffffffff"
+            "ff000fffffffffff8007ffffffffff8003ffffffffe78003ffffffff83800fffffffffc0001fffffffffe0001fbfffff"
+            "fff0000dfeffff03f80007fc00000078000ff000000038000fc0000000000006000000000000"
+        ),
+    ],
+)
+
+# 055 PIXEL_CAT_55 (51x26, 2 frames)
+PIXEL_CAT_55 = Sprite(
+    width=51,
+    height=26,
+    frame_count=2,
+    frames=[
+        _b(
+            "00000000018000000000000380000000000007c000000000000fc000000000001fe000000000003ff000000000007ff8"
+            "0000000001fffe00703ff800ffffc0fc7fffffffffe0ffffffffffffc07fffffffffff801fffffffffff001fffffffff"
+            "fe003ffffffffffe003ffffffffffc003cfffffffff800383ffffffff800007ffffffffe0000ffffffffff0001ffffff"
+            "ffbf0003f81fffeff60003c0000007fc000380000001fe0000000000007e0000000000000c00"
+        ),
+        _b(
+            "00000000018000000000000380000000000007c000000000000fc000000000001fe000000000003ff000000000007ff8"
+            "0000000001fffe00703ffffeffffc0fc7fffffffffe0ffffffffffffc07fffffffffff801fffffffffff001fffffffff"
+            "fe003ffffffffffe003ffffffffffc003cfffffffff800383ffffffff800007ffffffffe0000ffffffffff0001ffffff"
+            "ffbf0003f81fffeff60003c0000007fc000380000001fe0000000000007e0000000000000c00"
+        ),
+    ],
+)
+
+# 056 PIXEL_CAT_56 (23x43, 10 frames)
+PIXEL_CAT_56 = Sprite(
+    width=23,
+    height=43,
+    frame_count=10,
+    frames=[
+        _b(
+            "001800003e00003f00001f00001f80000f800007c00007c00007c00007c0000f80001f80001f00003e00007c00007c00"
+            "08fe201dff701ffff01ffff01ffff01ffff00fffe01ffff01ffff27ffffc9ffff03ffffc5ffff00fffe007ffc003ff80"
+            "03ff8003ff8003ff8003ff8001ef0001ef0001ef0001ef0003ef8003ef8001c700"
+        ),
+        _b(
+            "001800003e00003f00001f00001f80000f800007c00007c00007c00007c0000f80001f80001f00003e00007c00007c00"
+            "08fe201dff701ffff01ffff01ffff01ffff00fffe01ffff01ffff27ffffc9ffff03ffffc5ffff00fffe007ffc003ff80"
+            "03ff8003ff8003ff8003ff8001ef0001ef0001ef0001ef0003ef8003ef8001c700"
+        ),
+        _b(
+            "001800003e00003f00001f00001f80000f800007c00007c00007c00007c0000f80001f80001f00003e00007c00007c00"
+            "00fe0001ff0003ff800bffa01ffff01ffff01ffff01ffff00fffe01ffff01ffff27ffffc9ffff03ffffc5ffff00fffe0"
+            "07ffc003ff8003ff8003ff8001ef0001ef0001ef0001ef0003ef8003ef8001c700"
+        ),
+        _b(
+            "000600000f80000fc00007c00007c00007c00007c00007c00007c00007c0000f80001f80001f00003e00007c00007c00"
+            "00fe0001ff0003ff8003ff8003ff8003ff800bffa01ffff01ffff01ffff01ffff00fffe01ffff27ffffc9ffff03ffffc"
+            "5ffff00fffe007ffc003ff8001ff0001ef0001ef0001ef0003ef8003ef8001c700"
+        ),
+        _b(
+            "000600000f80000fc00007c00007c00007c00007c00007c00007c00007c0000f80001f80001f00003e00007c00007c00"
+            "00fe0001ff0003ff8003ff8003ff8003ff8003ff800bffa01ffff01ffff01ffff01ffff00fffe01ffff27ffffc9ffff0"
+            "3ffffc5ffff00fffe007ffc003ff8001ff0001ef0001ef0003ef8003ef8001c700"
+        ),
+        _b(
+            "000600000f80000fc00007c00007c00007c00007c00007c00007c00007c0000f80001f80001f00003e00007c00007c00"
+            "00fe0001ff0003ff8003ff8003ff8003ff800bffa01ffff01ffff01ffff01ffff00fffe01ffff27ffffc9ffff03ffffc"
+            "5ffff00fffe007ffc003ff8001ff0001ef0001ef0001ef0003ef8003ef8001c700"
+        ),
+        _b(
+            "000600000f80000fc00007c00007c00007c00007c00007c00007c00007c0000f80001f80001f00003e00007c00007c00"
+            "00fe0001ff0003ff8003ff8003ff8003ff8003ff800bffa01ffff01ffff01ffff01ffff00fffe01ffff27ffffc9ffff0"
+            "3ffffc5ffff00fffe007ffc003ff8001ff0001ef0001ef0003ef8003ef8001c700"
+        ),
+        _b(
+            "000600000f80000fc00007c00007c00007c00007c00007c00007c00007c0000f80001f80001f00003e00007c00007c00"
+            "00fe0001ff0003ff8003ff8003ff8003ff800bffa01ffff01ffff01ffff01ffff00fffe01ffff27ffffc9ffff03ffffc"
+            "5ffff00fffe007ffc003ff8001ff0001ef0001ef0001ef0003ef8003ef8001c700"
+        ),
+        _b(
+            "001800003e00003f00001f00001f80000f800007c00007c00007c00007c0000f80001f80001f00003e00007c00007c00"
+            "00fe0001ff0003ff800bffa01ffff01ffff01ffff01ffff00fffe01ffff01ffff27ffffc9ffff03ffffc5ffff00fffe0"
+            "07ffc003ff8003ff8003ff8001ef0001ef0001ef0001ef0003ef8003ef8001c700"
+        ),
+        _b(
+            "001800003e00003f00001f00001f80000f800007c00007c00007c00007c0000f80001f80001f00003e00007c00007c00"
+            "08fe201dff701ffff01ffff01ffff01ffff00fffe01ffff01ffff27ffffc9ffff03ffffc5ffff00fffe007ffc003ff80"
+            "03ff8003ff8003ff8003ff8001ef0001ef0001ef0001ef0003ef8003ef8001c700"
+        ),
+    ],
+)
+
+# 057 PIXEL_CAT_57 (23x37, 8 frames)
+PIXEL_CAT_57 = Sprite(
+    width=23,
+    height=37,
+    frame_count=8,
+    frames=[
+        _b(
+            "0800201c10701e38f01ffff01ffff01ffff00fffe01ffff09ffff07ffffc1ffff27ffff89ffff40fffe007ffc007ff80"
+            "07ffc00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe007ffc007ffc003c78003c780"
+            "03c78003c78003c78003c780018300"
+        ),
+        _b(
+            "0000000810201c38701ffff01ffff01ffff00fffe01ffff01ffff09ffff07ffffc1ffff27ffff88fffe407ffc007ff80"
+            "07ffc00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe007ffc007ffc003c78003c780"
+            "03c78003c78003c78003c780018300"
+        ),
+        _b(
+            "0000000000000010000838201ffff01ffff01ffff00fffe01ffff01ffff09ffff07ffffc1ffff27ffff88fffe407ffc0"
+            "07ffc00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe007ffc007ffc003c78003c780"
+            "03c78003c78003c78003c780018300"
+        ),
+        _b(
+            "0000000000000000000010000838201ffff01ffff01ffff00fffe01ffff01ffff09ffff07ffffc1ffff27ffff88fffe4"
+            "07ffc00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe007ffc007ffc003c78003c780"
+            "03c78003c78003c78003c780018300"
+        ),
+        _b(
+            "0000000000000010000838201ffff01ffff01ffff00fffe01ffff01ffff09ffff07ffffc1ffff27ffff88fffe407ffc0"
+            "07ffc00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe007ffc007ffc003c78003c780"
+            "03c78003c78003c78003c780018300"
+        ),
+        _b(
+            "0000000000000000000010000838201ffff01ffff01ffff00fffe01ffff01ffff09ffff07ffffc1ffff27ffff88fffe4"
+            "07ffc00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe007ffc007ffc003c78003c780"
+            "03c78003c78003c78003c780018300"
+        ),
+        _b(
+            "0000000000000010000838201ffff01ffff01ffff00fffe01ffff01ffff09ffff07ffffc1ffff27ffff88fffe407ffc0"
+            "07ffc00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe007ffc007ffc003c78003c780"
+            "03c78003c78003c78003c780018300"
+        ),
+        _b(
+            "0000000810201c38701ffff01ffff01ffff00fffe01ffff01ffff09ffff07ffffc1ffff27ffff88fffe407ffc007ff80"
+            "07ffc00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe007ffc007ffc003c78003c780"
+            "03c78003c78003c78003c780018300"
+        ),
+    ],
+)
+
+# 058 PIXEL_CAT_58 (41x32, 10 frames)
+PIXEL_CAT_58 = Sprite(
+    width=41,
+    height=32,
+    frame_count=10,
+    frames=[
+        _b(
+            "00000000600001800000f80003c00000fc0003e000007c0003f000007e0007f800003e000ffc00001f001ffe00001f00"
+            "1ffe00001f003fff00001f003fff00003e007fff00007e007fff803ffc007ffffffff8003ffffffff0001fffffffe000"
+            "07ffffffc00007ffffffc00003ffffffe00003ffffffe00003ffffffe00003ffffffe00001ffffffe00001ffffffe000"
+            "01fffffff00001ffff3ff00000fc001ff00000fc000ff00000fc0003f00001f80007e00001f00007c00000e000078000"
+        ),
+        _b(
+            "00000000600000000000f80000000000fc00030000007c0007c000007e0007f000003e0007f800001f0007fc00001f00"
+            "0ffe00001f001ffe00001f001fff00003e003fff00007e003fff003ffc007ffffffff8007ffffffff0007fffffffe000"
+            "3fffffffc0001fffffffc00007ffffffe00003ffffffe00003ffffffe00003ffffffe00001ffffffe00001ffffffe000"
+            "01fffffff00001ffff3ff00000fc001ff00000fc000ff00000fc0003f00001f80007e00001f00007c00000e000078000"
+        ),
+        _b(
+            "000000001800000000003e00000000003f00000000001f00078000001f800fe000000f800ff800000f8007fc00000f80"
+            "0ffe00000f800ffe00001f001fff00003f001fff0000fe003fff007ffc003ffffffff8003ffffffff0007fffffffe000"
+            "7fffffffc0007fffffffc0003fffffffe0001fffffffe00001ffffffe00001ffffffe00001ffffffe00001ffffffe000"
+            "01fffffff00001ffff3ff00000fc001ff00000fc000ff00000fc0003f00001f80007e00001f00007c00000e000078000"
+        ),
+        _b(
+            "000000003000000000007c00000000007e00000000003e00000000003f00000000001f00000000001f00780000001f00"
+            "ff8000001f00ffe000003e00fff800007e007ffc0001fc007fff007ff800fffffffff000ffffffffe000ffffffffc000"
+            "7fffffffc0007fffffffc0007fffffffe0003fffffffe0003fffffffe0001dffffffe00001ffffffe00001ffffffe000"
+            "01fffffff00001ffff3ff00000fc001ff00000fc000ff00000fc0003f00001f80007e00001f00007c00000e000078000"
+        ),
+        _b(
+            "000000003000000000007c00000000007e00000000003e00000000003f00000000001f00000000001f00000000001f00"
+            "780000001f00ff8000003e00ffe000007e00fff80001fc007ffc007ff8007ffffffff000ffffffffe000ffffffffc000"
+            "ffffffffc0007fffffffc0007fffffffe0007fffffffe0003fffffffe0003fffffffe0001dffffffe00001ffffffe000"
+            "01fffffff00001ffff3ff00000fc001ff00000fc000ff00000fc0003f00001f80007e00001f00007c00000e000078000"
+        ),
+        _b(
+            "000000003000000000007c00000000007e00000000003e00000000003f00000000001f00000000001f00780000001f00"
+            "ff8000001f00ffe000003e00fff800007e007ffc0001fc007fff007ff800fffffffff000ffffffffe000ffffffffc000"
+            "7fffffffc0007fffffffc0007fffffffe0003fffffffe0003fffffffe0001dffffffe00001ffffffe00001ffffffe000"
+            "01fffffff00001ffff3ff00000fc001ff00000fc000ff00000fc0003f00001f80007e00001f00007c00000e000078000"
+        ),
+        _b(
+            "000000003000000000007c00000000007e00000000003e00000000003f00000000001f00000000001f00000000001f00"
+            "780000001f00ff8000003e00ffe000007e00fff80001fc007ffc007ff8007ffffffff000ffffffffe000ffffffffc000"
+            "ffffffffc0007fffffffc0007fffffffe0007fffffffe0003fffffffe0003fffffffe0001dffffffe00001ffffffe000"
+            "01fffffff00001ffff3ff00000fc001ff00000fc000ff00000fc0003f00001f80007e00001f00007c00000e000078000"
+        ),
+        _b(
+            "000000003000000000007c00000000007e00000000003e00000000003f00000000001f00000000001f00780000001f00"
+            "ff8000001f00ffe000003e00fff800007e007ffc0001fc007fff003ff800fffffffff000ffffffffe000ffffffffc000"
+            "7fffffffc0007fffffffc0007fffffffe0003fffffffe0003fffffffe0001dffffffe00001ffffffe00001ffffffe000"
+            "01fffffff00001ffff3ff00000fc001ff00000fc000ff00000fc0003f00001f80007e00001f00007c00000e000078000"
+        ),
+        _b(
+            "000000001800000000003e00000000003f00000000001f00078000001f800fe000000f800ff800000f8007fc00000f80"
+            "0ffe00000f800ffe00001f001fff00003f001fff0000fe003fff003ffc003ffffffff8003ffffffff0007fffffffe000"
+            "7fffffffc0007fffffffc0003fffffffe0001fffffffe00001ffffffe00001ffffffe00001ffffffe00001ffffffe000"
+            "01fffffff00001ffff3ff00000fc001ff00000fc000ff00000fc0003f00001f80007e00001f00007c00000e000078000"
+        ),
+        _b(
+            "00000000600000000000f80000000000fc00030000007c0007c000007e0007f000003e0007f800001f0007fc00001f00"
+            "0ffe00001f001ffe00001f001fff00003e003fff00007e003fff003ffc007ffffffff8007ffffffff0007fffffffe000"
+            "3fffffffc0001fffffffc00007ffffffe00003ffffffe00003ffffffe00003ffffffe00001ffffffe00001ffffffe000"
+            "01fffffff00001ffff3ff00000fc001ff00000fc000ff00000fc0003f00001f80007e00001f00007c00000e000078000"
+        ),
+    ],
+)
+
+# 059 PIXEL_CAT_59 (41x32, 10 frames)
+PIXEL_CAT_59 = Sprite(
+    width=41,
+    height=32,
+    frame_count=10,
+    frames=[
+        _b(
+            "0300000000000f800000c0001f800001e0001f000003e0003f000007e0003e00000ff0007c00001ff8007c00003ffc00"
+            "7c00003ffc007c00007ffe003e00007ffe003f00007fff001ffe00ffff000fffffffff0007fffffffe0003fffffffc00"
+            "01fffffff00001fffffff00003ffffffe00003ffffffe00003ffffffe00003ffffffe00003ffffffc00003ffffffc000"
+            "07ffffffc00007fe7fffc00007fc001f800007f8001f800007e0001f800003f0000fc00001f00007c00000f000038000"
+        ),
+        _b(
+            "0300000000000f80000000001f80000000001f00000060003f000001f0003e000007f0007c00000ff0007c00001ff000"
+            "7c00003ff8007c00003ffc003e00007ffc003f00007ffe001ffe007ffe000fffffffff0007ffffffff0003ffffffff00"
+            "01fffffffe0001fffffffc0003fffffff00003ffffffe00003ffffffe00003ffffffe00003ffffffc00003ffffffc000"
+            "07ffffffc00007fe7fffc00007fc001f800007f8001f800007e0001f800003f0000fc00001f00007c00000f000038000"
+        ),
+        _b(
+            "0c00000000003e00000000007e00000000007c0000000000fc000000f000f8000003f800f800000ff800f800001ff000"
+            "f800003ff8007c00003ff8007e00007ffc003f80007ffc001fff007ffe000ffffffffe0007fffffffe0003ffffffff00"
+            "01ffffffff0001ffffffff0003fffffffe0003fffffffc0003ffffffc00003ffffffc00003ffffffc00003ffffffc000"
+            "07ffffffc00007fe7fffc00007fc001f800007f8001f800007e0001f800003f0000fc00001f00007c00000f000038000"
+        ),
+        _b(
+            "0600000000001f00000000003f00000000003e00000000007e00000000007c00000000007c00000000007c0000000f00"
+            "7c000000ff803e000003ff803f00000fff801fc0001fff000fff007fff0007ffffffff8003ffffffff8001ffffffff80"
+            "01ffffffff0001ffffffff0003ffffffff0003fffffffe0003fffffffe0003ffffffdc0003ffffffc00003ffffffc000"
+            "07ffffffc00007fe7fffc00007fc001f800007f8001f800007e0001f800003f0000fc00001f00007c00000f000038000"
+        ),
+        _b(
+            "0600000000001f00000000003f00000000003e00000000007e00000000007c00000000007c00000000007c0000000000"
+            "7c0000000f003e000000ff803f000003ff801fc0000fff800fff001fff0007ffffffff0003ffffffff8001ffffffff80"
+            "01ffffffff8001ffffffff0003ffffffff0003ffffffff0003fffffffe0003fffffffe0003ffffffdc0003ffffffc000"
+            "07ffffffc00007fe7fffc00007fc001f800007f8001f800007e0001f800003f0000fc00001f00007c00000f000038000"
+        ),
+        _b(
+            "0600000000001f00000000003f00000000003e00000000007e00000000007c00000000007c00000000007c0000000f00"
+            "7c000000ff803e000003ff803f00000fff801fc0001fff000fff007fff0007ffffffff8003ffffffff8001ffffffff80"
+            "01ffffffff0001ffffffff0003ffffffff0003fffffffe0003fffffffe0003ffffffdc0003ffffffc00003ffffffc000"
+            "07ffffffc00007fe7fffc00007fc001f800007f8001f800007e0001f800003f0000fc00001f00007c00000f000038000"
+        ),
+        _b(
+            "0600000000001f00000000003f00000000003e00000000007e00000000007c00000000007c00000000007c0000000000"
+            "7c0000000f003e000000ff803f000003ff801fc0000fff800fff001fff0007ffffffff0003ffffffff8001ffffffff80"
+            "01ffffffff8001ffffffff0003ffffffff0003ffffffff0003fffffffe0003fffffffe0003ffffffdc0003ffffffc000"
+            "07ffffffc00007fe7fffc00007fc001f800007f8001f800007e0001f800003f0000fc00001f00007c00000f000038000"
+        ),
+        _b(
+            "0600000000001f00000000003f00000000003e00000000007e00000000007c00000000007c00000000007c0000000f00"
+            "7c000000ff803e000003ff803f00000fff801fc0001fff000ffe007fff0007ffffffff8003ffffffff8001ffffffff80"
+            "01ffffffff0001ffffffff0003ffffffff0003fffffffe0003fffffffe0003ffffffdc0003ffffffc00003ffffffc000"
+            "07ffffffc00007fe7fffc00007fc001f800007f8001f800007e0001f800003f0000fc00001f00007c00000f000038000"
+        ),
+        _b(
+            "0c00000000003e00000000007e00000000007c0000000000fc000000f000f8000003f800f800000ff800f800001ff000"
+            "f800003ff8007c00003ff8007e00007ffc003f80007ffc001ffe007ffe000ffffffffe0007fffffffe0003ffffffff00"
+            "01ffffffff0001ffffffff0003fffffffe0003fffffffc0003ffffffc00003ffffffc00003ffffffc00003ffffffc000"
+            "07ffffffc00007fe7fffc00007fc001f800007f8001f800007e0001f800003f0000fc00001f00007c00000f000038000"
+        ),
+        _b(
+            "0300000000000f80000000001f80000000001f00000060003f000001f0003e000007f0007c00000ff0007c00001ff000"
+            "7c00003ff8007c00003ffc003e00007ffc003f00007ffe001ffe007ffe000fffffffff0007ffffffff0003ffffffff00"
+            "01fffffffe0001fffffffc0003fffffff00003ffffffe00003ffffffe00003ffffffe00003ffffffc00003ffffffc000"
+            "07ffffffc00007fe7fffc00007fc001f800007f8001f800007e0001f800003f0000fc00001f00007c00000f000038000"
+        ),
+    ],
+)
+
+# 060 PIXEL_CAT_60 (46x33, 3 frames)
+PIXEL_CAT_60 = Sprite(
+    width=46,
+    height=33,
+    frame_count=3,
+    frames=[
+        _b(
+            "0000000000000000000000001020400000003870e00000003cf9e00000003fffe00000003fffe00000001fffcfe00000"
+            "1ffffff800003ffffffe00003fffffff00003fffffff80003fffffffc0003ffffffff0007ffffffffc009ffffffffe00"
+            "2ffffffffe0047ffffffff0003ffffffdf0001ffffffcf8001fff1ffcf8001ffe0ffcf8001ffe0ffcf8001f3e07fc7c0"
+            "01e3e03fc7f001e1e03fe3f801e1e03fe1f801e1e03de0f003e1e079e00003c1e079e0000181e033c0000000c003c000"
+            "000000018000"
+        ),
+        _b(
+            "0000000000001020400000003870e00000003cf9e00000003fffe00000003fffe00000001fffcfe000001fffdff80000"
+            "3ffffffe00003fffffff00003fffffff80003fffffffc0003fffffffe0007ffffffff0009ffffffffc002ffffffffe00"
+            "47ffffffff0003ffffffff0003ffffffdf8001ffffffcfc001fff1ffc7c001ffe0ffc7c001ffe0ffc3e001f3e07fc3f8"
+            "01e3e03fc1fc01e1e03fe0fc01e1e03fe07801e1e03de00003e1e079e00003c1e079e0000181e033c0000000c003c000"
+            "000000018000"
+        ),
+        _b(
+            "008000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+            "000000000000"
+        ),
+    ],
+)
+
+# 061 PIXEL_CAT_61 (46x32, 2 frames)
+PIXEL_CAT_61 = Sprite(
+    width=46,
+    height=32,
+    frame_count=2,
+    frames=[
+        _b(
+            "0000000000000000000810200000001c38700000001e7cf00000001ffff00000001ffff000001fcfffe000007fffffe0"
+            "0001fffffff00003fffffff00007fffffff0000ffffffff0003ffffffff000fffffffff801ffffffffe401ffffffffd0"
+            "03ffffffff8803efffffff0007cffffffe0007cffe3ffe0007cffc1ffe0007cffc1ffe000f8ff81f3e003f8ff01f1e00"
+            "7f1ff01e1e007e1ff01e1e003c1ef01e1e00001e781e1f00001e781e0f00000f301e0600000f000c0000000600000000"
+        ),
+        _b(
+            "0000000810200000001c38700000001e7cf00000001ffff00000001ffff000001fcfffe000007fefffe00001fffffff0"
+            "0003fffffff00007fffffff0000ffffffff0001ffffffff0003ffffffff800ffffffffe401ffffffffd003ffffffff88"
+            "03ffffffff0007efffffff000fcffffffe000f8ffe3ffe000f8ffc1ffe001f0ffc1ffe007f0ff81f3e00fe0ff01f1e00"
+            "fc1ff01e1e00781ff01e1e00001ef01e1e00001e781e1f00001e781e0f00000f301e0600000f000c0000000600000000"
+        ),
+    ],
+)
+
+# 062 PIXEL_CAT_62 (23x46, 3 frames)
+PIXEL_CAT_62 = Sprite(
+    width=23,
+    height=46,
+    frame_count=3,
+    frames=[
+        _b(
+            "0000000000000000000000000000000000000800201c10701e38f01ffff01ffff01ffff00fffe01ffff09ffff07ffffc"
+            "1ffff27ffff89ffff40fffe007ffc003ff8007ffc00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe0"
+            "0fffe00fffe00fffe007ffc007ffc003c78003c78003c78003c78003c78003c78003c78003c780018300"
+        ),
+        _b(
+            "0800201c10701e38f01ffff01ffff01ffff00fffe01ffff09ffff07ffffc1ffff27ffff89ffff40fffe007ffc003ff80"
+            "07ffc00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe0"
+            "0fffe00fffe00fffe007ffc007ffc003c78003c78003c78003c78003c78003c78003c78003c780018300"
+        ),
+        _b(
+            "0000000000000000000000000000000000000000000800201c10701e38f01ffff01ffff01ffff00fffe01ffff09ffff0"
+            "7ffffc1ffff27ffff89ffff40fffe007ffc007ff8007ffc00fffe00fffe00fffe00fffe00fffe00fffe00fffe00fffe0"
+            "0fffe00fffe00fffe007ffc007ffc003c78003c78003c78003c78003c78003c780018300000000000000"
+        ),
+    ],
+)
+
+# 063 PIXEL_CAT_63 (48x39, 5 frames)
+PIXEL_CAT_63 = Sprite(
+    width=48,
+    height=39,
+    frame_count=5,
+    frames=[
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006000"
+            "01800000f80003c00000fc0003e000007c0003f000007e0007f800003e000ffc00001f001ffe00001f001ffe00001f00"
+            "3fff00001f003fff00003e007fff00007e007fff803ffc007ffffffff8003ffffffff0001fffffffe00007ffffffc000"
+            "07ffffffc00003ffffffe00003ffffffe00003ffffffe00003ffffffe00001ffffffe00001ffffffe00001fffffff000"
+            "01ffff3ff00000fc001ff00000fc000ff00000fc0003f00001f80007e00001f00007c00000e000078000"
+        ),
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006000"
+            "00000000f80001800000fc0003c000007c0003e000007e0003f000003e0007f800001f000ffc00001f001ffe00001f00"
+            "1ffe00001f003fff00003e003fff00007e007fff803ffc007ffffffff8007ffffffff0003fffffffe0001fffffffc000"
+            "07ffffffc00003ffffff800003ffffff800003ffffff800003ffffff800003ffffff800001ffffff800000ffffff8000"
+            "007fffff8000007e01ffc000003f00ffc000003f007bc000007f00ffc000007f00ffc000003e00f78000"
+        ),
+        _b(
+            "0001800000000003c00000000003e00000000007e0000000001fe0000000003ff0000000007ff000000001fff0000000"
+            "03fff800000003fff800000003fff800000003fffc00000001fffc000000007ffc0000047ffffc00000efffffe00000f"
+            "ffffff80001f7fffffe0003f3ffffff8007e1ffffffe00fc003fffff83f8001ffffffff0000fffffffe00007ffffffc0"
+            "0003ffffff000001fffffc0000007ffffc0000001fffff80000007ffffc0000003ffffe00000003ffff000000007fef8"
+            "00000003fc7800000001fc3000000000fe00000000003f00000000000f00000000000f00000000000600"
+        ),
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001800"
+            "000000003e00006000003f0000f000001f0000f800001f8000fc00000f8001fe000007c003ff000007c007ff800007c0"
+            "07ff800007c00fffc0000f800fffc01f1f801fffe0ffff001ffffffffe001ffffffffc000ffffffff80007fffffff000"
+            "01fffffff00001fffffff00001fffffff00001fffffff00001fffffff00001ffffffe00003ffffffc00003ffffcf8000"
+            "07fdfe0f80000ff8000f80001ff8001f80003ef0003f80003de0003f800039e0003b000001c000000000"
+        ),
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006000"
+            "01800000f80003c00000fc0003e000007c0003f000007e0007f800003e000ffc00001f001ffe00001f001ffe00001f00"
+            "3fff00001f003fff00003e007fff00007e007fff803ffc007ffffffff8003ffffffff0001fffffffe00007ffffffc000"
+            "07ffffffc00003ffffffe00003ffffffe00003ffffffe00003ffffffe00001ffffffe00001ffffffe00001fffffff000"
+            "01ffff3ff00000fc001ff00000fc000ff00000fc0003f00001f80007e00001f00007c00000e000078000"
+        ),
+    ],
+)
+
+# 064 PIXEL_CAT_64 (48x39, 5 frames)
+PIXEL_CAT_64 = Sprite(
+    width=48,
+    height=39,
+    frame_count=5,
+    frames=[
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000600000000"
+            "001f00000180003f000003c0003e000007c0007e00000fc0007c00001fe000f800003ff000f800007ff800f800007ff8"
+            "00f80000fffc007c0000fffc007e0000fffe003ffc01fffe001ffffffffe000ffffffffc0007fffffff80003ffffffe0"
+            "0003ffffffe00007ffffffc00007ffffffc00007ffffffc00007ffffffc00007ffffff800007ffffff80000fffffff80"
+            "000ffcffff80000ff8003f00000ff0003f00000fc0003f000007e0001f800003e0000f800001e0000700"
+        ),
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000600000000"
+            "001f00000000003f00000180003e000003c0007e000007c0007c00000fc000f800001fe000f800003ff000f800007ff8"
+            "00f800007ff8007c0000fffc007e0000fffc003ffc01fffe001ffffffffe000ffffffffe0007fffffffc0003fffffff8"
+            "0003ffffffe00001ffffffc00001ffffffc00001ffffffc00001ffffffc00001ffffffc00001ffffff800001ffffff00"
+            "0001fffffe000003ff807e000003ff00fc000003de00fc000003ff00fe000003ff00fe000001ef007c00"
+        ),
+        _b(
+            "00000001800000000003c00000000007c00000000007e00000000007f8000000000ffc000000000ffe000000000fff80"
+            "0000001fffc00000001fffc00000001fffc00000003fffc00000003fff802000003ffe007000003ffffef000007fffff"
+            "f80001fffffffc0007fffffe7e001ffffffc3f007ffffff81fc1fffffc000ffffffff80007fffffff00003ffffffe000"
+            "00ffffffc000003fffff8000003ffffe000001fffff8000003ffffe0000007ffffc000000ffffc0000001f7fe0000000"
+            "1e3fc00000000c3f80000000007f0000000000fc0000000000f00000000000f000000000006000000000"
+        ),
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000001800000000"
+            "007c0000000000fc0000060000f800000f0001f800001f0001f000003f0003e000007f8003e00000ffc003e00001ffe0"
+            "03e00001ffe001f00003fff001f8f803fff000ffff07fff8007ffffffff8003ffffffff8001ffffffff0000fffffffe0"
+            "000fffffff80000fffffff80000fffffff80000fffffff80000fffffff800007ffffff800003ffffffc00001f3ffffc0"
+            "0001f07fbfe00001f0001ff00001f8001ff80001fc000f7c0001fc0007bc0000dc00079c000000000380"
+        ),
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000600000000"
+            "001f00000180003f000003c0003e000007c0007e00000fc0007c00001fe000f800003ff000f800007ff800f800007ff8"
+            "00f80000fffc007c0000fffc007e0000fffe003ffc01fffe001ffffffffe000ffffffffc0007fffffff80003ffffffe0"
+            "0003ffffffe00007ffffffc00007ffffffc00007ffffffc00007ffffffc00007ffffff800007ffffff80000fffffff80"
+            "000ffcffff80000ff8003f00000ff0003f00000fc0003f000007e0001f800003e0000f800001e0000700"
+        ),
+    ],
+)
+
+# 065 PIXEL_CAT_65 (28x37, 4 frames)
+PIXEL_CAT_65 = Sprite(
+    width=28,
+    height=37,
+    frame_count=4,
+    frames=[
+        _b(
+            "0000000000000000000000000000000000000000080020001c1070001e38f0001ffff0001ffff0001ffff0000fffe000"
+            "1ffff0001ffff2007ffffc009ffff0003ffffc005ffff0000fffe60007ffcf8003ff8fc007ffc7c007ffc7e00fffe3e0"
+            "0fffe1f00fffe1f00fffe1f01ffff1f01ffff3e01ffff7e01fffffc01fffff800ffffe0007fffc0003ff800003ef8000"
+            "01c70000"
+        ),
+        _b(
+            "00000000000000000000000000000000080020001c1070001e38f0001ffff0001ffff0001ffff0000fffe0001ffff000"
+            "1ffff2007ffffc009ffff0003ffffc005ffff0000fffe00007ffcc0003ff9f0007ffdf8007ffcf8007ffcfc007ffc7c0"
+            "07ffc3e00fffe3e00fffe3e00fffe3e00fffe7c00fffefc00fffff800fffff0007fffc0003fff80003ef800003ef8000"
+            "01c70000"
+        ),
+        _b(
+            "080020001c1070001e38f0001ffff0001ffff0001ffff0000fffe0001ffff0001ffff2007ffffc009ffff0003ffffc00"
+            "5ffff0000fffe00007ffc00003ff800007ffc00007ffc00007ffcc0007ffdf0007ffdf800fffef800fffefc00fffe7c0"
+            "0fffe3e00fffe3e00fffe3e00fffe3e00fffe7c00fffefc00fffff800fffff0007fffc0003fff80003ef800003ef8000"
+            "01c70000"
+        ),
+        _b(
+            "00000000000000000000000000000000080020001c1070001e38f0001ffff0001ffff0001ffff0000fffe0001ffff000"
+            "1ffff2007ffffc009ffff0003ffffc005ffff0000fffe00007ffcc0003ff9f0007ffdf8007ffcf8007ffcfc007ffc7c0"
+            "07ffc3e00fffe3e00fffe3e00fffe3e00fffe7c00fffefc00fffff800fffff0007fffc0003fff80003ef800003ef8000"
+            "01c70000"
+        ),
+    ],
+)
+
+# 066 HEART_SOLID_08 (8x8, 3 frames)
+HEART_SOLID_08 = Sprite(
+    width=8,
+    height=8,
+    frame_count=3,
+    frames=[
+        _b("00247e7e3c180000"),
+        _b("247effff7e3c1800"),
+        _b("00667e7e7e3c1800"),
+    ],
+)
+
+# 067 HEART_SOLID_10 (10x10, 3 frames)
+HEART_SOLID_10 = Sprite(
+    width=10,
+    height=10,
+    frame_count=3,
+    frames=[
+        _b("0000000033003f003f003f001e000c0000000000"),
+        _b("33007f807f80ffc07f807f803f003f000c000000"),
+        _b("000033007f807f807f803f003f001e0000000000"),
+    ],
+)
+
+# 068 HEART_SOLID_12 (12x12, 3 frames)
+HEART_SOLID_12 = Sprite(
     width=12,
     height=12,
     frame_count=3,
     frames=[
-        _b("0000000008803fe07ff07ff03fe03fe01fc00f8007000200"),
-        _b("000000003de07ff07ff07ff07ff03fe01fc00f8007000200"),
-        _b("0000000018c03fe07ff07ff07ff03fe01fc00f8007000200"),
+        _b("0000000019803fc03fc03fc01f801f800f00000000000000"),
+        _b("000079e07fe07fe07fe07fe07fe03fc01f800f0006000000"),
+        _b("000019803fc07fe07fe07fe03fc03fc01f80060000000000"),
     ],
 )
 
-# 001
-HEART14 = Sprite(
+# 069 HEART_SOLID_14 (14x14, 3 frames)
+HEART_SOLID_14 = Sprite(
     width=14,
     height=14,
     frame_count=3,
     frames=[
-        _b("0000000000001ef03ff83ff83ff83ff83ff81ff007c0038001000000"),
-        _b("0000000008203ef87ffc7ffc7ffc7ffc3ff81ff00fe007c003800100"),
-        _b("0000000000003ef83ff87ffc7ffc3ff83ff81ff00fe007c003800100"),
+        _b("000000003cf03ff03ff03ff03ff03ff01fe00fc00780030000000000"),
+        _b("00003cf07ff87ff87ff87ff87ff83ff03ff01fe00fc0078003000000"),
+        _b("00001ce03ff07ff87ff87ff87ff83ff03ff01fe00fc0078000000000"),
     ],
 )
 
-# 002
-HEART16 = Sprite(
+# 070 HEART_SOLID_16 (16x16, 3 frames)
+HEART_SOLID_16 = Sprite(
     width=16,
     height=16,
     frame_count=3,
     frames=[
-        _b("0000000000000e381f7c3ffe3ffe3ffe3ffe1ffc0ff807f003e001c000800000"),
-        _b("0000000000001f7c3ffe7fff7fff7fff3ffe3ffe1ffc0ff807f003e001c00080"),
-        _b("0000000000001e3c3f7e3ffe3ffe3ffe3ffe1ffc1ffc0ff803e001c000800080"),
+        _b("000000001e783ffc3ffc3ffc3ffc3ffc3ffc1ff80ff007e003c0018000000000"),
+        _b("00001e783ffc7ffe7ffe7ffe7ffe7ffe3ffc3ffc1ff80ff007e003c000000000"),
+        _b("00000c303ffc3ffc7ffe7ffe7ffe3ffc3ffc1ff81ff80ff007e0018000000000"),
     ],
 )
 
-# 003
-HEART18 = Sprite(
+# 071 HEART_SOLID_18 (18x18, 3 frames)
+HEART_SOLID_18 = Sprite(
     width=18,
     height=18,
     frame_count=3,
     frames=[
-        _b("0000000000000000000000000fbe001fff003fff803fff803fff801fff001fff000ffe0007fc0003f80001f00000e000004000000000"),
-        _b("0000000000000000000f1e003fbf803fff807fffc07fffc07fffc03fff803fff801fff000ffe0007fc0001f00000e00000e000004000"),
-        _b("0000000000000000000000001fbf003fff803fff803fff803fff803fff801fff000ffe0007fc0003f80001f00000e000004000000000"),
+        _b(
+            "0000000000000f3c001ffe003fff003fff003fff003fff003fff001ffe001ffe000ffc0007f80003f00001e000000000"
+            "000000000000"
+        ),
+        _b(
+            "0000000e1c003fff003fff007fff807fff807fff807fff803fff003fff003fff001ffe000ffc0007f80003f00001e000"
+            "000000000000"
+        ),
+        _b(
+            "0000000000001f3e003fff003fff003fff003fff003fff003fff003fff001ffe000ffc000ffc0007f80001e00000c000"
+            "000000000000"
+        ),
     ],
 )
 
-# 004
-HEART20 = Sprite(
+# 072 HEART_SOLID_20 (20x20, 3 frames)
+HEART_SOLID_20 = Sprite(
     width=20,
     height=20,
     frame_count=3,
     frames=[
-        _b("000000000000000000000000078f001fdfc01fffc03fffe03fffe03fffe01fffc01fffc00fff8007ff0003fe0000f800007000007000002000000000"),
-        _b("0000000000000000000000001f8fc03fdfe03fffe03fffe03fffe03fffe03fffe01fffc01fffc00fff8007ff0001fc0000f800007000007000002000"),
-        _b("0000000000000000000000000f8f801fdfc03fffe03fffe03fffe03fffe03fffe01fffc00fff8007ff0003fe0001fc0000f800007000002000000000"),
+        _b(
+            "000000000000070e001fff801fff803fffc03fffc03fffc03fffc01fff801fff801fff800fff0007fe0003fc0001f800"
+            "006000000000000000000000"
+        ),
+        _b(
+            "000000070e001fff803fffc03fffc07fffe07fffe07fffe07fffe03fffc03fffc01fff801fff800fff0007fe0003fc00"
+            "01f800006000000000000000"
+        ),
+        _b(
+            "0000000000000f9f001fff803fffc03fffc03fffc03fffc03fffc03fffc01fff801fff800fff000fff0007fe0001f800"
+            "00f000006000000000000000"
+        ),
     ],
 )
 
-# 005
-HEART22 = Sprite(
-    width=22,
-    height=22,
-    frame_count=3,
-    frames=[
-        _b("0000000000000000000000000000000fc7e01feff01ffff01ffff01ffff01ffff01ffff00fffe007ffc003ff8001ff0000fe00007c00003800001000001000000000"),
-        _b("0000000000000000000000000fc7e01feff03ffff83ffff83ffff83ffff83ffff83ffff81ffff00fffe007ffc003ff8001ff0000fe00007c00003800001000001000"),
-        _b("0000000000000000000000000383800fefe01feff03ffff83ffff83ffff83ffff81ffff01ffff00fffe007ffc003ff8001ff00007c00003800003800001000000000"),
-    ],
-)
-
-# 006
-HEART24 = Sprite(
+# 073 HEART_SOLID_24 (24x24, 3 frames)
+HEART_SOLID_24 = Sprite(
     width=24,
     height=24,
     frame_count=3,
     frames=[
-        _b("00000000000000000000000000000007e3f00ff7f81ffffc1ffffc1ffffc1ffffc1ffffc1ffffc0ffff807fff003ffe001ffc000ff80007f00003e00001c00000800000000000000"),
-        _b("00000000000000000000000003c1e00fe3f81ff7fc3ffffe3ffffe3ffffe3ffffe3ffffe3ffffe1ffffc0ffff807fff003ffe001ffc000ff80007f00003e00001c00000800000000"),
-        _b("00000000000000000000000000000007e3f00ff7f81ffffc1ffffc1ffffc1ffffc1ffffc1ffffc0ffff80ffff807fff003ffe000ff80007f00003e00001c00001c00000800000000"),
+        _b(
+            "00000000000000000007e7e00ffff01ffff81ffff81ffff81ffff81ffff81ffff81ffff80ffff00ffff007ffe007ffe0"
+            "03ffc001ff8000ff00003c00001800000000000000000000"
+        ),
+        _b(
+            "0000000000000fe7f01ffff83ffffc3ffffc3ffffc3ffffc3ffffc3ffffc3ffffc3ffffc3ffffc1ffff80ffff00ffff0"
+            "07ffe003ffc001ff8000ff00003c00001800000000000000"
+        ),
+        _b(
+            "00000000000007c3e00ffff01ffff81ffff83ffffc3ffffc3ffffc3ffffc3ffffc1ffff81ffff80ffff00ffff007ffe0"
+            "03ffc001ff8000ff00007e00003c00000000000000000000"
+        ),
     ],
 )
 
-# 007
-HEART28 = Sprite(
+# 074 HEART_SOLID_28 (28x28, 3 frames)
+HEART_SOLID_28 = Sprite(
     width=28,
     height=28,
     frame_count=3,
     frames=[
-        _b("00000000000000000000000000000000000000000000000003f07e0007fdff000ffdff800fffff801fffffc01fffffc01fffffc00fffff800fffff8007ffff0007ffff0003fffe0001fffc00007ff000003fe000001fc000000f80000007000000070000000200000000000000000000"),
-        _b("000000000000000000000000000000000000000003f07e000ff8ff801ffdffc01fffffc03fffffe03fffffe03fffffe03fffffe01fffffc01fffffc01fffffc00fffff8007ffff0003fffe0001fffc0000fff800003fe000001fc000000f800000070000000700000002000000000000"),
-        _b("000000000000000000000000000000000000000000c0180007f8ff000ffdff800ffdff801fffffc01fffffc01fffffc01fffffc01fffffc00fffff800fffff8007ffff0003fffe0001fffc0000fff800007ff000003fe000001fc000000f800000070000000200000000000000000000"),
+        _b(
+            "00000000000000000000000001e0780007f9fe000fffff000fffff001fffff801fffff801fffff801fffff801fffff80"
+            "1fffff800fffff000fffff0007fffe0007fffe0003fffc0001fff80001fff800007fe000003fc000001f8000000f0000"
+            "00000000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000007f0fe000ff9ff001fffff801fffff803fffffc03fffffc03fffffc03fffffc03fffffc03fffffc0"
+            "3fffffc03fffffc01fffff801fffff800fffff0007fffe0007fffe0003fffc0001fff80000fff000007fe000001f8000"
+            "000f0000000600000000000000000000"
+        ),
+        _b(
+            "000000000000000000c0300007f9fe000fffff001fffff801fffff801fffff803fffffc03fffffc03fffffc01fffff80"
+            "1fffff801fffff801fffff800fffff0007fffe0007fffe0003fffc0001fff80000fff000007fe000003fc000000f0000"
+            "00060000000000000000000000000000"
+        ),
     ],
 )
 
-# 008
-HEART32 = Sprite(
+# 075 HEART_SOLID_32 (32x32, 3 frames)
+HEART_SOLID_32 = Sprite(
     width=32,
     height=32,
     frame_count=3,
     frames=[
-        _b("0000000000000000000000000000000000000000000000000000000001fc1fc003fe3fe007ff7ff00ffffff80ffffff80ffffff80ffffff80ffffff80ffffff807fffff007fffff003ffffe001ffffc000ffff80007fff00003ffe00001ffc00000ff8000007f0000003e0000001c00000008000000080000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000003fc1fe007fe3ff00fff7ff81fff7ffc1ffffffc1ffffffc1ffffffc1ffffffc1ffffffc1ffffffc1ffffffc0ffffff807fffff003ffffe003ffffe000ffff80007fff00003ffe00001ffc00000ff8000007f0000003e0000001c000000080000000800000000000"),
-        _b("00000000000000000000000000000000000000000000000000f0078003fc1fe007fe3ff00fff7ff80ffffff81ffffffc1ffffffc1ffffffc1ffffffc0ffffff80ffffff807fffff007fffff003ffffe001ffffc000ffff80003ffe00001ffc00000ff8000007f0000003e0000001c0000001c000000080000000000000000000"),
+        _b(
+            "0000000000000000000000000020040001fc3f8003ffffc007ffffe00ffffff00ffffff00ffffff00ffffff01ffffff8"
+            "0ffffff00ffffff00ffffff00ffffff007ffffe007ffffe003ffffc003ffffc001ffff8000ffff00007ffe00003ffc00"
+            "001ff800000ff0000003c0000001800000000000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000001f81f8007fe7fe00ffffff01ffffff81ffffff83ffffffc3ffffffc3ffffffc3ffffffc3ffffffc"
+            "3ffffffc3ffffffc1ffffff81ffffff81ffffff80ffffff00ffffff007ffffe003ffffc003ffffc001ffff8000ffff00"
+            "007ffe00003ffc00000ff0000007e00000018000000000000000000000000000"
+        ),
+        _b(
+            "00000000000000000000000001f81f8007fe7fe00ffffff00ffffff01ffffff81ffffff81ffffff81ffffff81ffffff8"
+            "1ffffff81ffffff81ffffff80ffffff00ffffff00ffffff007ffffe003ffffc003ffffc001ffff8000ffff00007ffe00"
+            "003ffc00001ff8000007e0000003c00000018000000000000000000000000000"
+        ),
     ],
 )
 
-# 009
-OUTLINE_HEART16 = Sprite(
-    width=16,
-    height=16,
+# 076 HEART_SOLID_40 (40x40, 3 frames)
+HEART_SOLID_40 = Sprite(
+    width=40,
+    height=40,
     frame_count=3,
     frames=[
-        _b("0000000000000e381b6c31c6208220023006180c0c180630036001c000800000"),
-        _b("0000000000001f7c31c660834081600320023006180c0c180630036001c00080"),
-        _b("0000000000001e3c336621c22082200220021004180c0e38036001c000800080"),
+        _b(
+            "0000000000000000000000000000000000000000001e007800007fc3fe0001ffe7ff8003ffffffc003ffffffc007ffff"
+            "ffe007ffffffe007ffffffe00ffffffff00ffffffff00ffffffff00ffffffff007ffffffe007ffffffe007ffffffe007"
+            "ffffffe003ffffffc003ffffffc001ffffff8001ffffff8000ffffff00007ffffe00007ffffe00003ffffc00001ffff8"
+            "00000ffff0000003ffc0000001ff80000000ff000000003c000000001800000000000000000000000000000000000000"
+            "0000000000000000"
+        ),
+        _b(
+            "00000000000000000000000000000000ff81ff0003ffc3ffc007ffffffe00ffffffff00ffffffff01ffffffff81fffff"
+            "fff81ffffffff81ffffffff81ffffffff83ffffffffc1ffffffff81ffffffff81ffffffff81ffffffff81ffffffff80f"
+            "fffffff00ffffffff00ffffffff007ffffffe003ffffffc003ffffffc001ffffff8000ffffff0000ffffff00007ffffe"
+            "00003ffffc00001ffff8000007ffe0000003ffc0000001ff800000007e000000003c0000000018000000000000000000"
+            "0000000000000000"
+        ),
+        _b(
+            "000000000000000000000000000000001c00380000ff81ff0001ffe7ff8003ffffffc007ffffffe007ffffffe00fffff"
+            "fff00ffffffff00ffffffff01ffffffff81ffffffff81ffffffff80ffffffff00ffffffff00ffffffff00ffffffff00f"
+            "fffffff007ffffffe007ffffffe003ffffffc003ffffffc001ffffff8000ffffff00007ffffe00007ffffe00003ffffc"
+            "00001ffff800000ffff0000003ffc0000001ff80000000ff000000003c00000000180000000000000000000000000000"
+            "0000000000000000"
+        ),
     ],
 )
 
-# 010
-OUTLINE_HEART20 = Sprite(
-    width=20,
-    height=20,
+# 077 HEART_SOLID_48 (48x48, 3 frames)
+HEART_SOLID_48 = Sprite(
+    width=48,
+    height=48,
     frame_count=3,
     frames=[
-        _b("000000000000000000000000078f001cd9c01070403020602000203000601000401800c00c018006030003060000d800005000007000002000000000"),
-        _b("0000000000000000000000001f8fc03050602070202020202000202000203000601000401800c00c0180070700018c0000d800005000007000002000"),
-        _b("0000000000000000000000000f8f8018d8c03070602020202000202000203000601800c00c0180060300030600018c0000d800007000002000000000"),
+        _b(
+            "0000000000000000000000000000000000000000000000000000000000000007c003e000001ff81ff800007ffe7ffe00"
+            "00ffffffff0001ffffffff8001ffffffff8003ffffffffc003ffffffffc003ffffffffc007ffffffffe007ffffffffe0"
+            "07ffffffffe007ffffffffe007ffffffffe007ffffffffe003ffffffffc003ffffffffc003ffffffffc003ffffffffc0"
+            "01ffffffff8001ffffffff8000ffffffff0000ffffffff00007ffffffe00003ffffffc00003ffffffc00001ffffff800"
+            "000ffffff0000007ffffe0000003ffffc0000001ffff80000000ffff000000007ffe000000001ff8000000000ff00000"
+            "000003c00000000001800000000000000000000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000000000000000000000000001fc003f800007ff81ffe0001fffc3fff8003fffe7fffc003ffffffffc0"
+            "07ffffffffe00ffffffffff00ffffffffff00ffffffffff01ffffffffff81ffffffffff81ffffffffff81ffffffffff8"
+            "1ffffffffff81ffffffffff81ffffffffff81ffffffffff80ffffffffff00ffffffffff00ffffffffff00ffffffffff0"
+            "07ffffffffe007ffffffffe003ffffffffc003ffffffffc001ffffffff8001ffffffff8000ffffffff00007ffffffe00"
+            "003ffffffc00001ffffff800001ffffff800000ffffff0000003ffffc0000001ffff80000000ffff000000007ffe0000"
+            "00001ff8000000000ff00000000003c00000000001800000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000000000000000000000000000000000000000fc003f000003ff81ffc0000fffc3fff0001ffffffff80"
+            "03ffffffffc003ffffffffc007ffffffffe007ffffffffe007ffffffffe00ffffffffff00ffffffffff00ffffffffff0"
+            "0ffffffffff00ffffffffff00ffffffffff00ffffffffff007ffffffffe007ffffffffe007ffffffffe007ffffffffe0"
+            "03ffffffffc003ffffffffc001ffffffff8001ffffffff8000ffffffff00007ffffffe00007ffffffe00003ffffffc00"
+            "001ffffff800000ffffff0000007ffffe0000003ffffc0000001ffff80000000ffff000000007ffe000000001ff80000"
+            "00000ff00000000003c00000000001800000000000000000000000000000000000000000000000000000000000000000"
+        ),
     ],
 )
 
-# 011
-OUTLINE_HEART24 = Sprite(
-    width=24,
-    height=24,
+# 078 HEART_SOLID_56 (56x56, 3 frames)
+HEART_SOLID_56 = Sprite(
+    width=56,
+    height=56,
     frame_count=3,
     frames=[
-        _b("00000000000000000000000000000007e3f00c3618181c0c10080410080410000410000418000c0c00180600300300600180c000c180006300003600001c00000800000000000000"),
-        _b("00000000000000000000000003c1e00c631818360c301c0620080220080220000220000230000618000c0c00180600300300600180c000c180006300003600001c00000800000000"),
-        _b("00000000000000000000000000000007e3f00c3618181c0c10080410080410000410000418000c0800080c001806003003006000c180006300003600001400001c00000800000000"),
+        _b(
+            "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000001f8001f80"
+            "00000fff00fff000001fffc3fff800003fffe7fffc00007ffffffffe0000ffffffffff0000ffffffffff0001ffffffff"
+            "ff8001ffffffffff8001ffffffffff8003ffffffffffc003ffffffffffc003ffffffffffc003ffffffffffc003ffffff"
+            "ffffc003ffffffffffc003ffffffffffc003ffffffffffc001ffffffffff8001ffffffffff8001ffffffffff8000ffff"
+            "ffffff0000ffffffffff0000ffffffffff00007ffffffffe00007ffffffffe00003ffffffffc00001ffffffff800001f"
+            "fffffff800000ffffffff0000007ffffffe0000003ffffffc0000003ffffffc0000001ffffff80000000ffffff000000"
+            "003ffffc000000001ffff8000000000ffff00000000007ffe00000000001ff800000000000ff0000000000003c000000"
+            "000000180000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+            "0000000000000000"
+        ),
+        _b(
+            "00000000000000000000000000000000000000000000000000000000000ffc003ff000003fff81fffc00007fffc3fffe"
+            "0001ffffe7ffff8001ffffffffff8003ffffffffffc007ffffffffffe007ffffffffffe00ffffffffffff00fffffffff"
+            "fff00ffffffffffff00ffffffffffff00ffffffffffff00ffffffffffff01ffffffffffff80ffffffffffff00fffffff"
+            "fffff00ffffffffffff00ffffffffffff00ffffffffffff00ffffffffffff007ffffffffffe007ffffffffffe007ffff"
+            "ffffffe003ffffffffffc003ffffffffffc003ffffffffffc001ffffffffff8000ffffffffff0000ffffffffff00007f"
+            "fffffffe00007ffffffffe00003ffffffffc00001ffffffff800000ffffffff0000007ffffffe0000003ffffffc00000"
+            "01ffffff80000000ffffff000000007ffffe000000003ffffc000000001ffff80000000007ffe00000000003ffc00000"
+            "000000ff0000000000007e0000000000003c000000000000180000000000000000000000000000000000000000000000"
+            "0000000000000000"
+        ),
+        _b(
+            "00000000000000000000000000000000000000000000000000000000000000000000000007fc003fe000001fff00fff8"
+            "00003fffc3fffc00007fffe7fffe0000ffffffffff0001ffffffffff8001ffffffffff8003ffffffffffc003ffffffff"
+            "ffc007ffffffffffe007ffffffffffe007ffffffffffe007ffffffffffe007ffffffffffe007ffffffffffe007ffffff"
+            "ffffe007ffffffffffe007ffffffffffe007ffffffffffe007ffffffffffe003ffffffffffc003ffffffffffc003ffff"
+            "ffffffc001ffffffffff8001ffffffffff8000ffffffffff0000ffffffffff00007ffffffffe00007ffffffffe00003f"
+            "fffffffc00001ffffffff800001ffffffff800000ffffffff0000007ffffffe0000003ffffffc0000001ffffff800000"
+            "00ffffff000000007ffffe000000003ffffc000000000ffff00000000007ffe00000000003ffc00000000000ff000000"
+            "0000007e0000000000001800000000000000000000000000000000000000000000000000000000000000000000000000"
+            "0000000000000000"
+        ),
     ],
 )
 
-# 012
-BROKEN_HEART16 = Sprite(
-    width=16,
-    height=16,
-    frame_count=3,
-    frames=[
-        _b("0000000000000e381e7c3dfe3efe3f3e3fde1f3c0ef807700360018000800000"),
-        _b("0000000000001f7c3efe7dff7eff7f3f3fde3f3e1efc0f78077003a001c00080"),
-        _b("0000000000001e3c3e7e3dfe3efe3f3e3fde1f3c1efc0f780360018000800080"),
-    ],
-)
-
-# 013
-BROKEN_HEART20 = Sprite(
-    width=20,
-    height=20,
-    frame_count=3,
-    frames=[
-        _b("000000000000000000000000078f001f9fc01f7fc03fbfe03fdfe03fefe01ff7c01fefc00fdf8007bf0003de0000d800006000006000002000000000"),
-        _b("0000000000000000000000001f8fc03f9fe03f7fe03fbfe03fdfe03fefe03ff7e01fefc01fdfc00fbf8007df0001dc0000e800006000007000002000"),
-        _b("0000000000000000000000000f8f801f9fc03f7fe03fbfe03fdfe03fefe03ff7e01fefc00fdf8007bf0003de0001dc0000e800006000002000000000"),
-    ],
-)
-
-# 014
-BROKEN_HEART24 = Sprite(
-    width=24,
-    height=24,
-    frame_count=3,
-    frames=[
-        _b("00000000000000000000000000000007e3f00fe7f81fdffc1fdffc1feffc1ff7fc1ffbfc1ffdfc0ffbf807f7f003f7e001efc000ef80007700003600001800000800000000000000"),
-        _b("00000000000000000000000003c1e00fe3f81fe7fc3fdffe3fdffe3feffe3ff7fe3ffbfe3ffdfe1ffbfc0ff7f807f7f003efe001efc000f780007700003a00001800000800000000"),
-        _b("00000000000000000000000000000007e3f00fe7f81fdffc1fdffc1feffc1ff7fc1ffbfc1ffdfc0ffbf80ff7f807f7f003efe000ef80007700003600001800001800000800000000"),
-    ],
-)
-
-# 015
-DOUBLE_HEART16 = Sprite(
-    width=20,
-    height=16,
-    frame_count=3,
-    frames=[
-        _b("0000000000000000000000000000003fe0003fe0003fe6c03fefe01fcfe00f8fe0070fe00207c0000380000000000000"),
-        _b("0000000000000000000000000000003fe0003fe0003fe0003fe6c01fcfe00f8fe0070fe0020fe00007c0000380000000"),
-        _b("0000000000000000000000000000003fe0003fe0003fe6c03fefe01fcfe00f8fe0070fe00207c0000380000000000000"),
-    ],
-)
-
-# 016
-DOUBLE_HEART20 = Sprite(
-    width=24,
-    height=20,
-    frame_count=3,
-    frames=[
-        _b("0000000000000000000000000000000000001ef0003ff8003ff8003ff9fc3ffbfe1ff3fe0fe3fe07c1fc0380f8010070000020000000000000000000"),
-        _b("0000000000000000000000000000000000001ef0003ff8003ff8003ff8003ff9fc1ff3fe0fe3fe07c3fe0381fc0100f8000070000020000000000000"),
-        _b("0000000000000000000000000000000000001ef0003ff8003ff8003ff9fc3ffbfe1ff3fe0fe3fe07c1fc0380f8010070000020000000000000000000"),
-    ],
-)
-
-# 017
-DOUBLE_HEART24 = Sprite(
-    width=28,
-    height=24,
-    frame_count=3,
-    frames=[
-        _b("00000000000000000000000000000000000000000000000000000000000000001f7c00001ffc00003ffe3b803ffe7fc01ffcffe01ffcffe00ff87fc007f07fc001c03f8001c01f0000800e000000040000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000001f7c00001ffc00003ffe00003ffe3b801ffc7fc01ffcffe00ff8ffe007f07fc001c07fc001c03f8000801f0000000e0000000400000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000001f7c00001ffc00003ffe3b803ffe7fc01ffcffe01ffcffe00ff87fc007f07fc001c03f8001c01f0000800e000000040000000000000000000000000000000000"),
-    ],
-)
-
-# 018
-HEART_ARROW16 = Sprite(
-    width=18,
-    height=16,
-    frame_count=3,
-    frames=[
-        _b("000000000000000000071c001fbf001ff0001ff8001fc6001f3d0008fc0007fe0003f80001f00000e000004000000000"),
-        _b("0000000000000000001fbf001fff003ff0003ff8803fc6803f3d8018fd0007fe0007fc0003f80001f00000e000004000"),
-        _b("0000000000000000000f1e001fbf001ff0001ff8001fc6001f3d0018fd0007fe0007fc0003f80000e00000e000004000"),
-    ],
-)
-
-# 019
-HEART_ARROW20 = Sprite(
-    width=22,
-    height=20,
-    frame_count=3,
-    frames=[
-        _b("00000000000000000000000007c7c00fefe00fffe01fff001fff001ff8e00f87c00c7fc003ffc003ff8001ff0000fe00007c00003800001000000000"),
-        _b("0000000000000000000383800fefe01feff01ffff03fff003fff083ff8e81f87d01c7fd003ffe007ffc003ff8001ff00007c00003800003800001000"),
-        _b("00000000000000000000000007c7c00fefe01ffff01fff001fff001ff8e01f87d00c7fc003ffc003ff8001ff0000fe00007c00003800001000000000"),
-    ],
-)
-
-# 020
-HEART_ARROW24 = Sprite(
-    width=26,
-    height=24,
-    frame_count=3,
-    frames=[
-        _b("000000000000000000000000000000000000000003f1f80007fbfc000ffffe000ffffe000ffff0000fffe0000ffe1e000fe1fc00061ffc0001fff80003fff80000ffe000007fc000003f8000001f0000000e0000000400000004000000000000"),
-        _b("0000000000000000000000000000000003e0f8000ff1fe001ffbff001fffff001fffff001ffff0001fffe0001ffe1e001fe1fd000e1ffc0001fffc0007fffc0003fff80000ffe000007fc000003f8000001f0000000e00000004000000040000"),
-        _b("000000000000000000000000000000000000000007f1fc000ffbfe000ffffe001fffff001ffff0001fffe0001ffe1e000fe1fc000e1ffc0001fffc0003fff80001fff00000ffe000007fc000001f0000000e0000000e00000004000000000000"),
-    ],
-)
-
-# 021
-HEART_LOCK16 = Sprite(
-    width=16,
-    height=16,
-    frame_count=3,
-    frames=[
-        _b("0000000000000e381f7c3ffe3ffe3f7e3ebe1ddc080803e003e0036003e00000"),
-        _b("0000000000001f7c3ffe7fff7fff7f7f3ebe3dde180c0be803e0036003e00000"),
-        _b("0000000000001e3c3f7e3ffe3ffe3f7e3ebe1ddc180c0be803e0036003e00000"),
-    ],
-)
-
-# 022
-HEART_LOCK20 = Sprite(
-    width=20,
-    height=20,
-    frame_count=3,
-    frames=[
-        _b("000000000000000000000000078f001fdfc01fffc03fffe03fffe03fdfe01fafc01f77c00e038006fb0002fa0000d80000f800000000002000000000"),
-        _b("0000000000000000000000001f8fc03fdfe03fffe03fffe03fffe03fdfe03fafe01f77c01e03c00efb8006fb0000d80000f800000000007000002000"),
-        _b("0000000000000000000000000f8f801fdfc03fffe03fffe03fffe03fdfe03fafe01f77c00e038006fb0002fa0000d80000f800000000002000000000"),
-    ],
-)
-
-# 023
-HEART_LOCK24 = Sprite(
-    width=24,
-    height=24,
-    frame_count=3,
-    frames=[
-        _b("00000000000000000000000000000007e3f00ff7f81ffffc1ffffc1ffffc1ffffc1ff7fc1febfc0fddf80780f003bee001bec000b680003e00000000001c00000800000000000000"),
-        _b("00000000000000000000000003c1e00fe3f81ff7fc3ffffe3ffffe3ffffe3ffffe3ff7fe3febfe1fddfc0f80f807bef003bee001b6c000be80000000003e00001c00000800000000"),
-        _b("00000000000000000000000000000007e3f00ff7f81ffffc1ffffc1ffffc1ffffc1ff7fc1febfc0fddf80f80f807bef003bee000b680003e00000000001c00001c00000800000000"),
-    ],
-)
-
-# 024
-HEART_KEY16 = Sprite(
-    width=20,
-    height=16,
-    frame_count=3,
-    frames=[
-        _b("000000000000000000038e000fdf800fff800fff800ff1800fee8007ee0007ee0001f00000f800007000002000000000"),
-        _b("0000000000000000000fdf800fff801fffc01fffc01ff1c01feec00fee0007ee0003f00001fc0000f800007000002000"),
-        _b("000000000000000000078f000fdf800fff800fff800ff1800fee800fee0007ee0003f00001fc00007000007000002000"),
-    ],
-)
-
-# 025
-HEART_KEY20 = Sprite(
-    width=24,
-    height=20,
-    frame_count=3,
-    frames=[
-        _b("00000000000000000000000003e3e007f7f007fff00ffff80ffff80ffff807fc7007fbb003fb8001fb8000fc00007f00003e00001c00000800000000"),
-        _b("00000000000000000001c1c007f7f00ff7f80ffff81ffffc1ffffc1ffffc0ffc780ffbb807fb8003fba001fc4000ff80003e00001c00001c00000800"),
-        _b("00000000000000000000000003e3e007f7f00ffff80ffff80ffff80ffff80ffc7807fbb003fb8001fb8000fc00007f00003e00001c00000800000000"),
-    ],
-)
-
-# 026
-HEART_KEY24 = Sprite(
-    width=28,
-    height=24,
-    frame_count=3,
-    frames=[
-        _b("000000000000000000000000000000000000000001f8fc0003fdfe0007ffff0007ffff0007ffff0007ffff0007ffff0007ff1f0003feee0001fee00001feec00007f1000003fe000001fc000000f800000070000000200000002000000000000"),
-        _b("0000000000000000000000000000000001f07c0007f8ff000ffdff800fffff800fffff800fffff800fffff800fffff800fff1f8007feef0003fee00003feee0001ff1c00007ff000003fe000001fc000000f8000000700000002000000020000"),
-        _b("000000000000000000000000000000000000000003f8fe0007fdff0007ffff000fffff800fffff800fffff800fffff8007ff1f0007feef0003fee00001feec0000ff1800007ff000003fe000000f800000070000000700000002000000000000"),
-    ],
-)
-
-# 027
-SPARKLE_HEART16 = Sprite(
-    width=16,
-    height=16,
-    frame_count=3,
-    frames=[
-        _b("0000200070102e381f7c3ffe3ffe3ffe3ffe1ffc0ff807fc03e801c000800000"),
-        _b("0000200070103f7c3ffe7fff7fff7fff3ffe3ffe1ffc0ffc07f803e001c00080"),
-        _b("0000200070103e3c3f7e3ffe3ffe3ffe3ffe1ffc1ffc0ffc03e801c000800080"),
-    ],
-)
-
-# 028
-SPARKLE_HEART20 = Sprite(
-    width=20,
-    height=20,
-    frame_count=3,
-    frames=[
-        _b("000000200000700100200380078f001fdfc01fffc03fffe03fffe03fffe01fffc01fffc00fff8007ff0003fe8000f9c0007080007000002000000000"),
-        _b("0000002000007001002003801f8fc03fdfe03fffe03fffe03fffe03fffe03fffe01fffc01fffc00fff8007ff8001fdc000f880007000007000002000"),
-        _b("0000002000007001002003800f8f801fdfc03fffe03fffe03fffe03fffe03fffe01fffc00fff8007ff0003fe8001fdc000f880007000002000000000"),
-    ],
-)
-
-# 029
-SPARKLE_HEART24 = Sprite(
-    width=24,
-    height=24,
-    frame_count=3,
-    frames=[
-        _b("00000020000070001020003800001007e3f00ff7f81ffffc1ffffc1ffffc1ffffc1ffffc1ffffc0ffff807fff003ffe001ffc000ff80007f08003e1c001c08000800000000000000"),
-        _b("00000020000070001020003803c1f00fe3f81ff7fc3ffffe3ffffe3ffffe3ffffe3ffffe3ffffe1ffffc0ffff807fff003ffe001ffc000ff88007f1c003e08001c00000800000000"),
-        _b("00000020000070001020003800001007e3f00ff7f81ffffc1ffffc1ffffc1ffffc1ffffc1ffffc0ffff80ffff807fff003ffe000ff80007f08003e1c001c08001c00000800000000"),
-    ],
-)
-
-# 030
-TINY_HEART_PAIR16 = Sprite(
-    width=18,
-    height=16,
-    frame_count=3,
-    frames=[
-        _b("0000000000000000000000000000003fc0003fc0003fc9003fffc03fffc01fbfc0061f80060f00000600000000000000"),
-        _b("0000000000000000000000000000003fc0003fc0003fc0003fc9003fffc01fbfc0063fc0061f80000f00000600000000"),
-        _b("0000000000000000000000000000003fc0003fc0003fc9003fffc03fffc01fbfc0061f80060f00000600000000000000"),
-    ],
-)
-
-# 031
-LOVE_BADGE24 = Sprite(
-    width=24,
-    height=24,
-    frame_count=3,
-    frames=[
-        _b("00000000000000000000000000000007e3f00ff7f81ffffc1ffffc1ffffc1ffffc1ffffc1ffffc0ffff807fff003ffe001ffc0000000005b00001c00001c00000800000000000000"),
-        _b("00000000000000000000000003c1e00fe3f81ff7fc3ffffe3ffffe3ffffe3ffffe3ffffe3ffffe1ffffc0ffff807fff003ffe000000000db80005d00001c00001c00000000000000"),
-        _b("00000000000000000000000000000007e3f00ff7f81ffffc1ffffc1ffffc1ffffc1ffffc1ffffc0ffff807fff003ffe001ffc0000000005b00001c00001c00000800000000000000"),
-    ],
-)
-
-CAT_2D_WALK_32 = Sprite(
-    width=32,
-    height=32,
-    frame_count=17,
-    frames=[
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000007ffffc00ffffff80ffffff81ffffff83ffffff87ffffff87ffffff8fffffff0fffffff0f77fec0003706e0003f07e0001f07c00000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000007ffffc00ffffff80ffffff81ffffff83ffffff87ffffff87ffffff8fffffff0fffffff0f7fffc0007e0fc0007e0fe000360fe00000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000007ffffc00ffffff80ffffff81ffffff83ffffff8fffffff8fffffff8fffffff0fffffff0f77fec0003706e0003f07e0001f07c00000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000007ffffc00ffffff80ffffff81ffffff83ffffff87ffffff87ffffff8fffffff0fffffff0f77fec0003706e0003f07e0001f07c00000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000003ffffe01ffffff01ffffff01ffffff81ffffffc1ffffffe1ffffffe0fffffff0fffffff0037feef00760ec0007e0fc0003e0f80000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000003ffffe01ffffff01ffffff01ffffff81ffffffc1ffffffe1ffffffe0fffffff0fffffff003fffef003f07e0007f07e0007f06c0000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000003ffffe01ffffff01ffffff01ffffff81ffffffc1fffffff1fffffff0fffffff0fffffff0037feef00760ec0007e0fc0003e0f80000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000003ffffe01ffffff01ffffff01ffffff81ffffffe1fffffff1fffffff0fffffff0ffffffe003fffee003f07e0007f07e0007f06c0000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000003f8000003f8000003f8000003c0000003c000003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00001ff800001ff800001ff800001ff8000003c0000000000000000000000000000000000000000000"),
-        _b("0003c0000003c0000003c0000003c0000003c0000023c000003ff800003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00001ffc00001ff800001ff800001ff800001ff800001ff8000003c0000000000000000000000000000000000000000000"),
-        _b("000000000003f8000003f8000003f8000003c0000003c000003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00001ff800001ff800001ff800001ff8000003c0000000000000000000000000000000000000000000"),
-        _b("003fc000003fc000003fc0000003c0000003c0000003c000001ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ff800001ff800001ff800001ff800001ff800001ff8000003c0000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000003c000001ff800001ff800001ff800001ff800003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc000003c0000003c0000003f8000003f8000003f80000000000"),
-        _b("00000000000000000000000000000000000000000003c000001ff800001ff800001ff800001ff800001ff800001ff800003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ff8000023c0000003c0000003c000000fc000001fc000001fc000"),
-        _b("00000000000000000000000000000000000000000003c000001ff800001ff800001ff800001ff800003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc000003c0000003c0000003f8000003f8000003f80000000000"),
-        _b("00000000000000000000000000000000000000000003c000001ff800001ff800001ff800001ff800001ff800003ff800003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc000003c4000003c0000003c0000003c0000003c00000000000"),
-        _b("00000000000000000000000000000000000000000003c000001ff800001ff800001ff800001ff800003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc00003ffc000003c0000003c0000003c0000003c0000003c0000003c000"),
-    ],
-)
-
-CAT_2D_WALK_64 = Sprite(
+# 079 HEART_SOLID_64 (64x64, 3 frames)
+HEART_SOLID_64 = Sprite(
     width=64,
     height=64,
-    frame_count=17,
+    frame_count=3,
     frames=[
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003ffffffffff000003ffffffffff00000ffffffffffffc000ffffffffffffc000ffffffffffffc000ffffffffffffc003ffffffffffffc003ffffffffffffc00fffffffffffffc00fffffffffffffc03fffffffffffffc03fffffffffffffc03fffffffffffffc03fffffffffffffc0ffffffffffffff00ffffffffffffff00ffffffffffffff00ffffffffffffff00ff3f3ffffcf00000ff3f3ffffcf00000000f3f003cfc0000000f3f003cfc0000000fff003ffc0000000fff003ffc00000003ff003ff000000003ff003ff00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003ffffffffff000003ffffffffff00000ffffffffffffc000ffffffffffffc000ffffffffffffc000ffffffffffffc003ffffffffffffc003ffffffffffffc00fffffffffffffc00fffffffffffffc03fffffffffffffc03fffffffffffffc03fffffffffffffc03fffffffffffffc0ffffffffffffff00ffffffffffffff00ffffffffffffff00ffffffffffffff00ff3ffffffff00000ff3ffffffff00000003ffc00fff00000003ffc00fff00000003ffc00fffc0000003ffc00fffc0000000f3c00fffc0000000f3c00fffc0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003ffffffffff000003ffffffffff00000ffffffffffffc000ffffffffffffc000ffffffffffffc000ffffffffffffc003ffffffffffffc003ffffffffffffc00fffffffffffffc00fffffffffffffc0ffffffffffffffc0ffffffffffffffc0ffffffffffffffc0ffffffffffffffc0ffffffffffffff00ffffffffffffff00ffffffffffffff00ffffffffffffff00ff3f3ffffcf00000ff3f3ffffcf00000000f3f003cfc0000000f3f003cfc0000000fff003ffc0000000fff003ffc00000003ff003ff000000003ff003ff00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003ffffffffff000003ffffffffff00000ffffffffffffc000ffffffffffffc000ffffffffffffc000ffffffffffffc003ffffffffffffc003ffffffffffffc00fffffffffffffc00fffffffffffffc03fffffffffffffc03fffffffffffffc03fffffffffffffc03fffffffffffffc0ffffffffffffff00ffffffffffffff00ffffffffffffff00ffffffffffffff00ff3f3ffffcf00000ff3f3ffffcf00000000f3f003cfc0000000f3f003cfc0000000fff003ffc0000000fff003ffc00000003ff003ff000000003ff003ff00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffffffc00000ffffffffffc0003ffffffffffff0003ffffffffffff0003ffffffffffff0003ffffffffffff0003ffffffffffffc003ffffffffffffc003fffffffffffff003fffffffffffff003fffffffffffffc03fffffffffffffc03fffffffffffffc03fffffffffffffc00ffffffffffffff00ffffffffffffff00ffffffffffffff00ffffffffffffff00000f3ffffcfcff00000f3ffffcfcff00003f3c00fcf00000003f3c00fcf00000003ffc00fff00000003ffc00fff00000000ffc00ffc00000000ffc00ffc000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffffffc00000ffffffffffc0003ffffffffffff0003ffffffffffff0003ffffffffffff0003ffffffffffff0003ffffffffffffc003ffffffffffffc003fffffffffffff003fffffffffffff003fffffffffffffc03fffffffffffffc03fffffffffffffc03fffffffffffffc00ffffffffffffff00ffffffffffffff00ffffffffffffff00ffffffffffffff00000ffffffffcff00000ffffffffcff00000fff003ffc0000000fff003ffc0000003fff003ffc0000003fff003ffc0000003fff003cf00000003fff003cf000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffffffc00000ffffffffffc0003ffffffffffff0003ffffffffffff0003ffffffffffff0003ffffffffffff0003ffffffffffffc003ffffffffffffc003fffffffffffff003fffffffffffff003ffffffffffffff03ffffffffffffff03ffffffffffffff03ffffffffffffff00ffffffffffffff00ffffffffffffff00ffffffffffffff00ffffffffffffff00000f3ffffcfcff00000f3ffffcfcff00003f3c00fcf00000003f3c00fcf00000003ffc00fff00000003ffc00fff00000000ffc00ffc00000000ffc00ffc000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffffffc00000ffffffffffc0003ffffffffffff0003ffffffffffff0003ffffffffffff0003ffffffffffff0003ffffffffffffc003ffffffffffffc003fffffffffffffc03fffffffffffffc03ffffffffffffff03ffffffffffffff03ffffffffffffff03ffffffffffffff00ffffffffffffff00ffffffffffffff00fffffffffffffc00fffffffffffffc00000ffffffffcfc00000ffffffffcfc00000fff003ffc0000000fff003ffc0000003fff003ffc0000003fff003ffc0000003fff003cf00000003fff003cf000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000fffc000000000000fffc000000000000fffc000000000000fffc000000000000fffc000000000000fffc000000000000ff00000000000000ff00000000000000ff00000000000000ff000000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc000000000000ff00000000000000ff00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000ff00000000000000ff00000000000000ff00000000000000ff00000000000000ff00000000000000ff00000000000000ff00000000000000ff00000000000000ff00000000000000ff000000000000c0ff000000000000c0ff000000000000fffffc0000000000fffffc0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff00000000003fffff00000000003fffff00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc000000000000ff00000000000000ff00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000fffc000000000000fffc000000000000fffc000000000000fffc000000000000fffc000000000000fffc000000000000ff00000000000000ff00000000000000ff00000000000000ff000000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc000000000000ff00000000000000ff00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000ffff000000000000ffff000000000000ffff000000000000ffff000000000000ffff000000000000ffff00000000000000ff00000000000000ff00000000000000ff00000000000000ff00000000000000ff00000000000000ff0000000000003fffff00000000003fffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000fffffc0000000000fffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc000000000000ff00000000000000ff00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ff00000000000000ff0000000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff000000000000ff00000000000000ff00000000000000ff00000000000000ff00000000000000fffc000000000000fffc000000000000fffc000000000000fffc000000000000fffc000000000000fffc0000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ff00000000000000ff0000000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000fffffc0000000000fffffc0000000000c0ff000000000000c0ff00000000000000ff00000000000000ff00000000000000ff00000000000000ff0000000000000fff0000000000000fff0000000000003fff0000000000003fff0000000000003fff0000000000003fff0000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ff00000000000000ff0000000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff000000000000ff00000000000000ff00000000000000ff00000000000000ff00000000000000fffc000000000000fffc000000000000fffc000000000000fffc000000000000fffc000000000000fffc0000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ff00000000000000ff0000000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc0000000000fffffc0000000000fffffc0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff000000000000ff03000000000000ff03000000000000ff00000000000000ff00000000000000ff00000000000000ff00000000000000ff00000000000000ff00000000000000ff00000000000000ff000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ff00000000000000ff0000000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc00000000003ffffc0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff0000000000ffffff000000000000ff00000000000000ff00000000000000ff00000000000000ff00000000000000ff00000000000000ff00000000000000ff00000000000000ff00000000000000ff00000000000000ff00000000000000ff00000000000000ff0000000"),
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+            "000000000000000000007f8001fe00000003ffe007ffc0000007fff81fffe000000ffffe7ffff000001ffffffffff800"
+            "003ffffffffffc00007ffffffffffe00007ffffffffffe0000ffffffffffff0000ffffffffffff0000ffffffffffff00"
+            "01ffffffffffff8001ffffffffffff8001ffffffffffff8001ffffffffffff8001ffffffffffff8001ffffffffffff80"
+            "01ffffffffffff8001ffffffffffff8001ffffffffffff8000ffffffffffff0000ffffffffffff0000ffffffffffff00"
+            "00ffffffffffff00007ffffffffffe00007ffffffffffe00007ffffffffffe00003ffffffffffc00003ffffffffffc00"
+            "001ffffffffff800000ffffffffff000000ffffffffff0000007ffffffffe0000003ffffffffc0000003ffffffffc000"
+            "0001ffffffff80000000ffffffff000000007ffffffe000000003ffffffc000000001ffffff8000000000ffffff00000"
+            "000007ffffe00000000001ffff800000000000ffff0000000000007ffe0000000000001ff80000000000000ff0000000"
+            "00000003c000000000000001800000000000000000000000000000000000000000000000000000000000000000000000"
+            "0000000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "00000000000000000000000000000000000000000000000000000000000000000001fe00007f80000007ffc003ffe000"
+            "001ffff00ffff800003ffffc3ffffc00007ffffe7ffffe0000ffffffffffff0001ffffffffffff8003ffffffffffffc0"
+            "03ffffffffffffc007ffffffffffffe007ffffffffffffe007ffffffffffffe007ffffffffffffe00ffffffffffffff0"
+            "0ffffffffffffff00ffffffffffffff00ffffffffffffff00ffffffffffffff00ffffffffffffff00ffffffffffffff0"
+            "0ffffffffffffff00ffffffffffffff007ffffffffffffe007ffffffffffffe007ffffffffffffe007ffffffffffffe0"
+            "03ffffffffffffc003ffffffffffffc003ffffffffffffc001ffffffffffff8001ffffffffffff8000ffffffffffff00"
+            "00ffffffffffff00007ffffffffffe00007ffffffffffe00003ffffffffffc00001ffffffffff800001ffffffffff800"
+            "000ffffffffff0000007ffffffffe0000003ffffffffc0000001ffffffff80000000ffffffff000000007ffffffe0000"
+            "00003ffffffc000000001ffffff8000000000ffffff00000000007ffffe00000000001ffff800000000000ffff000000"
+            "0000003ffc0000000000001ff80000000000000ff000000000000003c000000000000001800000000000000000000000"
+            "0000000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+            "0001ffc003ff80000007fff00fffe000001ffffc3ffff800003ffffe7ffffc00007ffffffffffe0000ffffffffffff00"
+            "00ffffffffffff0001ffffffffffff8001ffffffffffff8003ffffffffffffc003ffffffffffffc003ffffffffffffc0"
+            "03ffffffffffffc003ffffffffffffc003ffffffffffffc007ffffffffffffe007ffffffffffffe003ffffffffffffc0"
+            "03ffffffffffffc003ffffffffffffc003ffffffffffffc003ffffffffffffc003ffffffffffffc001ffffffffffff80"
+            "01ffffffffffff8001ffffffffffff8000ffffffffffff0000ffffffffffff00007ffffffffffe00007ffffffffffe00"
+            "003ffffffffffc00003ffffffffffc00001ffffffffff800001ffffffffff800000ffffffffff0000007ffffffffe000"
+            "0003ffffffffc0000001ffffffff80000001ffffffff80000000ffffffff000000007ffffffe000000003ffffffc0000"
+            "00000ffffff00000000007ffffe00000000003ffffc00000000001ffff8000000000007ffe0000000000003ffc000000"
+            "0000000ff000000000000007e000000000000003c0000000000000018000000000000000000000000000000000000000"
+            "0000000000000000000000000000000000000000000000000000000000000000"
+        ),
     ],
 )
 
-CAT_GOLD_WALK_64 = Sprite(
-    width=64,
-    height=64,
-    frame_count=6,
+# 080 HEART_OUTLINE_16 (16x16, 3 frames)
+HEART_OUTLINE_16 = Sprite(
+    width=16,
+    height=16,
+    frame_count=3,
     frames=[
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000038000000000000003e000000000000001e00000000000000070000000000000007000000000000000700000000000000060000000000000006000000000000000e000000000400000e000000000c00001c000000001c00003c000000001c00003800000000ff00007800000001ff8000f000000003ff8000f00000000fffc000f00000003fffc000f0000000ffffe000f000f807fffff000f00ffffffffff000f01ffffffffff000783fffffffffe0003c3fffffffff00001fffffffffe000001fffffffffc0000003ffffffffc00000007fffffffc0000000ffffffffc0000000ffffffffc0000000ffffffffc0000000ffffffffc0000000ffffffffc00000003ffe01ffe00000003ff800ffe00000003ff8007fe00000003ff8007fe00000003ff800ffe00000007efc00f9f00000007e7e00f0f0000000fc1e00f070000000f81e00f070000001e00f00e038000001e00700e038000003c00380f01c000003e00380f01c0000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000018000000000000001c000000000000000e0000000000000006000000000000000600000000000000060000000000000006000000000000000e000000000000000e000000000400000e000000000c00000c000000001c00003c000000001c00003c00000000ff00003c00000001ff80003c00000003ff8000380000000fffc000380000003fffc00038000000ffffe0001800f807fffff000180ffffffffff000181ffffffffff0001c3fffffffffe0001e3fffffffff00000fffffffffe000000fffffffffc0000003ffffffffc00000007fffffff80000000ffffffff80000000ffffffff00000000ffffffff00000000ffffffff00000000ffffffff000000003ffc1fff000000003ff807ff000000001ff803ff000000000ff801ff0000000007f000ff0000000003f0007f0000000007e0007f000000000fc0007f000000000fc0007f000000001fc0007e000000001de0007e000000001df0007c000000000cf0007c000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000007800000000000000fc00000000000000fc00000000000000cc000000000000001c000000000000001c000000000000001c000000000000001c00000000000000180000000004000018000000000c000018000000001c000038000000001c00003000000000ff00007000000001ff80007000000003ff8000700000000fffc000700000003fffc00070000000ffffe0007000f807fffff000700ffffffffff000701ffffffffff000383fffffffffe0003c3fffffffff00001fffffffffe000001fffffffffc0000007ffffffffc00000007fffffff80000000ffffffff80000000ffffffff00000000ffffffff00000000ffffffff00000000ffffffff000000003ffc1fff000000003ff807ff000000001ff803ff000000000ff803ff0000000007fc01ff8000000003fc01f78000000003fc00e3c000000003f800e3c000000007f800c0e000000007b800c0f00000000f7000e07c0000000c7000f03c0000000e6000f0000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000007800000000000000f800000000000000380000000000000018000000000000001c000000000000001c000000000000001c000000000000001800000000000000180000000004000018000000000c000018000000001c000038000000001c00003000000000ff00003000000001ff80003000000003ff8000300000000fffc000700000003fffc00070000000ffffe0007000f807fffff000300ffffffffff000301ffffffffff000383fffffffffe0003c3fffffffff00001fffffffffe000001fffffffffc0000007ffffffffc00000007fffffffc0000000ffffffffc0000000ffffffffc0000000ffffffffc0000000ffffffffc0000000ffffffffc00000003ffe01ffe00000003ff800ffe00000003ff8007fe00000003ff8007fe00000003ff800ffe00000007efc00f9f00000007e7e00f0f0000000fc1e00f070000000f81e00f070000001e00f00e038000001e00700e038000003c00380f01c000003e00380f01c0000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000007800000000000000fc00000000000000fc00000000000000cc000000000000001c000000000000001c000000000000001c000000000000001c00000000000000180000000004000018000000000c000018000000001c000038000000001c00003000000000ff00007000000001ff80007000000003ff8000700000000fffc000700000003fffc00070000000ffffe0007000f807fffff000700ffffffffff000701ffffffffff000383fffffffffe0003c3fffffffff00001fffffffffe000001fffffffffc0000007ffffffffc00000007fffffffc0000000ffffffffc0000000ffffffffc0000000ffffffffc0000000ffffffffc0000000ffffffffc00000003ffe01ffc00000003ff800ff800000001ff8007f800000000ff8007f0000000007f0007f0000000003f0007f0000000007e0007f000000000fc0007f000000000fc0003f000000001fc0001f000000001de0000f000000001df0000f800000000cf00007800000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000007800000000000000fc00000000000000fc00000000000000cc000000000000001c000000000000001c000000000000001c000000000000001c00000000000000180000000004000018000000000c000018000000001c000038000000001c00003000000000ff00007000000001ff80007000000003ff8000700000000fffc000700000003fffc00070000000ffffe0007000f807fffff000700ffffffffff000701ffffffffff000383fffffffffe0003c3fffffffff00001fffffffffe000001fffffffffc0000007ffffffffc00000007fffffff80000000ffffffff80000000ffffffff00000000ffffffff00000000ffffffff00000000ffffffff000000003ffe1fff000000003ffc07ff000000001ff803ff000000000ff803ff0000000007fc01ff8000000003fc01f78000000003fc00e3c000000003f800e3c000000007f800c0e000000007b800c0f00000000f7000e07c0000000c7000f03c0000000e600070000000000000000000000"),
+        _b("000000001ff8318c2004200420042004300c10080810042003c0018000000000"),
+        _b("00001e783bdc600660064002400260062004300c10080810066003c000000000"),
+        _b("00000c303ffc300c60066006600620042004100818180c300660018000000000"),
     ],
 )
 
-CAT_FIGHTER_64 = Sprite(
-    width=64,
-    height=64,
-    frame_count=194,
+# 081 HEART_OUTLINE_20 (20x20, 3 frames)
+HEART_OUTLINE_20 = Sprite(
+    width=20,
+    height=20,
+    frame_count=3,
     frames=[
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006060000000000000f0f0000000000000fff8000000000001fff8000000000001fff8000000000001fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001fe00000000000001f8c0000000000003ffe0000000000003ffe0000000000003ffc0000000000003ff00000000000003fc00000000000033fc0000000000007ffc0000000000003ffe0000000000001fde00000000000003cf000000000000078f000000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0c0000000000001e0e0000000000001fff0000000000001fff8000000000001fff8000000000001fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001fe00000000000001f8c0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffc0000000000003fc00000000000063fc0000000000007ffe0000000000003ffe0000000000001fcf000000000000078f000000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006060000000000000f0f0000000000000fff8000000000001fff8000000000001fff8000000000001fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001fe00000000000001f8c0000000000003ffe0000000000003ffe0000000000003ffc0000000000003ff00000000000003fc00000000000033fc0000000000007ffc0000000000003ffe0000000000001fde00000000000003cf000000000000078f000000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006060000000000000f0f0000000000000fff8000000000001fff8000000000001fff8000000000001fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001fe00000000000001f8c0000000000003ffe0000000000003ffe0000000000003ffc0000000000003ff00000000000003fc00000000000033fc0000000000007ffc0000000000003ffc0000000000001ffe00000000000003de00000000000007de000000000000078f000000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000800000003000000004020800100200000002080010020000041e08381002070304220844100208840422087c1002088404220840100208840422084410020884041e083810020703800000003000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000c000000000070000c0000083c0010001400000422001032140000042200104c24000004220010003e00000422001000040000083c0010000400000020000000000000002000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006060000000000000f0f0000000000000fff8000000000001fff8000000000001fff8000000000001fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001fe00000000000001f8c0000000000003ffe0000000000003ffe0000000000003ffc0000000000003ff00000000000003fc00000000000033fc0000000000007ffc0000000000003ffe0000000000001fde00000000000003cf00000000000007cf000000000000078f000000000000078700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006060000000000000f0f0000000000000fff0000000000001fff8000000000001fff8000000000001fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001fe00000000000001f9c0000000000003ffe0000000000003ffe0000000000003ffc0000000000003ff00000000000033fc0000000000007bfc0000000000003ffc0000000000001ffc0000000000000ffe00000000000001fe00000000000003fe00000000000003de00000000000003dc00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0c0000000000001e0e0000000000001fff0000000000001fff8000000000001fff8000000000001fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001fec0000000000001f9e0000000000003ffe0000000000003ffc0000000000003ff80000000000003ff00000000000013fc0000000000003bfc0000000000003ffc0000000000001ffc0000000000000ffc00000000000001fe00000000000001fe00000000000003fe00000000000003fc00000000000001f000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000e060000000000001e0f0000000000001fff0000000000001fff8000000000001fff8000000000001fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001fec0000000000001f9e0000000000003ffe0000000000003ffe0000000000003ffc0000000000003ff00000000000003fc00000000000033fc0000000000003ffc0000000000003ffc0000000000001ff800000000000001fc00000000000001fc00000000000001f800000000000001f000000000000000e000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006060000000000000f0f0000000000000fff8000000000001fff8000000000001fff8000000000001fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001fe00000000000001f8c0000000000003ffe0000000000003ffe0000000000003ffc0000000000003ff00000000000003fc00000000000033fc0000000000007ffc0000000000003ffc0000000000001ff800000000000003f800000000000003fc00000000000003fc00000000000001b800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000e060000000000001e0f0000000000001fff0000000000001fff8000000000001fff8000000000001fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001fe00000000000001f8c0000000000003ffe0000000000003ffe0000000000003ffc0000000000003ff80000000000003fc00000000000033fc0000000000003ffc0000000000003ffc0000000000001ffc00000000000001fc00000000000003f800000000000003f800000000000001f000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0c0000000000001e0e0000000000001fff0000000000001fff8000000000001fff8000000000001fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001fec0000000000001f9e0000000000003ffe0000000000003ffc0000000000003ff80000000000003ff00000000000013fc0000000000003bfc0000000000003ffc0000000000001ffc0000000000000ffc00000000000001fe00000000000001fe00000000000003fe00000000000003fc00000000000001f000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006060000000000000f0f0000000000000fff0000000000001fff8000000000001fff8000000000001fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001fe00000000000001f9c0000000000003ffe0000000000003ffe0000000000003ffc0000000000003ff00000000000033fc0000000000007bfc0000000000003ffc0000000000001ffc0000000000000ffe00000000000001fe00000000000003fe00000000000003de00000000000003dc00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000008000000001800000000000210080100000000021008010000490702120801038049088214080104405507821808010440550882180801044022088214080104402207421208010388000000001800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000008000e000000000038001100001c1e00080011000022110008190e00002211000826110000221100080011000022110008001100001c1e0008000e00000010000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006060000000000000f0f0000000000000fff8000000000001fff8000000000001fff8000000000001fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001fe00000000000001f8c0000000000003ffe0000000000003ffe0000000000003ffc0000000000003ff00000000000003fc00000000000033fc0000000000007ffc0000000000003ffe0000000000001fde00000000000003cf000000000000078f000000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0c0000000000001e1e0000000000001fff0000000000003fff0000000000003fff0000000000003fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000000fff00000000000007fe00000000000003fe00000000000003fb00000000000007ff80000000000007ff80000000000007ff00000000000037fe0000000000007ff80000000000003ffe0000000000001fff0000000000000f9f8000000000000f8f8000000000000f8780000000000007830000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0c0000000000001e0e0000000000001fff0000000000001fff8000000000001fff8000000000001fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001ff00000000000001fd80000000000003ffc0000000000003ffc0000000000003ff8000000000003bff8000000000007fff8000000000003fffc000000000000fffc0000000000001e3c0000000000001e7c0000000000001e380000000000001e000000000000003e000000000000003e000000000000001c0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006060000000000000f0f0000000000000fff8000000000001fff8000000000001fff8000000000001fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001ff00000000000001fd80000000000003ffc0000000000003ffc0000000000003ff8000000000000fff8000000000001fff8000000000000fffc0000000000007ffc0000000000001e3c0000000000001e3c0000000000001e180000000000001e000000000000001e000000000000001e000000000000000c0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0c0000000000001e1e0000000000001fff0000000000003fff0000000000003fff0000000000003fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000000fff00000000000007fe00000000000003fe00000000000003fb00000000000007ff80000000000007ff80000000000007ff00000000000037fe0000000000007ff80000000000003ffe0000000000001fff0000000000000f9f8000000000000f8f8000000000000f8780000000000007830000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0c0000000000001e1e0000000000001fff0000000000003fff0000000000003fff0000000000003fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000000fff00000000000007fe00000000000003fe00000000000003fb80000000000007ffc0000000000007ffc0000000000007ff80000000000037ff0000000000007ff80000000000003ffc0000000000001ffe00000000000007df000000000000078f000000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000018180000000000003c3c0000000000003ffe0000000000007ffe0000000000007ffe0000000000007ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000001ffe0000000000000ffc00000000000007fc00000000000007f60000000000000fff0000000000000fff0000000000003ffe0000000000007ffc0000000000003ffc0000000000001ffe00000000000007df0000000000000f8f0000000000000f8f0000000000000f0700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0c0000000000001e1e0000000000001fff0000000000003fff0000000000003fff0000000000003fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000000fff00000000000007fe00000000000003fe00000000000003fb80000000000007ffc0000000000007ffc0000000000007ff80000000000037ff0000000000007ff80000000000003ffc0000000000001ffe00000000000007df000000000000078f000000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000008000000000c000000400000000400001000000000040000104220ec1e04007030422092110400881042209211040060104220921104001010422092110400881041c0921e04007018400000100c00000080000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000008002000700000000800e000880087071c00200088010884080020c8100107840800213020020884080020004002088408002000800287440c002000f8040000000000000004000000000000000000000000000000000000000000000000000000000000000000000004007c0038000000040040004400e0f03c00400044011088440078643801f08844000498440100884400040044011088440044004400e0883c00380038000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000008000000000000000801000000040001c80000000000000220010f000e0438002001088011042001c00108800f04200020010880110420002001088011042002200108800e842001c0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000060000000000000006000000000000000a0070e0f01c0e320a0041108822114c120041f0883e0f001f004100882011000200411088221100020040e0f01c0e0000000000800000000000000080000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200000000000040020000000000004002000000000000e00400000000000040040000000000004008000000000000400800000000000040080000000000086010000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006060000000000000f0f0000000000000fff8000000000001fff8000000000001fff8000000000001fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001fe00000000000001f8c0000000000003ffe0000000000003ffe0000000000003ffc0000000000003ff00000000000003fc00000000000033fc0000000000007ffc0000000000003ffe0000000000001fde00000000000003cf000000000000078f000000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0c0000000000001e1e0000000000001fff0000000000003fff0000000000003fff0000000000003fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000000fff00000000000007fe00000000000003fe00000000000003fb80000000000007ffc0000000000007ffc0000000000007ff80000000000037ff0000000000007ff80000000000003ffc0000000000001ffe00000000000007df000000000000078f000000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000018180000000000003c3c0000000000003ffe0000000000007ffe0000000000007ffe0000000000007ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000001ffe0000000000000ffc00000000000007fc00000000000007f60000000000000fff0000000000000fff0000000000003ffe0000000000007ffc0000000000003ffc0000000000001ffe00000000000007df0000000000000f8f0000000000000f8f0000000000000f0700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000780000000000003ff8000000000000fff8000000000001fff8000000000000e7fc00000000000007fe000000000001ffffc00000000007ffffc0000000000fffffc000000000061fff8000000000001fff80000000000c0fff80000000000effff00000000000ffffe000000000007fffc000000000003fff8000000000001ff00000000000003ff00000000000007ff00000000000007ff80000000000003ff80000000000001ff00000000000000f80000000000000070000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003000000000000003f020000000000007f07000000000001fe07000000000003fc07000000000003fe0f10000000000ffe0f38000000001fff1f38000000001fffbf38000000000ffffe780000000007fffef80000000007fffff80000000007fffff00000000003f7fff0000000000003fff0000000000003ffe0000000000007ffe0000000000007ffc0000000000007fe00000000000003fc00000000000001fc00000000000000fe000000000000007c000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000008000000000000003c000000000000007e00000000000001fe00000000000003ff00000000000003ff80000000000003ffc0000000000003ffc0000000000003ffc000000000000fff8000000000007fffc00000000000ffffe00000000001ffffe00000000001fffe600000000003fffc000000000003fff8000000000007ffc1000000000007ffc3800000000007ffcf000000000007fffe000000000002fffc0000000000007ff00000000000007e380000000000007ff80000000000007ff00000000000003fc0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000f800000000000000fe000000000000007f00000000000000ff80000000000001ffc000000000000fffe000000000001fffe000000000001fffe000000000001fffe000000000001fffe300000000003fffff80000000007bffff800000000070ffff800000000070ffffc00000000021ffffe00000000003c1ffe0000000000381ffe0000000000781ffc0000000000700ff80000000000201ef00000000000003c6000000000000038000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c000000000000001e000000000000f80f000000000000fe078000000000007f03c00000000000ff83c00000000001ffc1e0000000000fffe0e0000000001fffe0f0000000001fffe0f0000000001fffe078000000001fffe378000000003ffffffc000000007bfffffc0000000070fffffc0000000070fffffc0000000021fffffc0000000003c1ffec000000000381ffc0000000000781ff80000000000700ff80000000000201ef00000000000003c6000000000000038000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000018180000000000003c3c0000000000003ffe0000000000007ffe0000000000007ffe0000000000007ffe2000000000003ffe7000000000003ffe7000000000003ffef000000000003ffff000000000003ffff000000000003ffff000000000001ffff000000000000ffdf0000000000007fdf0000000000007f7f000000000000ffff000000000000ffff000000000003ffff000000000007ffdf000000000003ffff000000000001ffff0000000000007dff000000000000f8ff000000000000f8ff000000000000f07e0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0c0000000000001e1e0000000000001fff0000000000003fff0000000000003fff0000000000003fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000000fff00000000000007fe00000000000003fe00000000000003fb80000000000007ffc0000000000007ffc0000000000007ff80000000000037ff0000000000007ff80000000000003ffc0000000000001ffe00000000000007df000000000000078f000000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000008000000003000000000000800100000400000000010000040383c08781001c0e04422084410022040302208441001804008220844100040404422084410022040383c08441001c068002000003000000000200000000000000000000000000000000000000000000000000000000000000000000000000410000000000000041000000000e0f03c20000000011088442000000001f08844200000000100884420000000011088441000000000e0883c1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000020008001c00200002003800220021c1c700080002004221020008321c0041e10200084c02008221020008000200822102000800220081d1030008001c010000000000000001000000000000000000000000000000000000000000000000080000000080000000404001004007000040000100400880004841c120200880005042214020070c806042018020089300604201802008800050422140400880004841c1204007000800000000800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004000000100003000000000000000300043c003810e0050004220044108005000422003c108009100422004410800f8004220044108001000422003a1080010000000000000000000000000000000000000000000000000000000000000000000000000000000002038000000020000e044000000020000204400e0e0070e002044011080021100204401108002110020440110800211002044011080021100203800e080030e00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000007c0000000000000004000000000000000801c383c07038c80801044220884430080107c220f83c001001040220804400100104422088440010010383c0703a00000000020000000000000002000000000000000000000000000000000000000000000000000000200000000000000000000000000000002110760f000e0f01211049088011088221104908801f08822110490880100882211049088011088220e0490f000e0881200000080000000040000008000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000800000000000100080000000000010008000000000003801000000000000100100000000000010020000000000001002000000000000100200000000000018040000000000000004000000000000000000000000000000000000000000000000000000000000000000000000000020000000000000002000000000000000e0000000000000002000000000000000200000000000000020000000000000002000000000000000e000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006060000000000000f0f0000000000000fff8000000000001fff8000000000001fff8000000000001fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001fe00000000000001f8c0000000000003ffe0000000000003ffe0000000000003ffc0000000000003ff00000000000003fc00000000000033fc0000000000007ffc0000000000003ffe0000000000001fde00000000000003cf000000000000078f000000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000018180000000000003c3c0000000000003ffe0000000000007ffe0000000000007ffe0000000000007ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000001ffe0000000000000ffc00000000000007fb00000000000007e78000000000000fff8000000000000fff0000000000000ffe0000000000000ffc00000000000007f800000000000007f800000000000007fc0000000000003ffe0000000000007fde0000000000003bcf00000000000007cf0000000000000786000000000000030000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000303000000000000078780000000000007ffc000000000000fffc000000000000fffc000000000000fffc0000000000007ffc0000000000007ffc0000000000007ffc0000000000007ffc0000000000007ffc0000000000007ffc0000000000003ffc0000000000001ff80000000000000ff00000000000000fc70000000000001fff8000000000001fff8000000000001fff0000000000001ff80000000000000ff00000000000000ffc0000000000000ffe0000000000000fff0000000000003fdf8000000000007bc780000000000037c70000000000000780000000000000030000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000e000000000000001f000000000000001f800000000000001fc00000000000003fe00000000000007ff0000000000003fff8000000000007fffc000000000007fffcc00000000003fffde00000000001fffde00000000000fffde000000000007fffe000000000003fffef80000000001fffffc0000000000fffffc000000000007fff8000000000007ff80000000000003ff00000000000001ff800000000000003f800000000000003fc00000000000003bc00000000000007bc00000000000007380000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0c0000000000001e1e0000000003ff9e3e0000000007ffde7e000000000fffef78000000000fffeff80000000007fffff00000000003fffffe0000000003ffffff0000000003ffffff8000000007ffffff800000000fffffff000000000fffffff0000000007ffcfc20000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0c0000000000001e1e0000000000001e3e0000000003ff9e7e0000000007ffcf78000000000fffeff8000000000fffeff00000000007fffffe0000000003ffffff0000000003ffffff8000000003ffffff8000000003fffffb0000000007fffffc000000000fffcf0e000000000fff800e0000000007ff00040000000001c0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0c0000000000001e1e0000000003ff9e3e0000000007ffde7e000000000fffef78000000000fffeff80000000007fffff00000000003fffffe0000000003ffffff0000000003ffffff8000000007ffffff800000000fffffff000000000fffffff0000000007ffcfc20000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001c000000000000003e000000000000003f000000000000003f800000000000007fc0000000000000ffe0000000000007fff000000000000ffff800000000000ffff9800000000007fffbc00000000003fffbc00000000001fffbc00000000000ffffc000000000007fffdc00000000003ffffe00000000001fffff000000000000ffff000000000000ffff0000000000007fff0000000000003fff80000000000007ff80000000000001ff0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006060000000000000f0f0000000000000fff8000000000001fff8000000000001fff8000000000001fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001fe00000000000001fcc0000000000003ffe0000000000003ffe0000000000003ffc0000000000003ffe0000000000003fff0000000000001fff0000000000001fff0000000000001ffe0000000000003fff0000000000007fff00000000000079fe0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000080000000003000000040000004100020004000000410002003c1c0703c1001e004422088441002200443e078441002200442008844100220044220884410022003c1c0743c1001e080000000003000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004000f80000000001c00008070490f000400010088490880040c8100885508800413010088550880040002008822088004000200702208800400020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000800000000000000080000002000000008000000200000001000f070700441e01001108820044110200110f82004411020011080200441102000f0882004411040001070300381e040011000000001000000e00000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001c001c0000000000220022000000000022002200000000001c32220000000000224c1e0000000000220002000000000022002200000000001c001c00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006060000000000000f0f0000000000000fff8000000000001fff8000000000001fff8000000000001fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001fe00000000000001f8c0000000000003ffe0000000000003ffe0000000000003ffc0000000000003ff00000000000003fc00000000000033fc0000000000007ffc0000000000003ffe0000000000001fde00000000000003cf000000000000078f000000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006060000000000000f0f0000000000000fff8000000000001fff8000000000001fff8000000000001fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001fe00000000000003f800000000000003fc00000000000007fe00000000000007ff00000000000007ff80000000000007ff80000000000033ff0000000000007ffe0000000000003fff0000000000001fff80000000000007878000000000000787800000000000070300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006060000000000000f0f0000000000000fff8000000000001fff8000000000001fff8000000000001fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001fe00000000000003f800000000000007fc0000000000000ffe0000000000000ffe0000000000000ffe0000000000003ffe0000000000007fff0000000000003fff8000000000001fff80000000000007878000000000000787800000000000070300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006060000000000000f0f0000000000000fff8000000000001fff8000000000001fff8000000000001fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001fe00000000000003f800000000000007fc0000000000000ffe0000000000000ffe0000000000000ffe0000000000003ffe0000000000007fff0000000000003fff8000000000001fff80000000000007878000000000000787800000000000070300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006060000000000000f0f0000000000000fff8000000000001fff8000000000001fff8000000000001fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001fe00000000000003f800000000000007fc0000000000000ffe0000000000000ffe0000000000000ffe0000000000003ffe0000000000007fff0000000000003fff8000000000001fff80000000000007878000000000000787800000000000070300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000030300000000000007c780000000000007ffc0000000000007ffe0000000000007ffe0000000000007ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000001ffe0000000000000ffcc0000000000007ffc0000000000007ffc000000000000fffc000000000000fff8000000000000fffc000000000001fffc000000000031fffc00000000007ffe0c00000000003fff0000000000001fff80000000000007ff80000000000007c78000000000000787800000000000070300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000018180000000000003c3c0000000000003ffe0000000000007ffe0000000000007ffe0000000000007ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000001ffe0000000000000ffcc0000000000007ffc0000000000007ffc0000000000007ffc000000000000fff8000000000000fffc000000000000fffc000000000019fffc00000000003ffe0c00000000001fff0000000000000fff80000000000007ff80000000000007c78000000000000787800000000000070300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000060000000000000004000000000000000400000000000000041e070248300000041108824840000004110882a870000004110882a84000000411088110400000041e0701103000000610000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c000000000800010400000000080001040083801c0f038384004200220884410400c2001808844104000200040884410400420022088441040082001c08838184000000000000000c0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000400000800000000040000380070e0703c22000800411088442200083241f078442200084c4100884414000800411088441400080040e0743c08000800000000000800000000000000300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000001c0010000200000022001000020000000200200383c0e0701c00200442211041020040040220f041020040040221104122004004422110401c0080038220e840000080000000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006000f800000000006000800000f07000a000800387108800a0c8f0020810f801213008020f108001f000080208f08800200088020810700020007002071000000000000000e0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000080000000000020008000000000002000800003c0e0707001001c82211088200100228221f078200200180221008820020004822110882002002203c0e0743004001c020000000004000002000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100001001c003e0010000100220002001e07038020000400110881003c32040011088100224c040011088100220008001108810022000800110701801c000800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000040000000000000004000070e0f0380e0e0000411088441104000041f0887c0f0400004100884011040000411088441104000040e0f0380e860000000080000000000000008000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006060000000000000f0f0000000000000fff8000000000001fff8000000000001fff8000000000001fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001fe00000000000001f8c0000000000003ffe0000000000003ffe0000000000003ffc0000000000003ff00000000000003fc00000000000033fc0000000000007ffc0000000000003ffe0000000000001fde00000000000003cf000000000000078f000000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0c0000000000001e1e0000000000001fff0000000000003fff0000000000003fff0000000000003fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000000fff00000000000007fe00000000000003fe00000000000003ff00000000000007ff00000000000007fe00000000000007fc00000000000007f800000000000007f800000000000037f80000000000007ff80000000000003ffc0000000000001ffe00000000000007df000000000000078f000000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000018180000000000003c3c0000000000003ffe0000000000007ffe0000000000007ffe0000000000007ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000001ffe0000000000000ffc00000000000007fc00000000000007fe0000000000000ffe0000000000000ffc0000000000000ff80000000000000ff00000000000000ff00000000000003ff80000000000007ff80000000000003ffc0000000000001ffe00000000000007df000000000000078f000000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0c0000000000001e1e0000000000001fff0000000000003fff0000000000003fff0000000000003fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000000fff00000000000007fe00000000000003fe00000000000003ff00000000000007ff00000000000007fe00000000000007fc00000000000007f800000000000007f800000000000037f80000000000007ff80000000000003ffc0000000000001ffe00000000000007df000000000000078f000000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006060000000000000f0f0000000000000fff8000000000000fffc000000000000fffc000000000000fffc0000000000007ffc0000000000007ffc0000000000007ffc0000000000007ffc0000000000007ffc0000000000007ffc0000000000003ffc0000000000001ff80000000000000ff03000000000001ffff000000000001ffff000000000001ffff000000000003fffe000000000003fe000000000000c3fe000000000001ffff000000000000ffff0000000000007fff80000000000007c7c000000000000f83c000000000000f83c00000000000070380000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000303000000000000078780000000000007ffc000000000000fffc000000000000fffc000000000000fffc0000000000007ffc0000000000007ffc0000000000007ffc0000000000007ffc0000000000007ffc0000000000007ffc0000000000003ffc0000000000001ff80000000000000ff03000000000000ffff000000000001ffff000000000001ffff000000000001fffe000000000003fe00000000000063fe000000000000ffff0000000000007fff0000000000003fff80000000000007c7c000000000000f83c000000000000f83c00000000000070380000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000600000000000000040c0000040000000408000004000000041c380e0e000000040844110400000004083c0c040000000408440204000000040844110400000004083a0e0600000006000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000300000000040000410000000004000041000000070780e0e10038380884411041002044060441104100207c01044110410020400884411041002044070440e0610020380000000003000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000002000300000100000e0003001c0f08800200050022110880020c85001e110880021309002211050002000f8022110500020001001d0f020002000100000002000000000000000c000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000080000000000000008000080001001f008000080001001001000e0f03838010010011088441001e12000c08844100012200020884410001020011088441001104000e088381800e04000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000e00000000000000110000000000000010003870781c0e091e00208844221106110020f8443e0f00110020804420110011002088442211000e002070781c0e80000000004000000000000000400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200000000000000020000000000000007000000000000000200000000000000020000000000000002000000000000000200000000000000030000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006060000000000000f0f0000000000000fff8000000000001fff8000000000001fff8000000000001fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001fe00000000000001f8c0000000000003ffe0000000000003ffe0000000000003ffc0000000000003ff00000000000003fc00000000000033fc0000000000007ffc0000000000003ffe0000000000001fde00000000000003cf000000000000078f000000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0c0000000000001e1e0000000000001fff0000000000003fff0000000000003fff0000000000003fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000000fff00000000000007fe00000000000003fe00000000000003fb80000000000007ffc0000000000007ffc0000000000007ff80000000000037ff0000000000007ff80000000000003ffc0000000000001ffe00000000000007df000000000000078f000000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000018180000000000003c3c0000000000003ffe0000000000007ffe0000000000007ffe0000000000007ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000001ffe0000000000000ffc00000000000007fc00000000000007f60000000000000fff0000000000000fff0000000000003ffe0000000000007ffc0000000000003ffc0000000000001ffe00000000000007df0000000000000f8f0000000000000f8f0000000000000f0700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0c0000000000001e1e0000000000001fff0000000000003fff0000000000003fff0000000000003fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000000fff00000000000007fe00000000000003fe00000000000003fb80000000000007ffc0000000000007ffc0000000000007ff80000000000037ff0000000000007ff80000000000003ffc0000000000001ffe00000000000007df000000000000078f000000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0c0000000000001e1e0000000000001fff0000000000003fff0000000000003fff0000000000003fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000000fff00000000000007fe00000000000003fe00000000000003fb00000000000007ff80000000000007ff80000000000007ff00000000000037fe0000000000007ff80000000000003ffe0000000000001fff0000000000000f9f8000000000000f8f8000000000000f8780000000000007830000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000303000000000000078380000000000007ffc0000000000007ffe0000000000007ffe0000000000007ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000001ffe0000000000000ffc00000000000007fc00000000000007f60000000000000fff0000000000000fff0000000000000ffe100000000000effff80000000001fffff80000000000fffff800000000003ffff800000000000f83f000000000000fc00000000000000fc0000000000000078000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000018180000000000003c3c0000000000003ffe0000000000007ffe0000000000007ffe0000000000007ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000001ffe0000000000000ffc00000000000007fc00000000000007f60000000000000fff0000000000000fff0000000000000ffe1000000000003ffff800000000007ffff800000000003ffff800000000001ffff800000000000781f0000000000007c000000000000007c0000000000000038000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0c0000000000001e1e0000000000001fff0000000000003fff0000000000003fff0000000000003fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000000fff00000000000007fe00000000000003fe00000000000003fb00000000000007ff80000000000007ff80000000000007ff00000000000037fe0000000000007ff80000000000003ffe0000000000001fff0000000000000f9f8000000000000f8f8000000000000f8780000000000007830000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000060000000000000004000000000000000400000000000000040e0000000000000411000000000000040c00000000000004020000000000000411000000000000040e0000000000000600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000180000000000000010310002000000001021000000000000107104421e07000010210442110800001021044211080000102102821108000010210282110700001021010211000000180001000008000000000600000700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000883c0e0e00883c10882211080088221088221f080088221088221008008822108822110800882210703c0e0800703c10002000000000201000200000000020100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003000000008080020100000000800002010000080090838241001c3800a084428100104800c084030100107800c084030100104800a0844281001048009083824100103800000000030000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c00000000000001040000000000000104000e07070e04438400e108841104410400810f841004410400810804100441040081088411044104008e07040e038184008000000000000c000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000002000f80000100000e0008081c0f04400200080422110440020c8f0c1e11044002130080221102800200008422110280020008881d0f010002000700000001000000000000000600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000400000800100000040000380020e0703c22000800211088442200083231f078442200084c2100884414000800211088441400080020e0743c0800080010000000080000000000000030000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000040000000000000004000000007000f004000000008800000800f070008000100801108800f0c810100110880089301010011088008800201000f08800880020200010700070002020011000000000000000e000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000000000000c002000000007c0020020000000004000004003c1c000800c004004422000832200800442200084c20080044220010002008003c22001000c01000041c0010000010004400000000000000380000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000080000000000001008000000000000100001c383c0e070380001044221108810000107c221f078100001040221008810000104422110881000010383c0e07418000000020000000000000002000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001c0000000000000822000000000000082200e1c0f0381c1c1c00822088442208220083e0887c1e08220082008840220822008220884422081c0081c0f0381d0c0000000080000000000000008000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000800000000000000080000000400700008000000040088001001c0f03c00880010022088440070002003e08844008800200200884400880020022088440088004001c0883c007000400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000000000000000200000002001c000200000002002200040070781e00220004008844220022300800f84422001e4008008044220002000800884422002200100070441e001c00100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000081c00000000000038220000000000000802000000000002081c00000000000c080200000000000008020000000000000822000000000000081c000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006060000000000000f0f0000000000000fff8000000000001fff8000000000001fff8000000000001fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001fe00000000000001f8c0000000000003ffe0000000000003ffe0000000000003ffc0000000000003ff00000000000003fc00000000000033fc0000000000007ffc0000000000003ffe0000000000001fde00000000000003cf000000000000078f000000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0c0000000000001e1e0000000000001fff0000000000003fff0000000000003fff0000000000003fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000000fff00000000000007fe00000000000003fe00000000000003fb80000000000007ffc0000000000007ffc0000000000007ff80000000000037ff0000000000007ff80000000000003ffc0000000000001ffe00000000000007df000000000000078f000000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000018180000000000003c3c0000000000003ffe0000000000007ffe0000000000007ffe0000000000007ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000001ffe0000000000000ffc00000000000007fc00000000000007f60000000000000fff0000000000000fff0000000000003ffe0000000000007ffc0000000000003ffc0000000000001ffe00000000000007df0000000000000f8f0000000000000f8f0000000000000f0700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000038300000000000007c780000000000007ff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001ff00000000000001fe00000000000001fe00000000000001fe00000000000031fe00000000000079fc0000000000003ffc0000000000001ffc00000000000007fc00000000000001fc00000000000003fc00000000000003f800000000000003f000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000030e000000000000079f00000000000007ff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fffe0000000000007fff0000000000003fff0000000000001fff0000000000003fff0000000000003ffe0000000000007ffc0000000000007ff80000000000037fe0000000000007bfe0000000000003ffe0000000000001ffe00000000000007fe00000000000003fe00000000000001fe00000000000001fc00000000000003fc00000000000003f800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000060c0000000000000f0e0000000000000fff0000000000000fff8000000000000fff8000000000000fff8000000000000fffc000000000000fffe000000000000fffe000000000000fffe000000000000fffe000000000000fffe0000000000007ffe0000000000003ffe0000000000001ffc0000000000001ff80000000000003ff80000000000003ff00000000000007fe00000000000007fe0000000000001ffe0000000000003ffe0000000000001fff00000000000007ff80000000000001ff80000000000001ef80000000000001ef80000000000001e700000000000001e000000000000000c000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000306000000000000078f0000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fffc000000000000fffe000000000000fffe000000000000fffe000000000000fffe000000000000fffe0000000000007ffe0000000000003ffe0000000000001ffc0000000000003ff80000000000003ff80000000000007ff00000000000007fe0000000000001ffe0000000000003ffe0000000000001ffe0000000000000fff00000000000003ff80000000000001ff80000000000001ef80000000000001ef80000000000001e700000000000001e000000000000000c000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000060c0000000000000f0e0000000000000fff0000000000000fff8000000000000fff8000000000000fff8000000000000fffc000000000000fffe000000000000fffe000000000000fffe000000000000fffe000000000000fffe0000000000007ffe0000000000003ffe0000000000001ffc0000000000001ff80000000000003ff80000000000003ff00000000000007fe00000000000007fe0000000000001ffe0000000000003ffe0000000000001fff00000000000007ff80000000000001ff80000000000001ef80000000000001ef80000000000001e700000000000001e000000000000000c000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001c600000000000003ef00000000000007ff80000000000007ff8000000000000fff8000000000000fff8000000000000fff8000000000000fffc000000000000fffe000000000000fffe000000000000fffe000000000000fffe0000000000007ffe0000000000003ffe0000000000001ffc0000000000003ff80000000000003ff00000000000007fe00000000000007fe00000000000007fe00000000000007fe00000000000007fe00000000000003ff00000000000001ff00000000000001ff00000000000001ef00000000000001ef00000000000001e600000000000001e000000000000000c000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000038600000000000007cf0000000000000fff0000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000003fff8000000000007fff0000000000007ffe0000000000007ffc0000000000003ffe0000000000001ffe0000000000000fff00000000000007ff00000000000003ff60000000000003fef0000000000003ffe0000000000003ffc0000000000003ff80000000000003fc00000000000003f800000000000001f000000000000000f000000000000000f0000000000000006000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000060e0000000000000f1f0000000000000fff0000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff00000000000007fe00000000000007fc00000000000003fc00000000000003fc00000000000003fc00000000000003fc60000000000001fcf0000000000001ffe0000000000001ffc0000000000001ff00000000000001fc00000000000001f800000000000000fc000000000000007c000000000000007c0000000000000078000000000000003000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000038300000000000007c780000000000007ff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001ff00000000000001fe00000000000001fe00000000000001fe00000000000031fe00000000000079fc0000000000003ffc0000000000001ffc00000000000007fc00000000000001fc00000000000003fc00000000000003f800000000000003f000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000018180000000000003c3c0000000000003ffe0000000000007ffe0000000000007ffe0000000000007ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000001ffe0000000000000ffc00000000000007fc00000000000007f60000000000000fff0000000000000fff0000000000003ffe0000000000007ffc0000000000003ffc0000000000001ffe00000000000007df0000000000000f8f0000000000000f8f0000000000000f0700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006060000000000000f0f0000000000000fff8000000000001fff8000000000001fff8000000000001fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001fe00000000000001f8c0000000000003ffe0000000000003ffe0000000000003ffc0000000000003ff00000000000003fc00000000000033fc0000000000007ffc0000000000003ffe0000000000001fde00000000000003cf000000000000078f000000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0c0000000000001e1e0000000000001fff0000000000003fff0000000000003fff0000000000003fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000000fff00000000000007fe00000000000003fe00000000000003ff00000000000007ff00000000000007fe00000000000007fc00000000000007f800000000000007f800000000000037f80000000000007ff80000000000003ffc0000000000001ffe00000000000007df000000000000078f000000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000018180000000000003c3c0000000000003ffe0000000000007ffe0000000000007ffe0000000000007ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000001ffe0000000000000ffc00000000000007fc00000000000007fe0000000000000ffe0000000000000ffc0000000000000ff80000000000000ff00000000000000ff00000000000003ff80000000000007ff80000000000003ffc0000000000001ffe00000000000007df000000000000078f000000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0c0000000000001e1e0000000000001fff0000000000003fff0000000000003fff0000000000003fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000000fff00000000000007fe00000000000003fe00000000000003ff00000000000007ff00000000000007fe00000000000007fc00000000000007f800000000000007f800000000000037f80000000000007ff80000000000003ffc0000000000001ffe00000000000007df000000000000078f000000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006060000000000000f0f0000000000000fff8000000000000fffc000000000000fffc000000000000fffc0000000000007ffc0000000000007ffc0000000000007ffc0000000000007ffc0000000000007ffc0000000000007ffc0000000000003ffc0000000000001ff80000000000000ff00000000000001fffe000000000001ffff000000000001ffff000000000003fffe000000000003fe000000000000c3fe000000000001ffff000000000000ffff0000000000007fff80000000000007c7c000000000000f83c000000000000f83c00000000000070380000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000303000000000000078780000000000007ffc000000000000fffc000000000000fffc000000000000fffc0000000000007ffc0000000000007ffc0000000000007ffc0000000000007ffc0000000000007ffc0000000000007ffc0000000000003ffc0000000000001ff80000000000000ff00000000000000fffe000000000001ffff000000000001ffff000000000001fffe000000000003fe00000000000063fe000000000000ffff0000000000007fff0000000000003fff80000000000007c7c000000000000f83c000000000000f83c00000000000070380000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0c0000000000001e1e0000000000001fff0000000000003fff0000000000003fff0000000000003fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000000fff00000000000007fe00000000000003fe00000000000003ff00000000000007ff00000000000007fe00000000000007fc00000000000007f800000000000007f800000000000037f80000000000007ff80000000000003ffc0000000000001ffe00000000000007df000000000000078f000000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006060000000000000f0f0000000000000fff8000000000000fffc000000000000fffc000000000000fffc0000000000007ffc0000000000007ffc0000000000007ffc0000000000007ffc0000000000007ffc0000000000007ffc0000000000003ffc0000000000001ff80000000000000fff8000000000000fffc000000000001fffc000000000001fff8000000000001ff00000000000001ff80000000000001ffc0000000000031ffc000000000007fff8000000000003fff8000000000001fff80000000000003c780000000000007cf800000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000303000000000000078780000000000007ffc000000000000fffc000000000000fffc000000000000fffc0000000000007ffc0000000000007ffc0000000000007ffc0000000000007ffc0000000000007ffc0000000000007ffc0000000000003ffc0000000000001ff80000000000000fff8000000000000fffc000000000000fffc000000000000fff8000000000000ff00000000000001ff80000000000001ffc0000000000019ffc000000000003fff8000000000001fff8000000000000fff80000000000003c780000000000007cf800000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006060000000000000f0f0000000000000fff8000000000001fff8000000000001fff8000000000001fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001fe00000000000001f8c0000000000003ffe0000000000003ffe0000000000003ffc0000000000003ff00000000000003fc00000000000033fc0000000000007ffc0000000000003ffe0000000000001fde00000000000003cf000000000000078f000000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000600000000000000040000000000000004000000000000000400000000000000041000000000000004100000000000000410000000000000041000000000000004000000000000000600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200000000000000020000000e0f01c0071241c00108822002124220010883e002154220010882000215422001088220020882200e0881c0030881c0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003000000000010000100000000001000010001c0e0ec1e038100022110921104410002011092110441000201109211044100022110921104410001c0e0921e038100000000000000030000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006060000000000000f0f0000000000000fff8000000000001fff8000000000001fff8000000000001fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001fe00000000000001f8c0000000000003ffe0000000000003ffe0000000000003ffc0000000000003ff00000000000003fc00000000000033fc0000000000007ffc0000000000003ffe0000000000001fde00000000000003cf000000000000078f000000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0c0000000000001e1e0000000000001fff0000000000003fff0000000000003fff0000000000003fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000000fff00000000000007fe00000000000003fe00000000000003ff00000000000007ff00000000000007ff00000000000007fe00000000000007fe00000000000037ff0000000000007fff8000000000003fff8000000000001fff80000000000003c780000000000003c300000000000007800000000000000780000000000000070000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000303000000000000078780000000000007ffc0000000000007ffe0000000000007ffe0000000000007ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000001ffe0000000000000ffe00000000000007fe00000000000007ff0000000000000fff0000000000000fff00000000000007ff00000000000003ff00000000000061ff800000000000ffffe000000000007ffff800000000003ff3fc000000000003e0fe000000000007c03f000000000007801f000000000007800e0000000000070000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000018180000000000003c3c0000000000003ffe0000000000007ffe0000000000007ffe0000000000007ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000001ffe0000000000000ffe00000000000007fe00000000000007ff00000000000007ff00000000000007ff00000000000003ff00000000000003ff00000000000031ff8000000000007fffe000000000003ffff800000000001ff3fc000000000003e0fe000000000007c03f000000000007801f000000000007800e0000000000070000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0c0000000000001e1e0000000000001fff0000000000003fff0000000000003fff0000000000003fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000000fff00000000000007fe00000000000003fe00000000000003ff00000000000007ff00000000000007ff00000000000007fe00000000000007fe00000000000037ff0000000000007fff8000000000003fff8000000000001fff80000000000003c780000000000003c300000000000007800000000000000780000000000000070000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006060000000000000f0f0000000000000fff8000000000001fff8000000000001fff8000000000001fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001fe00000000000001f8c0000000000003ffe0000000000003ffe0000000000003ffc0000000000003ff00000000000003fc00000000000033fc0000000000007ffc0000000000003ffe0000000000001fde00000000000003cf000000000000078f000000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006060000000000000f0f0000000000000fff8000000000001fff8000000000001fff8000000000001fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001fe00000000000001f8c0000000000003ffe0000000000003ffe0000000000003ffc0000000000003ff00000000000003fc00000000000033fc0000000000007ffc0000000000003ffe0000000000001fde00000000000003cf000000000000078f000000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0c0000000000001e1e0000000000001fff0000000000003fff0000000000003fff0000000000003fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000000fff00000000000007fe00000000000003fe00000000000003ff00000000000007ff00000000000007ff00000000000007fe00000000000007fe00000000000037ff0000000000007fff8000000000003fff8000000000001fff80000000000003c780000000000003c300000000000007800000000000000780000000000000070000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000303000000000000078780000000000007ffc0000000000007ffe0000000000007ffe0000000000007ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000001ffe0000000000000ffe00000000000007fe00000000000007ff0000000000000fff0000000000000fff00000000000007ff00000000000003ffff000000000061ffff8000000000ffffff80000000007fffff00000000003ff000000000000003e000000000000007c000000000000007800000000000000780000000000000070000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000018180000000000003c3c0000000000003ffe0000000000007ffe0000000000007ffe0000000000007ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000001ffe0000000000000ffe00000000000007fe00000000000007ff00000000000007ff00000000000007ff00000000000003ff00000000000003ffff000000000031ffff80000000007fffff80000000003fffff00000000001ff000000000000003e000000000000007c000000000000007800000000000000780000000000000070000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0c0000000000001e1e0000000000001fff0000000000003fff0000000000003fff0000000000003fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000000fff00000000000007fe00000000000003fe00000000000003ff00000000000007ff00000000000007ff00000000000007fe00000000000007fe00000000000037ff0000000000007fff8000000000003fff8000000000001fff80000000000003c780000000000003c300000000000007800000000000000780000000000000070000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006060000000000000f0f0000000000000fff8000000000001fff8000000000001fff8000000000001fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001fe00000000000001f8c0000000000003ffe0000000000003ffe0000000000003ffc0000000000003ff00000000000003fc00000000000033fc0000000000007ffc0000000000003ffe0000000000001fde00000000000003cf000000000000078f000000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000600000000000000041000000000000004100000000000000410702000000000041088200000000004108820000000000410882000000000041088100000000004107010000000000600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000060000000000000004000200000000000400000000000000041d8200000000000412420000000000041242000000000004124200000000000412420000000000041242000000000006000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0000000404001004002000040000100400e00484841c120400200485042214040020ca860420180400213a8604201804002001050422140400200104841c1204002000000000000c00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000108042000804001000804200080000100783c20e09041c12088442110a0422140884421f0c042018088442100c042018088442110a0422140783c20e09041c12000000000000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000700000000000000088000000000000008000000000000008f00000000000000088000000000000008800000000000000880000000000000070000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000008000000000000000800f8002070000008000800e08800000800100020880000080010c8201000000800113020200000080020002040000008002000208000000800200020f80000080000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006060000000000000f0f0000000000000fff8000000000001fff8000000000001fff8000000000001fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001fe00000000000001f8c0000000000003ffe0000000000003ffe0000000000003ffc0000000000003ff00000000000003fc00000000000033fc0000000000007ffc0000000000003ffe0000000000001fde00000000000003cf000000000000078f000000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0c0000000000001e1e0000000000001fff0000000000003fff0000000000003fff0000000000003fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000000fff00000000000007fe00000000000003fe00000000000003ff00000000000007ff00000000000007ff00000000000007fe00000000000007fe00000000000037ff0000000000007fff8000000000003fff8000000000001fff80000000000003c780000000000003c300000000000007800000000000000780000000000000070000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000303000000000000078780000000000007ffc0000000000007ffe0000000000007ffe0000000000007ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000001ffe0000000000000ffe06000000000007fe1f000000000007ff3f00000000000ffffe00000000000ffffc000000000007fff8000000000003fff0000000000061ffc00000000000ffff0000000000007ffe0000000000003ff800000000000003e000000000000007c000000000000007800000000000000780000000000000070000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000018180000000000003c3c0000000000003ffe0000000000007ffe0000000000007ffe0000000000007ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000001ffe0000000000000ffe06000000000007fe1f000000000007ff3f000000000007fffe000000000007fffc000000000003fff8000000000003fff0000000000031ffc000000000007fff0000000000003ffe0000000000001ff800000000000003e000000000000007c000000000000007800000000000000780000000000000070000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0c0000000000001e1e0000000000001fff0000000000003fff0000000000003fff0000000000003fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000000fff00000000000007fe00000000000003fe00000000000003ff00000000000007ff00000000000007ff00000000000007fe00000000000007fe00000000000037ff0000000000007fff8000000000003fff8000000000001fff80000000000003c780000000000003c300000000000007800000000000000780000000000000070000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006060000000000000f0f0000000000000fff8000000000001fff8000000000001fff8000000000001fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001fe00000000000001f8c0000000000003ffe0000000000003ffe0000000000003ffc0000000000003ff00000000000003fc00000000000033fc0000000000007ffc0000000000003ffe0000000000001fde00000000000003cf000000000000078f000000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001800000000000000104020004000000010400000400000001078207870000000104420884000000010442088400000001044208840000000104420784000000010442008400000001800008800000000000000700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000060000000202000402000000020000040200000082420e0482000000428211050200000043021006020000004302100602000000428211050200000042420e048200000000000000060000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006060000000000000f0f0000000000000fff8000000000001fff8000000000001fff8000000000001fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001fe00000000000001f8c0000000000003ffe0000000000003ffe0000000000003ffc0000000000003ff00000000000003fc00000000000033fc0000000000007ffc0000000000003ffe0000000000001fde00000000000003cf000000000000078f000000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0c0000000000001e1e0000000000001fff0000000000003fff0000000000003fff0000000000003fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000000fff00000000000007fe00000000000003fe00000000000003fb80000000000007ffc0000000000007ffc0000000000007ff80000000000037ff0000000000007ff80000000000003ffc0000000000001ffe00000000000007df000000000000078f000000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000018180000000000003c3c0000000000003ffe0000000000007ffe0000000000007ffe0000000000007ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000001ffe0000000000000ffc00000000000007fc00000000000007f60000000000000fff0000000000000fff0000000000003ffe0000000000007ffc0000000000003ffc0000000000001ffe00000000000007df0000000000000f8f0000000000000f8f0000000000000f0700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0c0000000000001e1e0000000000001fff0000000000003fff0000000000003fff0000000000003fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000000fff00000000000007fe00000000000003fe00000000000003fb80000000000007ffc0000000000007ffc0000000000007ff80000000000037ff0000000000007ff80000000000003ffc0000000000001ffe00000000000007df000000000000078f000000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0c0000000000001e1e0000000000001fff0000000000003fff0000000000003fff0000000000003fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000000fff00000000000007fe00000000000003fe00000000000003ff00000000000007ff00000000000007ff00000000000007fe00000000000007fe00000000000037ff0000000000007fff8000000000003fff8000000000001fff80000000000003c780000000000003c300000000000007800000000000000780000000000000070000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000303000000000000078780000000000007ffc000000000000fffc000000000000fffc000000000000fffc0000000000007ffc0000000000007ffc0000000000007ffc0000000000007ffc0000000000007ffc0000000000007ffc0000000000003ffc0000000000001ff80000000000000ff80000000000000fff0000000000001fff8000000000001fff8000000000001fff8000000000001fff8000000000000fff80000000000037f30000000000007fe00000000000003fe00000000000001fc000000000000003c000000000000007800000000000000780000000000000070000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0c0000000000001e1e0000000000001fff0000000000003fff0000000000003fff0000000000003fff0000000000001fff0000000000001fff0000000000001fffc000000000001fffe000000000001fffe000000000001fffe000000000000fffe0000000000007ffc0000000000003ffc0000000000003ffc0000000000007ff80000000000007ff80000000000007ff00000000000007ff00000000000003fe00000000000006fe0000000000000ffe00000000000007fe00000000000003fc000000000000003c000000000000007800000000000000780000000000000070000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000060e0000000000000f0f0000000000000fff8000000000000fffc000000000000fffc000000000000fffc0000000000007ffc2000000000007ffc7000000000007ffc7800000000007ffcfc00000000007ffcfc00000000007ffcfc00000000003ffcfc00000000001ff9fc00000000000ffffc00000000000ffffc00000000001ffffc00000000001ffffc00000000001ffffc00000000001ffffc00000000000ffffc000000000067fffc0000000000fff7f800000000007fe2b800000000003fc018000000000003c000000000000007800000000000000780000000000000070000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000060000000000000004010000000000000401000000000000040f070248000000041108824800000004110882a800000004110882a80000000411088110000000040f07011000000006000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000040080800000000004008007824838383c009084424844204400a08442a83c204400c08442a844204400c084411044204400a08441103a203c0090800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001800000000000010080000000000001008000000000038120800000000004414080000000000401808000000000040180800000000004414080000000000381208000000000000001800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006060000000000000f0f0000000000000fff8000000000001fff8000000000001fff8000000000001fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001fe00000000000001f8c0000000000003ffe0000000000003ffe0000000000003ffc0000000000003ff00000000000003fc00000000000033fc0000000000007ffc0000000000003ffe0000000000001fde00000000000003cf000000000000078f000000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0c0000000000001e1e0000000000001fff0000000000003fff0000000000003fff0000000000003fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000000fff00000000000007fe00000000000003fe00000000000003fb80000000000007ffc0000000000007ffc0000000000007ff80000000000037ff0000000000007ff80000000000003ffc0000000000001ffe00000000000007df000000000000078f000000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000018180000000000003c3c0000000000003ffe0000000000007ffe0000000000007ffe0000000000007ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000001ffe0000000000000ffc00000000000007fc00000000000007f60000000000000fff0000000000000fff0000000000003ffe0000000000007ffc0000000000003ffc0000000000001ffe00000000000007df0000000000000f8f0000000000000f8f0000000000000f0700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000038300000000000007c780000000000007ff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001ff00000000000001fe00000000000001fe00000000000001fe00000000000031fe00000000000079fc0000000000003ffc0000000000001ffc00000000000007fc00000000000001fc00000000000003fc00000000000003f800000000000003f000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000030e000000000000079f00000000000007ff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fffe0000000000007fff0000000000003fff0000000000001fff0000000000003fff0000000000003ffe0000000000007ffc0000000000007ff80000000000037fe0000000000007bfe0000000000003ffe0000000000001ffe00000000000007fe00000000000003fe00000000000001fe00000000000001fc00000000000003fc00000000000003f800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000060c0000000000000f0e0000000000000fff0000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff00000000000183fe018000000001ffffff8000000001ffffff8000000001ffffff8000000000ffffff000000000001fe0000000000001ffe0000000000003ffe0000000000001fff00000000000007ff80000000000003cfc0000000000007c7c0000000000007c7c00000000000038380000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000306000000000000078f0000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff00000000000183fe018000000001ffffff8000000001ffffff8000000001ffffff8000000000ffffff000000000001fe0000000000000ffe0000000000001ffe0000000000001fff00000000000007ff80000000000003cfc0000000000007c7c0000000000007c7c00000000000038380000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000030e000000000000079f00000000000007ff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fffe0000000000007fff0000000000003fff0000000000001fff0000000000003fff0000000000003ffe0000000000007ffc0000000000007ff80000000000037fe0000000000007bfe0000000000003ffe0000000000001ffe00000000000007fe00000000000003fe00000000000001fe00000000000001fc00000000000003fc00000000000003f800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000060000000000000004080000000000000408000000000000041c4903800000000408490440000000040855044000000004085504400000000408220440000000040c22038000000006000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004020000000410000002000000041007041e07000e0e3808842208801104100604220f800f04100104220800110410088422088011041007041e07000e861800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000180000000000001008000000000000100800000000381c12080000000044221408000000003c20180800000000442018080000000044221408000000003a1c12080000000000000018000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006060000000000000f0f0000000000000fff8000000000001fff8000000000001fff8000000000001fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001fe00000000000001f8c0000000000003ffe0000000000003ffe0000000000003ffc0000000000003ff00000000000003fc00000000000033fc0000000000007ffc0000000000003ffe0000000000001fde00000000000003cf000000000000078f000000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0c0000000000001e1e0000000000001fff0000000000003fff0000000000003fff0000000000003fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000000fff00000000000007fe00000000000003fe00000000000003fb80000000000007ffc0000000000007ffc0000000000007ff80000000000037ff0000000000007ff80000000000003ffc0000000000001ffe00000000000007df000000000000078f000000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000018180000000000003c3c0000000000003ffe0000000000007ffe0000000000007ffe0000000000007ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000001ffe0000000000000ffc00000000000007fc00000000000007f60000000000000fff0000000000000fff0000000000003ffe0000000000007ffc0000000000003ffc0000000000001ffe00000000000007df0000000000000f8f0000000000000f8f0000000000000f0700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000038300000000000007c780000000000007ff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001ff00000000000001fe00000000000001fe00000000000001fe00000000000031fe00000000000079fc0000000000003ffc0000000000001ffc00000000000007fc00000000000001fc00000000000003fc00000000000003f800000000000003f000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000030e000000000000079f00000000000007ff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001fe00000000000003fc00000000000003ff00000000000007ff80000000000007ff80000000000037ff8000000000007bff0000000000003fff0000000000001fff8000000000000fffc0000000000001ffc0000000000001f3c0000000000001e180000000000003e000000000000003c000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000018300000000000003c380000000000003ffc0000000000003ffe0000000000003ffe0000000000003ffe0200000000003ffe0300000000003ffe0700000000003ffe1700000000003ffe3f00000000003ffe3f00000000003ffe7f00000000001ffcff00000000000ff9ff000000000007f9ff00000000000ffffe00000000001ffffe00000000003ffffe00000000007ffffe00000000007ffffc00000000003ffffc00000000001ffffc000000000007f7dc000000000003c3d8000000000003c390000000000007830000000000000780000000000000030000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c180000000000001e3c0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000003ffe0000000000001ffc0000000000000ff800000000000007f80000000000000ffc0000000000001fffe000000000003ffff000000000007ffff000000000007ffff000000000003ffe6000000000001ff800000000000003f000000000000003c000000000000003c000000000000007800000000000000780000000000000030000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000030e000000000000079f00000000000007ff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001fe00000000000003fc00000000000003ff00000000000007ff80000000000007ff80000000000037ff8000000000007bff0000000000003fff0000000000001fff8000000000000fffc0000000000001ffc0000000000001f3c0000000000001e180000000000003e000000000000003c000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000060000000000000004000000000000000400000000000000041c38110f00000004104411080000000410441108000000041044110800000004104411080000000410380e080000000600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000018000040080400100800004008000010080003c009041c12080084400a042214080084400c042018080084400c042018080084400a042214080083c009041c1208000000000000001800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006060000000000000f0f0000000000000fff8000000000001fff8000000000001fff8000000000001fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001fe00000000000001f8c0000000000003ffe0000000000003ffe0000000000003ffc0000000000003ff00000000000003fc00000000000033fc0000000000007ffc0000000000003ffe0000000000001fde00000000000003cf000000000000078f000000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0c0000000000001e1e0000000000001fff0000000000003fff0000000000003fff0000000000003fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000001fff0000000000000fff00000000000007fe00000000000003fe00000000000003fb80000000000007ffc0000000000007ffc0000000000007ff80000000000037ff0000000000007ff80000000000003ffc0000000000001ffe00000000000007df000000000000078f000000000000078f000000000000070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006060000000000000f0f0000000000000fff8000000000001fff8000000000001fff8000000000001fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff8000000000000fff80000000000007ff80000000000003ff00000000000001ff00000000000001fd80000000000003ffc0000000000003ffc000000000001bff8000000000003fff0000000000001ffc0000000000000ffe00000000000007df0000000000000f8f0000000000000f8f0000000000000f0700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000303000000000000078780000000000007ffc000000000000fffc000000000000fffc000000000000fffc0000000000007ffc0000000000007ffc0000000000007ffc0000000000007ffc0000000000007ffc0000000000007ffc0000000000003ffc0000000000001ff80000000000000ff00000000000000fe00000000000001ff60000000000001fff000000000000dfff000000000001ffff000000000000fffe0000000000007ff8000000000000fffc000000000000fc7c000000000000f0380000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006060000000000000f0f0000000000000fff8100000000000fffc380000000000fffc380000000000fffc3800000000007ffc7800000000007ffc7800000000007ffcf800000000007ffdf800000000007ffdf800000000007ffdf800000000003ffff800000000001ffbf800000000000ff7f800000000000ffff800000000001ffff800000000001ffff800000000001ffff000000000019ffff00000000003ffe3f00000000001ffe1700000000000fff02000000000001ff00000000000003e780000000000007c78000000000000f878000000000000f0300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000303000000000000078780000000000007ffc000000000000fffc000000000000fffc000000000000fffc0000000000007ffc0000000000007ffc0000000000007ffc0000000000007ffc0000000000007ffc0000000000007ffc0000000000003ffc0000000000001ff98000000000000ff3c000000000000fe7c000000000001fff8000000000001fff000000000000dffe000000000001fff8000000000000ffe00000000000007fe00000000000001ff00000000000001ff00000000000003e780000000000007c78000000000000f878000000000000f0300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006000000000000000400000000000000040000000000000004110f03c00000000411088221000000041108822100000004110882210000000411088221000000040e0f03c00000000600080200000000000008020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
-        _b("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000180000000000000208000000000000020800000e0e1c110708000001082211020800000f08201102080000000820110208000001082211020800000e081c0e0308000000000000001800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
+        _b(
+            "000000000000070e001fff801861803000c03000c03000c03000c01000801000801801800c0300060600030c00019800"
+            "006000000000000000000000"
+        ),
+        _b(
+            "000000070e001fff803861c03000c06000606000606000606000602000403000c01000801801800c0300060600030c00"
+            "019800006000000000000000"
+        ),
+        _b(
+            "0000000000000f9f001cf3803000c03000c02000402000402000403000c01000801801800801000c0300060600019800"
+            "00f000006000000000000000"
+        ),
     ],
 )
 
-
-
-# 036
-CAT_FACE24 = Sprite(
+# 082 HEART_OUTLINE_24 (24x24, 3 frames)
+HEART_OUTLINE_24 = Sprite(
     width=24,
     height=24,
     frame_count=3,
     frames=[
-        _b("0000000000000200400300c007fee007ffe007ffe00b81d01600681c00382c80b439c1dc39c1dc39c1dc38809c38001c1f88f83c1c3c0e3e700781e039ff9c07fee0009480006300"),
-        _b("0000000000000200400300c007fee007ffe007ffe00b81d01600681c00382c003438001c3be3fc38001c38001c38001c1f88f83c1c3c0e3e700781e039ff9c07fee0009480006300"),
-        _b("0000000000000200400300c007fee007ffe007ffe00b81d01600681c00382c80b439c1dc39c1dc39c1dc38809c38001c1f88f83c1c3c0e3e700781e039ff9c07fee0009480006300"),
+        _b(
+            "00000000000000000007e7e00ffff01c18381800181800181800181800181800181800180800100c0030060060060060"
+            "0300c001c38000e700003c00001800000000000000000000"
+        ),
+        _b(
+            "0000000000000fe7f01e7e7838181c30000c30000c30000c20000420000430000c30000c30000c1800180800100c0030"
+            "0600600300c001818000e700003c00001800000000000000"
+        ),
+        _b(
+            "00000000000007c3e00ffff01c183818001830000c30000c30000c30000c30000c1000081800180800100c0030060060"
+            "0300c001818000c300007e00003c00000000000000000000"
+        ),
     ],
 )
 
-# 037
-CAT_FACE28 = Sprite(
+# 083 HEART_OUTLINE_28 (28x28, 3 frames)
+HEART_OUTLINE_28 = Sprite(
     width=28,
     height=28,
     frame_count=3,
     frames=[
-        _b("0000000000000000010008000180180003c03c0003fffc0003dfbc0003fffc0005e07a000b801d000e0007001c0003801c40238038e071c038e071c038e071c0384021c0380001c01be23d803c0703c00c0f83000e0007003f821fc003e27c0000fff000003fc0000000000000000000"),
-        _b("0000000000000000010008000180180003c03c0003fffc0003dfbc0003fffc0005e07a000b801d000e0007001c0003801c000380380001c039f0f9c0380001c0380001c0380001c01be23d803c0703c00c0f83000e0007003f821fc003e27c0000fff000003fc0000000000000000000"),
-        _b("0000000000000000010008000180180003c03c0003fffc0003dfbc0003fffc0005e07a000b801d000e0007001c0003801c40238038e071c038e071c038e071c0384021c0380001c01be23d803c0703c00c0f83000e0007003f821fc003e27c0000fff000003fc0000000000000000000"),
+        _b(
+            "00000000000000000000000001e0780007f9fe000f8f1f000e0607001c0003801c000380180001801800018018000180"
+            "1c0003800c0003000c000300060006000600060003000c000180180001c03800006060000039c000001f8000000f0000"
+            "00000000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000007f0fe000ff9ff001e0f07801c000380380001c0300000c0300000c0300000c0300000c0300000c0"
+            "300000c0380001c018000180180001800c0003000600060007000e0003801c0001c0380000e070000070e000001f8000"
+            "000f0000000600000000000000000000"
+        ),
+        _b(
+            "000000000000000000c0300007f9fe000fffff001e0607801c00038018000180380001c0380001c0380001c018000180"
+            "18000180180001801c0003800c000300060006000600060003000c000180180000c030000070e0000039c000000f0000"
+            "00060000000000000000000000000000"
+        ),
     ],
 )
 
-# 038
-CAT_FACE32 = Sprite(
+# 084 HEART_OUTLINE_32 (32x32, 3 frames)
+HEART_OUTLINE_32 = Sprite(
     width=32,
     height=32,
     frame_count=3,
     frames=[
-        _b("00000000000000000080010000c0030000e0070001f0078001ffff8001ffff8001bffd8003f00fc005c003a00b0000d00e0000701e0000781c2004383c700e3c38700e1c38700e1c3820041c3800001c39f88f9c3e01c07c1c03e0380e0000703e00807c07f88fe003c94bc000f63f00007ffe00000ff0000000000000000000"),
-        _b("00000000000000000080010000c0030000e0070001f0078001ffff8001ffff8001bffd8003f00fc005c003a00b0000d00e0000701e0000781c0000383c00003c38f81f1c3800001c3800001c3800001c39f88f9c3e01c07c1c03e0380e0000703e00807c07f88fe003c94bc000f63f00007ffe00000ff0000000000000000000"),
-        _b("00000000000000000080010000c0030000e0070001f0078001ffff8001ffff8001bffd8003f00fc005c003a00b0000d00e0000701e0000781c2004383c700e3c38700e1c38700e1c3820041c3800001c39f88f9c3e01c07c1c03e0380e0000703e00807c07f88fe003c94bc000f63f00007ffe00000ff0000000000000000000"),
+        _b(
+            "0000000000000000000000000020040001fc3f8003ffffc00783c1e00f0000f00e0000700e0000700c0000301c000038"
+            "0c0000300c0000300c0000300e00007006000060070000e0030000c0038001c001c0038000e0070000700e0000381c00"
+            "001c3800000ff0000003c0000001800000000000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000001f81f8007fe7fe00ffffff01f03c0f81c0000383c00003c3800001c3800001c3800001c3800001c"
+            "3800001c3800001c18000018180000181c0000380c0000300e00007006000060030000c0038001c001c0038000e00700"
+            "00700e00003c3c00000e70000007e00000018000000000000000000000000000"
+        ),
+        _b(
+            "00000000000000000000000001f81f8007fe7fe00fc7e3f00f0180f01e0000781c0000381c0000381800001818000018"
+            "18000018180000181c0000380c0000300c0000300e00007006000060030000c0038001c001c0038000e0070000700e00"
+            "00381c00001e78000007e0000003c00000018000000000000000000000000000"
+        ),
     ],
 )
 
-# 039
-CAT_WINK24 = Sprite(
-    width=24,
-    height=24,
+# 085 HEART_OUTLINE_40 (40x40, 3 frames)
+HEART_OUTLINE_40 = Sprite(
+    width=40,
+    height=40,
     frame_count=3,
     frames=[
-        _b("0000000000000200400300c007fee007ffe007ffe00b81d01600681c00382c00b43801dc3be1dc3801dc38009c38001c1f88f83c1c3c0e3e700789e039ff9c07fee0000000000000"),
-        _b("0000000000000200400300c007fee007ffe007ffe00b81d01600681c00382c003438001c3be3fc38001c38001c38001c1f88f83c1c3c0e3e700789e039ff9c07fee0000000000000"),
-        _b("0000000000000200400300c007fee007ffe007ffe00b81d01600681c00382c00b43801dc3be1dc3801dc38009c38001c1f88f83c1c3c0e3e700789e039ff9c07fee0000000000000"),
+        _b(
+            "0000000000000000000000000000000000000000001e007800007fc3fe0001ffe7ff8003ffffffc003e03c07c007c000"
+            "03e007800001e007000000e00f000000f00f000000f00f000000f00f000000f007000000e007000000e007000000e007"
+            "000000e003800001c003800001c001c000038001c000038000e00007000070000e000078001e00003c003c00001e0078"
+            "00000f00f0000003c3c0000001e780000000ff000000003c000000001800000000000000000000000000000000000000"
+            "0000000000000000"
+        ),
+        _b(
+            "00000000000000000000000000000000ff81ff0003ffc3ffc007ffffffe00fc07e03f00f801801f01f000000f81e0000"
+            "00781c000000381c000000381c000000383c0000003c1c000000381c000000381c000000381c000000381c000000380e"
+            "000000700e000000700e0000007007000000e003800001c003800001c001c000038000e000070000f0000f000078001e"
+            "00003c003c00001e007800000781e0000003c3c0000001e7800000007e000000003c0000000018000000000000000000"
+            "0000000000000000"
+        ),
+        _b(
+            "000000000000000000000000000000001c00380000ff81ff0001ffe7ff8003ffffffc007e03c07e007801801e00f0000"
+            "00f00f000000f00e000000701e000000781e000000781e000000780e000000700e000000700e000000700e000000700e"
+            "0000007007000000e007000000e003800001c003800001c001c000038000e00007000070000e000078001e00003c003c"
+            "00001e007800000f81f0000003c3c0000001e780000000ff000000003c00000000180000000000000000000000000000"
+            "0000000000000000"
+        ),
     ],
 )
 
-# 040
-CAT_SLEEPY24 = Sprite(
-    width=24,
-    height=24,
+# 086 HEART_OUTLINE_48 (48x48, 3 frames)
+HEART_OUTLINE_48 = Sprite(
+    width=48,
+    height=48,
     frame_count=3,
     frames=[
-        _b("0000000000000200400300c007fee007ffe007ffe00b81d01600681c00382c003438001c3c141c3c141c3a223c39c1dc1f88f83c1c3c0e3e700789e039ff9c07fee0000000000000"),
-        _b("0000000000000200400300c007fee007ffe007ffe00b81d01600681c00382c003438001c3be3fc38001c38001c38001c1f88f83c1c3c0e3e700789e039ff9c07fee0000000000000"),
-        _b("0000000000000200400300c007fee007ffe007ffe00b81d01600681c00382c003438001c3c141c3c141c3a223c39c1dc1f88f83c1c3c0e3e700789e039ff9c07fee0000000000000"),
+        _b(
+            "0000000000000000000000000000000000000000000000000000000000000007c003e000001ff81ff800007ffe7ffe00"
+            "00ffffffff0001f807e01f8001f001800f8003e0000007c003c0000003c003c0000003c00780000001e00780000001e0"
+            "0780000001e00780000001e00780000001e00780000001e00380000001c00380000001c00380000001c003c0000003c0"
+            "01c00000038001c00000038000e00000070000f000000f00007000000e00003800001c00003c00003c00001e00007800"
+            "000f0000f00000078001e0000003c003c0000001e00780000000f81f000000007c3e000000001e78000000000ff00000"
+            "000003c00000000001800000000000000000000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000000000000000000000000001fc003f800007ff81ffe0001fffc3fff8003fe7e7e7fc003f007e00fc0"
+            "07c0018003e00f80000001f00f00000000f00f00000000f01e00000000781e00000000781e00000000781e0000000078"
+            "1c00000000381c00000000381c00000000381e00000000780e00000000700e00000000700e00000000700f00000000f0"
+            "0700000000e00700000000e00380000001c00380000001c001c00000038001e00000078000e000000700007000000e00"
+            "003800001c00001c00003800001e00007800000f0000f0000003c003c0000001e00780000000f00f000000007c3e0000"
+            "00001e78000000000ff00000000003c00000000001800000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000000000000000000000000000000000000000fc003f000003ff81ffc0000fffc3fff0001ffffffff80"
+            "03f007e00fc003e0018007c007c0000003e00780000001e00780000001e00f00000000f00f00000000f00f00000000f0"
+            "0f00000000f00f00000000f00f00000000f00f00000000f00700000000e00700000000e00700000000e00780000001e0"
+            "0380000001c00380000001c001c00000038001e00000078000e000000700007000000e00007800001e00003800001c00"
+            "001c00003800000e0000700000078001e0000003c003c0000001e00780000000f81f000000007c3e000000001e780000"
+            "00000ff00000000003c00000000001800000000000000000000000000000000000000000000000000000000000000000"
+        ),
     ],
 )
 
-# 041
-CAT_SAD24 = Sprite(
-    width=24,
-    height=24,
+# 087 HEART_OUTLINE_56 (56x56, 3 frames)
+HEART_OUTLINE_56 = Sprite(
+    width=56,
+    height=56,
     frame_count=3,
     frames=[
-        _b("0000000000000200400300c007fee007ffe007ffe00b81d01600681c00382c80b439c1dc39c1dc39c1dc38809c38001c1f88f83c1c3c0e3e700781e039ff9c07ffe0000000000000"),
-        _b("0000000000000200400300c007fee007ffe007ffe00b81d01600681c00382c003438001c3be3fc38001c38001c38001c1f88f83c1c3c0e3e700781e039ff9c07ffe0000000000000"),
-        _b("0000000000000200400300c007fee007ffe007ffe00b81d01600681c00382c80b439c1dc39c1dc39c1dc38809c38001c1f88f83c1c3c0e3e700781e039ff9c07ffe0000000000000"),
+        _b(
+            "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000001f8001f80"
+            "00000fff00fff000001fffc3fff800003fffe7fffc00007e00ff007e0000fc003c003f0000f80018001f0001f0000000"
+            "0f8001e0000000078001e0000000078003c000000003c003c000000003c003c000000003c003c000000003c003c00000"
+            "0003c003c000000003c003c000000003c003c000000003c001c0000000038001c0000000038001c0000000038000e000"
+            "0000070000e0000000070000f00000000f0000700000000e0000780000001e0000380000001c00001c0000003800001e"
+            "0000007800000e00000070000007000000e0000003800001c0000003c00003c0000001e0000780000000f8001f000000"
+            "003c003c000000001e0078000000000f81f00000000007c3e00000000001e7800000000000ff0000000000003c000000"
+            "000000180000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+            "0000000000000000"
+        ),
+        _b(
+            "00000000000000000000000000000000000000000000000000000000000ffc003ff000003fff81fffc00007fffc3fffe"
+            "0001fe03e7c07f8001f8007e001f8003e0003c0007c007c000180003e0078000000001e00f8000000001f00f00000000"
+            "00f00f0000000000f00f0000000000f00e0000000000700e0000000000701e0000000000780e0000000000700e000000"
+            "0000700e0000000000700e0000000000700e0000000000700e000000000070070000000000e0070000000000e0070000"
+            "000000e0038000000001c0038000000001c003c000000003c001c0000000038000e0000000070000e000000007000070"
+            "0000000e0000780000001e00003c0000003c00001c0000003800000e00000070000007000000e0000003800001c00000"
+            "01e0000780000000f0000f0000000078001e000000003c003c000000001f00f8000000000781e00000000003e7c00000"
+            "000000ff0000000000007e0000000000003c000000000000180000000000000000000000000000000000000000000000"
+            "0000000000000000"
+        ),
+        _b(
+            "00000000000000000000000000000000000000000000000000000000000000000000000007fc003fe000001fff00fff8"
+            "00003fffc3fffc00007f83e7c1fe0000fc007e003f0001f0003c000f8001e0001800078003e000000007c003c0000000"
+            "03c0078000000001e0078000000001e0078000000001e0070000000000e0070000000000e0070000000000e007000000"
+            "0000e0070000000000e0070000000000e0070000000000e0078000000001e0038000000001c0038000000001c003c000"
+            "000003c001c0000000038001c0000000038000e0000000070000e0000000070000700000000e0000780000001e000038"
+            "0000001c00001c0000003800001e0000007800000f000000f0000007800001e0000003c00003c0000001e00007800000"
+            "00f0000f0000000078001e000000003e007c000000000f00f00000000007c3e00000000003e7c00000000000ff000000"
+            "0000007e0000000000001800000000000000000000000000000000000000000000000000000000000000000000000000"
+            "0000000000000000"
+        ),
     ],
 )
 
-# 042
-CAT_SURPRISE24 = Sprite(
-    width=24,
-    height=24,
+# 088 HEART_OUTLINE_64 (64x64, 3 frames)
+HEART_OUTLINE_64 = Sprite(
+    width=64,
+    height=64,
     frame_count=3,
     frames=[
-        _b("0000000000000200400300c007fee007ffe007ffe00b81d01600681c00382c80b439c1dc39c1dc39c1dc38809c38001c1f88f83c1c3c0e3e700781e039ff9c07fee0002200002200"),
-        _b("0000000000000200400300c007fee007ffe007ffe00b81d01600681c00382c003438001c3be3fc38001c38001c38001c1f88f83c1c3c0e3e700781e039ff9c07fee0002200002200"),
-        _b("0000000000000200400300c007fee007ffe007ffe00b81d01600681c00382c80b439c1dc39c1dc39c1dc38809c38001c1f88f83c1c3c0e3e700781e039ff9c07fee0002200002200"),
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+            "000000000000000000007f8001fe00000003ffe007ffc0000007fff81fffe000000ff8fe7f1ff000001f800ff001f800"
+            "003f0003c000fc00007c000180003e000078000000001e0000f8000000001f0000f0000000000f0000f0000000000f00"
+            "01e000000000078001e000000000078001e000000000078001e000000000078001c000000000038001c0000000000380"
+            "01c000000000038001c000000000038001e000000000078000e000000000070000e000000000070000e0000000000700"
+            "00e00000000007000070000000000e000070000000000e000078000000001e000038000000001c00003c000000003c00"
+            "001c000000003800000e000000007000000f00000000f000000700000000e000000380000001c0000003c0000003c000"
+            "0001e000000780000000f000000f000000007800001e000000003c00003c000000001e000078000000000f0000f00000"
+            "000007c003e00000000001e007800000000000f81f0000000000007c3e0000000000001e780000000000000ff0000000"
+            "00000003c000000000000001800000000000000000000000000000000000000000000000000000000000000000000000"
+            "0000000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "00000000000000000000000000000000000000000000000000000000000000000001fe00007f80000007ffc003ffe000"
+            "001ffff00ffff800003fe3fc3fc7fc00007f001e7800fe0000fc0007e0003f0001f00003c0000f8003e00001800007c0"
+            "03e00000000007c007c00000000003e007800000000001e007800000000001e007000000000000e00f000000000000f0"
+            "0f000000000000f00f000000000000f00f000000000000f00e000000000000700e000000000000700e00000000000070"
+            "0e000000000000700f000000000000f007000000000000e007000000000000e007000000000000e007000000000000e0"
+            "03800000000001c003800000000001c003800000000001c001c000000000038001c000000000038000e0000000000700"
+            "00e00000000007000070000000000e000078000000001e000038000000001c00001c000000003800001e000000007800"
+            "000f00000000f000000780000001e0000003c0000003c0000001e000000780000000f000000f000000007800001e0000"
+            "00003c00003c000000001e000078000000000f8001f00000000007c003e00000000001e007800000000000f81f000000"
+            "0000003c3c0000000000001e780000000000000ff000000000000003c000000000000001800000000000000000000000"
+            "0000000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+            "0001ffc003ff80000007fff00fffe000001ffffc3ffff800003fc03e7c03fc00007e000ff0007e0000fc0003c0003f00"
+            "00f8000180001f0001f0000000000f8001e000000000078003e00000000007c003c00000000003c003c00000000003c0"
+            "03800000000001c003800000000001c003800000000001c007800000000001e007800000000001e003800000000001c0"
+            "03800000000001c003800000000001c003800000000001c003800000000001c003c00000000003c001c0000000000380"
+            "01c000000000038001c000000000038000e000000000070000e00000000007000070000000000e000070000000000e00"
+            "0038000000001c000038000000001c00001c000000003800001e000000007800000f00000000f000000700000000e000"
+            "000380000001c0000001c000000380000001e000000780000000f000000f000000007800001e000000003e00007c0000"
+            "00000f0000f000000000078001e00000000003e007c00000000001f00f800000000000781e0000000000003e7c000000"
+            "0000000ff000000000000007e000000000000003c0000000000000018000000000000000000000000000000000000000"
+            "0000000000000000000000000000000000000000000000000000000000000000"
+        ),
     ],
 )
 
-# 043
-CAT_BLUSH24 = Sprite(
-    width=24,
-    height=24,
+# 089 HEART_SPARKLE_16 (16x16, 3 frames)
+HEART_SPARKLE_16 = Sprite(
+    width=16,
+    height=16,
     frame_count=3,
     frames=[
-        _b("0000000000000200400300c007fee007ffe007ffe00b81d01600681c00382c80b439c1dc39c1dc39c1dc38809c38001c1f88f83c1c3c0e3e700781e039ff9c07fee0009480006300"),
-        _b("0000000000000200400300c007fee007ffe007ffe00b81d01600681c00382c003438001c3be3fc38001c38001c38001c1f88f83c1c3c0e3e700781e039ff9c07fee0009480006300"),
-        _b("0000000000000200400300c007fee007ffe007ffe00b81d01600681c00382c80b439c1dc39c1dc39c1dc38809c38001c1f88f83c1c3c0e3e700781e039ff9c07fee0009480006300"),
+        _b("000000001e783ffc3ffc3ffc3ffc3ffc3ffc1ff80ff007f003f8019000000000"),
+        _b("00003e787ffc7ffe7ffe7ffe7ffe7ffe3ffc3ffc1ff80ff007e003c000000000"),
+        _b("00000c303ffc3ffe7ffe7ffe7ffe3ffc3ffc1ff81ff80ff007e0018000000000"),
     ],
 )
 
-# 044
-CAT_LOVE24 = Sprite(
-    width=24,
-    height=24,
-    frame_count=3,
-    frames=[
-        _b("00000000007c02007c0300fc07fefc07fff807ffe00b81d01600681c00382c80b439c1dc39c1dc39c1dc38809c38001c1f88f83c1c3c0e3e700781e039ff9c07fee0009480006300"),
-        _b("00000000007c02007c0300fc07fefc07fff807ffe00b81d01600681c00382c003438001c3be3fc38001c38001c38001c1f88f83c1c3c0e3e700781e039ff9c07fee0009480006300"),
-        _b("00000000007c02007c0300fc07fefc07fff807ffe00b81d01600681c00382c80b439c1dc39c1dc39c1dc38809c38001c1f88f83c1c3c0e3e700781e039ff9c07fee0009480006300"),
-    ],
-)
-
-# 045
-CAT_GRUMPY24 = Sprite(
-    width=24,
-    height=24,
-    frame_count=3,
-    frames=[
-        _b("0000000000000200400300c007fee007ffe007ffe00b81d01600781d80f82ce3b439c1dc39c1dc39c1dc38809c38001c1f88f83c1c3c0e3e700781e039ff9c07fee0009480006300"),
-        _b("0000000000000200400300c007fee007ffe007ffe00b81d01600781d80f82c633438001c3be3fc38001c38001c38001c1f88f83c1c3c0e3e700781e039ff9c07fee0009480006300"),
-        _b("0000000000000200400300c007fee007ffe007ffe00b81d01600781d80f82ce3b439c1dc39c1dc39c1dc38809c38001c1f88f83c1c3c0e3e700781e039ff9c07fee0009480006300"),
-    ],
-)
-
-# 046
-SITTING_CAT18 = Sprite(
-    width=18,
-    height=18,
-    frame_count=3,
-    frames=[
-        _b("02100003100007f80007b8000c04001002001002001042001002001003000807000e1c0009e40008040004080003180007ff00080700"),
-        _b("02100003100007f80007b8000f1e001002001002001042001002001002000804000e1c0009e40008040004080003100007fc00083e00"),
-        _b("02100003100007f80007b8000c04001002001002001042001002001003000807000e1c0009e40008040004080003180007ff00080700"),
-    ],
-)
-
-# 047
-SITTING_CAT20 = Sprite(
+# 090 HEART_SPARKLE_20 (20x20, 3 frames)
+HEART_SPARKLE_20 = Sprite(
     width=20,
     height=20,
     frame_count=3,
     frames=[
-        _b("010400018c0001fc0003de000603000603000800800800800820800800800401c00401c007070004f900040100020200020200018e000377c00401c0"),
-        _b("010400018c0001fc0003de00060300078f0008008008008008208008008004010004010007070004f900040100020200020200018c00037f00040f00"),
-        _b("010400018c0001fc0003de000603000603000800800800800820800800800401c00401c007070004f900040100020200020200018e000377c00401c0"),
+        _b(
+            "000000000000170e003fff801fff803fffc03fffc03fffc03fffc01fff801fff801fff800fff0007fe0003fc0001f800"
+            "006000000000000000000000"
+        ),
+        _b(
+            "000000070e001fff803fffc03fffc07fffe07fffe07fffe07fffe03fffc03fffc01fff801fff800fff0007fe0003fc00"
+            "01f800006000000000000000"
+        ),
+        _b(
+            "0000000000000f9f001fff803fffc03fffc03fffc03fffc03fffc03fffc01fff801fff800fff000fff0007fe0001ff00"
+            "00f200006000000000000000"
+        ),
     ],
 )
 
-# 048
-SITTING_CAT24 = Sprite(
+# 091 HEART_SPARKLE_24 (24x24, 3 frames)
+HEART_SPARKLE_24 = Sprite(
     width=24,
     height=24,
     frame_count=3,
     frames=[
-        _b("00808000c18000ff8001e3c001f7c00200200280a004001004001004081004001002002002003c03007c02c1b0023e200200200200200100400100400080c000637000ffbc01005c"),
-        _b("00808000c18000ff8001e3c001f7c002002003e3e004001004001004081004001002002002002003006002c1a0023e2002002002002001004001004000808000630000fff00100f0"),
-        _b("00808000c18000ff8001e3c001f7c00200200280a004001004001004081004001002002002003c03007c02c1b0023e200200200200200100400100400080c000637000ffbc01005c"),
+        _b(
+            "00000000000000000007e7f00ffff81ffff81ffff81ffff81ffff81ffff81ffff81ffff80ffff00ffff007ffe007ffe0"
+            "03ffc001ff8000ff00003c00001800000000000000000000"
+        ),
+        _b(
+            "0000000000000fe7f01ffff83ffffc3ffffc3ffffc3ffffc3ffffc3ffffc3ffffc3ffffc3ffffc1ffff80ffff00ffff0"
+            "07ffe003ffc001ffe000ff40003c00001800000000000000"
+        ),
+        _b(
+            "00000000000007c3e00ffff01ffff81ffff83ffffc3ffffc3ffffc3ffffc3ffffc1ffff81ffff80ffff00ffff007ffe0"
+            "03ffc001ff8000ff00007e00003c00000000000000000000"
+        ),
     ],
 )
 
-# 049
-SITTING_CAT28 = Sprite(
+# 092 HEART_SPARKLE_28 (28x28, 3 frames)
+HEART_SPARKLE_28 = Sprite(
     width=28,
     height=28,
     frame_count=3,
     frames=[
-        _b("0040100000603000007ff00000f8f80000fdf800008008000100040002202200020002000200020002020200020002000200020001000400008008c0014017c001306700010f8400010004000100040001000400008008000080080000401c0000202c000018c700003fe3c0004010c0"),
-        _b("0040100000603000007ff00000f8f80000fdf80000800800010004000278f200020002000200020002020200020002000200020001000400008008000140140001306400010f8400010004000100040001000400008008000080080000401000002020000018f000003fff0000401f00"),
-        _b("0040100000603000007ff00000f8f80000fdf800008008000100040002202200020002000200020002020200020002000200020001000400008008c0014017c001306700010f8400010004000100040001000400008008000080080000401c0000202c000018c700003fe3c0004010c0"),
+        _b(
+            "00000000000000000000000001e0780007f9fe000fffff000fffff001fffff801fffff801fffff801fffff801fffff80"
+            "1fffff800fffff000fffff0007fffe0007fffe0003fffc0001fff80001fff800007ffc00003ffe00001f9c00000f0800"
+            "00000000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000007f0fe000ff9ff001fffff801fffff803fffffc03fffffc03fffffc03fffffc03fffffc03fffffc0"
+            "3fffffc03fffffc01fffff801fffff800fffff0007fffe0007fffe0003fffc0001fff80000fff000007fe000001f8000"
+            "000f0000000600000000000000000000"
+        ),
+        _b(
+            "000000000000000000c0300007f9fe000fffff001fffff801fffff801fffff803fffffc03fffffc03fffffc01fffff80"
+            "1fffff801fffff801fffff800fffff0007fffe0007fffe0003fffc0001fff80000fff000007fe000003fc000000f0000"
+            "00060000000000000000000000000000"
+        ),
     ],
 )
 
-# 050
-SITTING_CAT32 = Sprite(
+# 093 HEART_SPARKLE_32 (32x32, 3 frames)
+HEART_SPARKLE_32 = Sprite(
     width=32,
     height=32,
     frame_count=3,
     frames=[
-        _b("0020020000300600003bee00003c1e00007e3f00007f7f0000c001800080008001080840010000400100004001008040010000400100004000800080008000800040010c00a002bc009c1cf00083e0e0008000c0008000800080008000800080004001800040018000200380002002c0001004e0000e3870000ff83c0010040c"),
-        _b("0020020000300600003bee00003c1e00007e3f00007f7f0000c0018000800080011e3c40010000400100004001008040010000400100004000800080008000800040010000a00280009c1c800083e080008000800080008000800080008000800040010000400100002002000020020000100600000e3b00000ff9f0001004f0"),
-        _b("0020020000300600003bee00003c1e00007e3f00007f7f0000c001800080008001080840010000400100004001008040010000400100004000800080008000800040010c00a002bc009c1cf00083e0e0008000c0008000800080008000800080004001800040018000200380002002c0001004e0000e3870000ff83c0010040c"),
+        _b(
+            "000000000000000000000000042004000ffc3f801fffffc00fffffe00ffffff00ffffff00ffffff00ffffff01ffffff8"
+            "0ffffff00ffffff00ffffff00ffffff007ffffe007ffffe003ffffc003ffffc001ffff8000ffff00007ffe00003ffc00"
+            "001ff800000ff0000003c0000001800000000000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000001f81f8007fe7fe00ffffff01ffffff81ffffff83ffffffc3ffffffc3ffffffc3ffffffc3ffffffc"
+            "3ffffffc3ffffffc1ffffff81ffffff81ffffff80ffffff00ffffff007ffffe003ffffc003ffffc001ffff8000ffff00"
+            "007ffe00003ffc00000ff0000007e00000018000000000000000000000000000"
+        ),
+        _b(
+            "00000000000000000000000001f81f8007fe7fe00ffffff00ffffff01ffffff81ffffff81ffffff81ffffff81ffffff8"
+            "1ffffff81ffffff81ffffff80ffffff00ffffff00ffffff007ffffe003ffffc003ffffc001ffff8000ffff00007fff80"
+            "003fffc0001ffb800007e1000003c00000018000000000000000000000000000"
+        ),
     ],
 )
 
-# 051
-CAT_TAIL24 = Sprite(
+# 094 HEART_SPARKLE_40 (40x40, 3 frames)
+HEART_SPARKLE_40 = Sprite(
+    width=40,
+    height=40,
+    frame_count=3,
+    frames=[
+        _b(
+            "0000000000000000000000000000000000000000001e007800007fc3fe0001ffe7ff8003ffffffc003ffffffc007ffff"
+            "ffe007ffffffe007ffffffe00ffffffff00ffffffff00ffffffff00ffffffff007ffffffe007ffffffe007ffffffe007"
+            "ffffffe003ffffffc003ffffffc001ffffff8001ffffff8000ffffff00007ffffe00007ffffe00003ffffc00001ffff8"
+            "00000ffff8000003ffdc000001ffbe000000ff1c0000003c080000001800000000000000000000000000000000000000"
+            "0000000000000000"
+        ),
+        _b(
+            "00000000000000000000000000000000ff81ff0003ffc3ffc007ffffffe00ffffffff00ffffffff01ffffffff81fffff"
+            "fff81ffffffff81ffffffff81ffffffff83ffffffffc1ffffffff81ffffffff81ffffffff81ffffffff81ffffffff80f"
+            "fffffff00ffffffff00ffffffff007ffffffe003ffffffc003ffffffc001ffffff8000ffffff0000ffffff00007ffffe"
+            "00003ffffc00001ffff8000007ffe0000003ffc0000001ff800000007e000000003c0000000018000000000000000000"
+            "0000000000000000"
+        ),
+        _b(
+            "000000000000000000000000000000001c00380000ff81ff0001ffe7ff8003ffffffc007ffffffe007ffffffe00fffff"
+            "fff00ffffffff00ffffffff01ffffffff81ffffffff81ffffffff80ffffffff00ffffffff00ffffffff00ffffffff00f"
+            "fffffff007ffffffe007ffffffe003ffffffc003ffffffc001ffffff8000ffffff00007ffffe00007ffffe00003ffffc"
+            "00001ffff800000ffff0000003ffc0000001ff80000000ff000000003c00000000180000000000000000000000000000"
+            "0000000000000000"
+        ),
+    ],
+)
+
+# 095 HEART_SPARKLE_48 (48x48, 3 frames)
+HEART_SPARKLE_48 = Sprite(
+    width=48,
+    height=48,
+    frame_count=3,
+    frames=[
+        _b(
+            "0000000000000000000000000000000000000000000000000000000000000007c003e000001ff81ff900007ffe7fff00"
+            "00ffffffff8001ffffffffe001ffffffff8003ffffffffc003ffffffffc003ffffffffc007ffffffffe007ffffffffe0"
+            "07ffffffffe007ffffffffe007ffffffffe007ffffffffe003ffffffffc003ffffffffc003ffffffffc003ffffffffc0"
+            "01ffffffff8001ffffffff8000ffffffff0000ffffffff00007ffffffe00003ffffffc00003ffffffc00001ffffff800"
+            "000ffffff0000007ffffe0000003ffffc0000001ffff80000000ffff000000007ffe000000001ff8000000000ff00000"
+            "000003c00000000001800000000000000000000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000000000000000000000000001fc003f800007ff81ffe0001fffc3fff8003fffe7fffc003ffffffffc0"
+            "07ffffffffe00ffffffffff00ffffffffff00ffffffffff01ffffffffff81ffffffffff81ffffffffff81ffffffffff8"
+            "1ffffffffff81ffffffffff81ffffffffff81ffffffffff80ffffffffff00ffffffffff00ffffffffff00ffffffffff0"
+            "07ffffffffe007ffffffffe003ffffffffc003ffffffffc001ffffffff8001ffffffff8000ffffffff00007ffffffe00"
+            "003ffffffc00001ffffff800001ffffff800000ffffff0000003fffff0000001fffffc000000ffff700000007ffe2000"
+            "00001ff8200000000ff00000000003c00000000001800000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000000000000000000000000000000000000000fc003f00000bff81ffc0000fffc3fff0001ffffffff80"
+            "07ffffffffc003ffffffffc007ffffffffe007ffffffffe007ffffffffe00ffffffffff00ffffffffff00ffffffffff0"
+            "0ffffffffff00ffffffffff00ffffffffff00ffffffffff007ffffffffe007ffffffffe007ffffffffe007ffffffffe0"
+            "03ffffffffc003ffffffffc001ffffffff8001ffffffff8000ffffffff00007ffffffe00007ffffffe00003ffffffc00"
+            "001ffffff800000ffffff0000007ffffe0000003ffffc0000001ffff80000000ffff000000007ffe000000001ff80000"
+            "00000ff00000000003c00000000001800000000000000000000000000000000000000000000000000000000000000000"
+        ),
+    ],
+)
+
+# 096 HEART_SPARKLE_64 (64x64, 3 frames)
+HEART_SPARKLE_64 = Sprite(
+    width=64,
+    height=64,
+    frame_count=3,
+    frames=[
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+            "000000000000000000007f8001fe00000003ffe007ffc0000007fff81fffe000000ffffe7ffff000001ffffffffff800"
+            "003ffffffffffc00007ffffffffffe00007ffffffffffe0000ffffffffffff0000ffffffffffff0000ffffffffffff00"
+            "01ffffffffffff8001ffffffffffff8001ffffffffffff8001ffffffffffff8001ffffffffffff8001ffffffffffff80"
+            "01ffffffffffff8001ffffffffffff8001ffffffffffff8000ffffffffffff0000ffffffffffff0000ffffffffffff00"
+            "00ffffffffffff00007ffffffffffe00007ffffffffffe00007ffffffffffe00003ffffffffffc00003ffffffffffc00"
+            "001ffffffffff800000ffffffffff000000ffffffffff0000007ffffffffe0000003ffffffffc0000003ffffffffc000"
+            "0001ffffffff80000000ffffffff000000007ffffffe000000003ffffffe000000001ffffffa000000000ffffff20000"
+            "000007ffffe70000000001ffffbfe000000000ffff0700000000007ffe0200000000001ff80200000000000ff0020000"
+            "00000003c000000000000001800000000000000000000000000000000000000000000000000000000000000000000000"
+            "0000000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "00000000000000000000000000000000000000000000000000000000000000000001fe00007f80000007ffc003ffe000"
+            "001ffff00ffff800003ffffc3ffffc00007ffffe7ffffe0000ffffffffffff0001ffffffffffff8003ffffffffffffc0"
+            "03ffffffffffffc007ffffffffffffe007ffffffffffffe007ffffffffffffe007ffffffffffffe00ffffffffffffff0"
+            "0ffffffffffffff00ffffffffffffff00ffffffffffffff00ffffffffffffff00ffffffffffffff00ffffffffffffff0"
+            "0ffffffffffffff00ffffffffffffff007ffffffffffffe007ffffffffffffe007ffffffffffffe007ffffffffffffe0"
+            "03ffffffffffffc003ffffffffffffc003ffffffffffffc001ffffffffffff8001ffffffffffff8000ffffffffffff00"
+            "00ffffffffffff00007ffffffffffe00007ffffffffffe00003ffffffffffc00001ffffffffff800001ffffffffff800"
+            "000ffffffffff0000007ffffffffe0000003ffffffffc0000001ffffffff80000000ffffffff000000007ffffffe0000"
+            "00003ffffffc000000001ffffff8000000000ffffff00000000007ffffe00000000001ffff800000000000ffff000000"
+            "0000003ffc0000000000001ff80000000000000ff000000000000003c000000000000001800000000000000000000000"
+            "0000000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+            "0001ffc003ff80000007fff00fffe000001ffffc3ffff800003ffffe7ffffc00007ffffffffffe0000ffffffffffff00"
+            "00ffffffffffff8001ffffffffffff8001ffffffffffff8003ffffffffffffc003ffffffffffffc003ffffffffffffc0"
+            "03ffffffffffffc003ffffffffffffc003ffffffffffffc007ffffffffffffe007ffffffffffffe003ffffffffffffc0"
+            "03ffffffffffffc003ffffffffffffc003ffffffffffffc003ffffffffffffc003ffffffffffffc001ffffffffffff80"
+            "01ffffffffffff8001ffffffffffff8000ffffffffffff0000ffffffffffff00007ffffffffffe00007ffffffffffe00"
+            "003ffffffffffc00003ffffffffffc00001ffffffffff800001ffffffffff800000ffffffffff0000007ffffffffe000"
+            "0003ffffffffc0000001ffffffff80000001ffffffff80000000ffffffff000000007ffffffe000000003ffffffc0000"
+            "00000ffffff00000000007ffffe00000000003ffffc00000000001ffff8000000000007ffe0000000000003ffc000000"
+            "0000000ff000000000000007e000000000000003c0000000000000018000000000000000000000000000000000000000"
+            "0000000000000000000000000000000000000000000000000000000000000000"
+        ),
+    ],
+)
+
+# 097 DOUBLE_HEART_24 (24x24, 3 frames)
+DOUBLE_HEART_24 = Sprite(
     width=24,
     height=24,
     frame_count=3,
     frames=[
-        _b("00808000c18000ff8001e3c001f7c00200200280a004001004001004081004001002002002003c03007c02c1b0023e200200200200200100400100400080c000637000ffbc01005c"),
-        _b("00808000c18000ff8001e3c001f7c00200200280a004001004001004081004001002002002002003006002c1a0023e2002002002002001004001004000808000630000fff00100f0"),
-        _b("00808000c18000ff8001e3c001f7c00200200280a004001004001004081004001002002002003c03007c02c1b0023e200200200200200100400100400080c000637000ffbc01005c"),
+        _b(
+            "000000000000000000000000001ef0003ff8003ff8003ff8073ff80ffff81ffff01fffe01fffc00fff800ffc0007f800"
+            "03f80001f04000c0e0000040000000000000000000000000"
+        ),
+        _b(
+            "0000000000000000000800001c0c60081ff0001ff00f3ff01ffff01ffff01fffe01fffc01fff801fff001ffe000ffc00"
+            "07fc0003f80001e00000c000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000000000010000ef8001ff0001ff8023ff80ffff81ffff01ffff01fffe01fffc01fff000ffc000ffc00"
+            "07f80003f00001e000000000000000000000000000000000"
+        ),
     ],
 )
 
-# 052
-CAT_WALK24 = Sprite(
-    width=24,
-    height=24,
+# 098 DOUBLE_HEART_28 (28x28, 3 frames)
+DOUBLE_HEART_28 = Sprite(
+    width=28,
+    height=28,
     frame_count=3,
     frames=[
-        _b("00808000c18000ff8001e3c001f7c00200200280a004001004001004081004001002002002003c03007c02c1b0023e200200200200200100400100400080c000637000ffbc01005c"),
-        _b("00808000c18000ff8001e3c001f7c00200200280a004001004001004081004001002002002002003006002c1a0023e2002002002002001004001004000808000630000fff00100f0"),
-        _b("00808000c18000ff8001e3c001f7c00200200280a004001004001004081004001002002002003c03007c02c1b0023e200200200200200100400100400080c000637000ffbc01005c"),
+        _b(
+            "000000000000000000000000040000000e038c001f07ff000e0fff00040fff80000fff80038fff0007ffff000fffff00"
+            "0ffffe000ffffc000ffff8000ffff00007ffa00007ff000003fe000001fe000000f80000007000000000000000000000"
+            "00000000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000000000000000002000000070000039f800007ff000007ff000387ff000fdfff001ffffe001ffffe00"
+            "1ffffc001ffff8001ffff0001fffe0000fffc0000fff800007ff000003ff000001fe000000f800000070000000000000"
+            "00000000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000000000000000000000000000000079e000007ff00000fff00000fff0007dfff000fffff000ffffe00"
+            "1ffffe001ffffc000ffff8000ffff0000fff800007ff800007ff000003fe080001fc1c0000783e0000201c0000000800"
+            "00000000000000000000000000000000"
+        ),
     ],
 )
 
-# 053
-CAT_HEART24 = Sprite(
-    width=24,
-    height=24,
+# 099 DOUBLE_HEART_32 (32x32, 3 frames)
+DOUBLE_HEART_32 = Sprite(
+    width=32,
+    height=32,
     frame_count=3,
     frames=[
-        _b("00808000c18000ff8001e3c001f7c00200200280a004001004001004081004001002002002003c03007c02c1b0023e200200203f80203f80403f80401f80c00e637004ffbc01005c"),
-        _b("00808000c18000ff8001e3c001f7c00200200280a004001004001004081004001002002002002003006002c1a0023e200200203f80203f80403f80401f80800e630004fff00100f0"),
-        _b("00808000c18000ff8001e3c001f7c00200200280a004001004001004081004001002002002003c03007c02c1b0023e200200203f80203f80403f80401f80c00e637004ffbc01005c"),
+        _b(
+            "00000000000000000000000000000000000000200001f3f00003fff80003fff00003fff00007fff00003fff003e7fff0"
+            "07ffffe007ffffe00fffffc00fffff8007ffff0007fffe0007ffec0003ffe00003ffc00001ff800000ff0000007e0000"
+            "003c000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "0000000000000000000000000000000000000000000000000000f7c00001ffe00001ffe00183ffe007e7ffe00fffffe0"
+            "0fffffe01fffffc01fffff801fffff001ffffe000ffffc000ffff00007fff00007ffe00003ffc00001ffc10000ff8380"
+            "007e07c0003c0380000801000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000000000000040000000e0000001f0061800e01ffe00403ffe00003fff00003fff003e3fff007ffffe0"
+            "0fffffe00fffffc00fffffc00fffff800fffff000ffffe0007fff80007ffe00003ffe00003ffc00001ff800000ff0000"
+            "003e000000180000000000000000000000000000000000000000000000000000"
+        ),
     ],
 )
 
-# 054
-CAT_LOAF24 = Sprite(
-    width=24,
-    height=24,
+# 100 DOUBLE_HEART_40 (40x40, 3 frames)
+DOUBLE_HEART_40 = Sprite(
+    width=40,
+    height=40,
     frame_count=3,
     frames=[
-        _b("00808000c18000ff8001e3c001f7c00200200280a004001004001004081004001002002002003c03007c02c1b0023e200200200200200100400100400080c000637000ffbc01005c"),
-        _b("00808000c18000ff8001e3c001f7c00200200280a004001004001004081004001002002002002003006002c1a0023e2002002002002001004001004000808000630000fff00100f0"),
-        _b("00808000c18000ff8001e3c001f7c00200200280a004001004001004081004001002002002003c03007c02c1b0023e200200200200200100400100400080c000637000ffbc01005c"),
+        _b(
+            "00000000000000000000000000000000000000000000000000010000000003800f0f0007c03fffc003803fffc001007f"
+            "ffe000007fffe000007fffe000007fffe000787fffe001feffffe001ffffffc003ffffffc003ffffff8003ffffff8003"
+            "ffffff0003fffffe0003fffffc0003fffff00001ffff600001fffe000000fffe000000fffc0000007ff80000003ff000"
+            "00000fe000000007c0000000030000000000000000000000000000000000000000000000000000000000000000000000"
+            "0000000000000000"
+        ),
+        _b(
+            "00000000000000000000000000000000000000000000000000000000000000000000800000070fc000001fffe000001f"
+            "ffc000003fffc000003fffc001f87fffc003feffffc007ffffffc007ffffff800fffffff800fffffff000ffffffe000f"
+            "fffffc000ffffff80007fffff00007ffffe00007ffff800003ffff800003ffff000001fffe000000fffe0000007ffc00"
+            "00003ff80000001fe00000000fc000000003800000000000000000000000000000000000000000000000000000000000"
+            "0000000000000000"
+        ),
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000000000000001f9f8000003fffc000003f"
+            "ffc000003fffc000007fffe000207fffe001fcffffc003ffffffc003ffffffc007ffffff8007ffffff8007ffffff0007"
+            "fffffe0007fffffc0007fffff80003ffffe00003ffff000003ffff000001fffe000000fffe0000007ffc0000003ff800"
+            "00001ff00800000fc01c000007803e000001001c00000000080000000000000000000000000000000000000000000000"
+            "0000000000000000"
+        ),
     ],
 )
 
-# 055
-CAT_STRETCH24 = Sprite(
-    width=24,
-    height=24,
+# 101 DOUBLE_HEART_48 (48x48, 3 frames)
+DOUBLE_HEART_48 = Sprite(
+    width=48,
+    height=48,
     frame_count=3,
     frames=[
-        _b("00808000c18000ff8001e3c001f7c00200200280a004001004001004081004001002002002003c03007c02c1b0023e200200200200200100400100400080c000637000ffbc01005c"),
-        _b("00808000c18000ff8001e3c001f7c00200200280a004001004001004081004001002002002002003006002c1a0023e2002002002002001004001004000808000630000fff00100f0"),
-        _b("00808000c18000ff8001e3c001f7c00200200280a004001004001004081004001002002002003c03007c02c1b0023e200200200200200100400100400080c000637000ffbc01005c"),
-    ],
-)
-
-# 056
-CAT_PAW24 = Sprite(
-    width=24,
-    height=24,
-    frame_count=3,
-    frames=[
-        _b("00808000c18000ff8001e3c001f7c00200200280a004001004001004081004001002002002003c03007c02c1b0023e200200200200200100400100400080c000637000ffbc01005c"),
-        _b("00808000c18000ff8001e3c001f7c00200200280a004001004001004081004001002002002002003006002c1a0023e2002002002002001004001004000808000630000fff00100f0"),
-        _b("00808000c18000ff8001e3c001f7c00200200280a004001004001004081004001002002002003c03007c02c1b0023e200200200200200100400100400080c000637000ffbc01005c"),
-    ],
-)
-
-# 057
-CAT_FISH24 = Sprite(
-    width=24,
-    height=24,
-    frame_count=3,
-    frames=[
-        _b("00808000c18000ff8001e3c001f7c00200200280a00400100400100408100400100200201a203c1b607c1ae1b01b3e201aa0201e20201920401d20401aa0c019637018ffbc19605c"),
-        _b("00808000c18000ff8001e3c001f7c00200200280a00400100400100408100400100200201a20201b60601ae1a01b3e201aa0201e20201920401d20401aa08019630018fff01960f0"),
-        _b("00808000c18000ff8001e3c001f7c00200200280a00400100400100408100400100200201a203c1b607c1ae1b01b3e201aa0201e20201920401d20401aa0c019637018ffbc19605c"),
-    ],
-)
-
-# 058
-CAT_MOON24 = Sprite(
-    width=24,
-    height=24,
-    frame_count=3,
-    frames=[
-        _b("00808000c18000ff8001e3c001f7c01a00201e80a00f001006001004081004001002002002003c03007c02c1b0023e200200200200200100400100400080c000637000ffbc01005c"),
-        _b("00808000c18000ff8001e3c009f7c01a00201e80a00f001006001004081004001002002002002003006002c1a0023e2002002002002001004001004000808000630000fff00100f0"),
-        _b("00808000c18000ff8005e3c00df7c01e00201e80a00f001006001004081004001002002002003c03007c02c1b0023e200200200200200100400100400080c000637000ffbc01005c"),
-    ],
-)
-
-# 059
-CAT_STAR24 = Sprite(
-    width=24,
-    height=24,
-    frame_count=3,
-    frames=[
-        _b("00808000c18002ff8003e3c007f7c01fc0200780a00700100d80100c881004001002002002003c03007c02c1b0023e200200200200200100400100400080c000637000ffbc01005c"),
-        _b("00808002c18002ff8007e3c007f7c03fe0200f80a00f80100f80101cc81014401002002002002003006002c1a0023e2002002002002001004001004000808000630000fff00100f0"),
-        _b("00808000c18002ff8003e3c007f7c01fc0200780a00700100d80100c881004001002002002003c03007c02c1b0023e200200200200200100400100400080c000637000ffbc01005c"),
-    ],
-)
-
-# 060
-CAT_BOX24 = Sprite(
-    width=24,
-    height=24,
-    frame_count=3,
-    frames=[
-        _b("00808000c18000ff8001e3c001f7c00200200280a004001004001004081004001002002002003c03007c3ffffe223e222200222200223ffffe2100422080c220637220ffbe3ffffe"),
-        _b("00808000c18000ff8001e3c001f7c00200200280a00400100400100408100400100200200200200300603ffffe223e222200222200223ffffe21004220808220630220fff23ffffe"),
-        _b("00808000c18000ff8001e3c001f7c00200200280a004001004001004081004001002002002003c03007c3ffffe223e222200222200223ffffe2100422080c220637220ffbe3ffffe"),
-    ],
-)
-
-# 061
-CAT_GIFT24 = Sprite(
-    width=24,
-    height=24,
-    frame_count=3,
-    frames=[
-        _b("00808000c18000ff8001e3c001f7c00200200280a004001004001004081004001002002002003c03007c02c1b0023e200200203f80203f80403f80401f80c00e637004ffbc01005c"),
-        _b("00808000c18000ff8001e3c001f7c00200200280a004001004001004081004001002002002002003006002c1a0023e200200203f80203f80403f80401f80800e630004fff00100f0"),
-        _b("00808000c18000ff8001e3c001f7c00200200280a004001004001004081004001002002002003c03007c02c1b0023e200200203f80203f80403f80401f80c00e637004ffbc01005c"),
-    ],
-)
-
-# 062
-CAT_CROWN24 = Sprite(
-    width=24,
-    height=24,
-    frame_count=3,
-    frames=[
-        _b("00808000c18000ffa001f7e001f7e00228a002a0a0043ff004001004081004001002002002003c03007c02c1b0023e200200200200200100400100400080c000637000ffbc01005c"),
-        _b("00808000c18000ffa001f7e001f7e00228a002a0a0043ff004001004081004001002002002002003006002c1a0023e2002002002002001004001004000808000630000fff00100f0"),
-        _b("00808000c18000ffa001f7e001f7e00228a002a0a0043ff004001004081004001002002002003c03007c02c1b0023e200200200200200100400100400080c000637000ffbc01005c"),
-    ],
-)
-
-# 063
-CAT_ROCKET24 = Sprite(
-    width=24,
-    height=24,
-    frame_count=3,
-    frames=[
-        _b("00808000c18000ff8001e3c001f7c00200200280a00400100400100608100500100700200a803c0b807c12c1b07ffe206220207260204700404b80407fe0c00ae37000ffbc01005c"),
-        _b("00808000c18000ff8001e3c001f7c00200200280a00400100400100608100500100700200a80200b806012c1a07ffe206220207260204700404b80407fe08008e30000fff00100f0"),
-        _b("00808000c18000ff8001e3c001f7c00200200280a00400100400100608100500100700200a803c0b807c12c1b07ffe206220207260204700404b80407fe0c00ae37000ffbc01005c"),
-    ],
-)
-
-# 064
-CAT_UFO24 = Sprite(
-    width=24,
-    height=24,
-    frame_count=3,
-    frames=[
-        _b("0380e002c1a004ff8005e3c005ffc00242200381e005c190053e9005899004001002002002003c03007c02c1b0023e200200200200200100400100400080c000637000ffbc01005c"),
-        _b("0380e002c1a004ff8005e3c005ffc00242200381e005c190053e9005899004001002002002002003006002c1a0023e2002002002002001004001004000808000630000fff00100f0"),
-        _b("0380e002c1a004ff8005e3c005ffc00242200381e005c190053e9005899004001002002002003c03007c02c1b0023e200200200200200100400100400080c000637000ffbc01005c"),
-    ],
-)
-
-# 065
-CAT_BOOK24 = Sprite(
-    width=24,
-    height=24,
-    frame_count=3,
-    frames=[
-        _b("00808000c18000ff8001e3c001f7c00200200280a004001004001004081004001002002002003c03007c02c1b0023e207fe02046202045204045204044a0c044637044ffbc7fe05c"),
-        _b("00808000c18000ff8001e3c001f7c00200200280a004001004001004081004001002002002002003006002c1a0023e207fe02046202045204045204044a08044630044fff07fe0f0"),
-        _b("00808000c18000ff8001e3c001f7c00200200280a004001004001004081004001002002002003c03007c02c1b0023e207fe02046202045204045204044a0c044637044ffbc7fe05c"),
-    ],
-)
-
-# 066
-CAT_COFFEE24 = Sprite(
-    width=24,
-    height=24,
-    frame_count=3,
-    frames=[
-        _b("00808000c18000ff8001e3c001f7c00200200280a004001004001004081004001002002002203c03107c03d1b00a3e200a00200b80200940400940403fe0c000637000ffbc01405c"),
-        _b("00808000c18000ff8001e3c001f7c00200200280a004001004001004081004001002002002202003206003d1a00b3e200a00200b80200940400940403fe08000630000fff00140f0"),
-        _b("00808000c18000ff8001e3c001f7c00200200280a004001004001004081004001002002002203c03107c03d1b00a3e200a00200b80200940400940403fe0c000637000ffbc01405c"),
-    ],
-)
-
-# 067
-CAT_RAIN24 = Sprite(
-    width=24,
-    height=24,
-    frame_count=3,
-    frames=[
-        _b("00fe8000ff8000ff8001ffc001ffc003ffa003ffa005ff9005ff9005ff9004ff1002ff2002003c07047c0ac9b00a3e201210201210200100400100400080c000637000ffbc01005c"),
-        _b("00fe8000ff8000ff8001ffc001ffc002ffa002ffa004ff9004ff9004ff9004ff1002ff200200200704600ac9a00a3e2012102012102001004001004000808000630000fff00100f0"),
-        _b("00fe8000ff8000ff8001ffc001ffc003ffa003ffa005ff9005ff9005ff9004ff1002ff2002003c07047c0ac9b00a3e201210201210200100400100400080c000637000ffbc01005c"),
-    ],
-)
-
-# 068
-STAR16 = Sprite(
-    width=16,
-    height=16,
-    frame_count=3,
-    frames=[
-        _b("0000000000800080008001c03ffe0ff803e003e003e007700630041000000000"),
-        _b("00000080008001c001c003e07fff3ffe0ff807f007f007f00f780c1808080000"),
-        _b("0000000000800080008001c03ffe0ff803e003e003e007700630041000000000"),
-    ],
-)
-
-# 069
-STAR20 = Sprite(
-    width=20,
-    height=20,
-    frame_count=3,
-    frames=[
-        _b("00000000000000200000200000700000700000700000f8001fffc00fff8003fe0001fc0001fc0001fc0003de00030600020200000000000000000000"),
-        _b("00000000200000200000700000700000700000f80000f8003fffe01fffc007ff0003fe0003fe0003fe0003fe00078f00070700040100000000000000"),
-        _b("00000000000000200000200000700000700000700000f8001fffc00fff8003fe0001fc0001fc0001fc0003de00030600020200000000000000000000"),
-    ],
-)
-
-# 070
-STAR24 = Sprite(
-    width=24,
-    height=24,
-    frame_count=3,
-    frames=[
-        _b("000000000000000800000800001c00001c00001c00001c00003e001ffffc0ffff803ffe001ffc000ff8000ff8000ff8000ff8001f7c001c1c00180c0010040000000000000000000"),
-        _b("000000000800000800001c00001c00003e00003e00007f00007f003ffffe1ffffc07fff003ffe001ffc001ffc001ffc001ffc003ffe003e3e00380e0020020000000000000000000"),
-        _b("000000000000000800000800001c00001c00001c00001c00003e001ffffc0ffff803ffe001ffc000ff8000ff8000ff8000ff8001f7c001c1c00180c0010040000000000000000000"),
-    ],
-)
-
-# 071
-SPARKLE16 = Sprite(
-    width=16,
-    height=16,
-    frame_count=3,
-    frames=[
-        _b("00000000008000800080049002a001c03ffe01c002a004900080008000800000"),
-        _b("00000080008000800080049002a001c07fff01c002a004900080008000800080"),
-        _b("00000000008000800080049002a001c03ffe01c002a004900080008000800000"),
-    ],
-)
-
-# 072
-SPARKLE20 = Sprite(
-    width=20,
-    height=20,
-    frame_count=3,
-    frames=[
-        _b("00000000000000200000200000200000200002220001240000a8000070003fffe000700000a800012400022200002000002000002000002000000000"),
-        _b("00000000200000200000200000200000200002220001240000a8000070007ffff000700000a800012400022200002000002000002000002000002000"),
-        _b("00000000000000200000200000200000200002220001240000a8000070003fffe000700000a800012400022200002000002000002000002000000000"),
-    ],
-)
-
-# 073
-MOON16 = Sprite(
-    width=16,
-    height=16,
-    frame_count=3,
-    frames=[
-        _b("0000000002000c00180018003800380038003c001e001f800ff003c000000000"),
-        _b("0000000003000e001c001c003c003c003c003e001f001f800ff003c000000000"),
-        _b("0000000003800f001e001e003e003e003e003f001f801fc00ff003c000000000"),
-    ],
-)
-
-# 074
-MOON24 = Sprite(
-    width=24,
-    height=24,
-    frame_count=3,
-    frames=[
-        _b("00000000000000700001e00003c0000780000f80001f00001f00003f00003f00003f00003f00003f00003f80001f80001fc0000fe00007f00003fc0001ff80007e00000000000000"),
-        _b("00000000000000780001f00003e00007c0000fc0001f80001f80003f80003f80003f80003f80003f80003fc0001fc0001fe0000ff00007f80003fe0001ff80007e00000000000000"),
-        _b("000000000000007c0001f80003f00007e0000fe0001fc0001fc0003fc0003fc0003fc0003fc0003fc0003fe0001fe0001ff0000ff80007fc0003fe0001ff80007e00000000000000"),
-    ],
-)
-
-# 075
-SUN20 = Sprite(
-    width=20,
-    height=20,
-    frame_count=3,
-    frames=[
-        _b("00000000200000200000200008208004f9000306000202000401000401007c01f004010004010002020003060004f900082080002000002000002000"),
-        _b("00000000200000200000200008208004f9000306000202000401000401007c01f004010004010002020003060004f900082080002000002000002000"),
-        _b("00000000200000200000200008208004f9000306000202000401000401007c01f004010004010002020003060004f900082080002000002000002000"),
-    ],
-)
-
-# 076
-CLOUD20 = Sprite(
-    width=20,
-    height=16,
-    frame_count=3,
-    frames=[
-        _b("01f80001f80003fe0007ff000fff000fff801fff801fff801fff801fff801fff800fff800fff000fff000fff000fff00"),
-        _b("01f80001f80003fe0007ff0007ff000fff800fff800fff800fff800fff800fff800fff800fff000fff000fff000fff00"),
-        _b("01f80001f80003fe0007ff000fff000fff801fff801fff801fff801fff801fff800fff800fff000fff000fff000fff00"),
-    ],
-)
-
-# 077
-RAIN_CLOUD24 = Sprite(
-    width=24,
-    height=18,
-    frame_count=3,
-    frames=[
-        _b("003e00007f00007f0003ffc007ffe00ffff00ffff01ffff81ffff81ffff81ffff81ffff80ffff00ffff00ffff00ffff00ffff0082080"),
-        _b("003e00007f00007f0001ffc003ffe007fff007fff00ffff80ffff80ffff80ffff80ffff80ffff00ffff00ffff00ffff00ffff0041040"),
-        _b("003e00007f00007f0003ffc007ffe00ffff00ffff01ffff81ffff81ffff81ffff81ffff80ffff00ffff00ffff00ffff00ffff0082080"),
-    ],
-)
-
-# 078
-ROSE16 = Sprite(
-    width=16,
-    height=20,
-    frame_count=3,
-    frames=[
-        _b("0000000003e007f00ef81d1c1a001c0c1c0c1c1c7e3887f803f0019f82a07cc000c000a0001f0000"),
-        _b("0000000003e007f00ef81d1c1a001c0c1c0c1c1c7e3887f803f0019f82a07cc000c000a0001f0000"),
-        _b("0000000003e007f00ef81d1c1a001c0c1c0c1c1c7e3887f803f0019f82a07cc000c000a0001f0000"),
-    ],
-)
-
-# 079
-ROSE24 = Sprite(
-    width=24,
-    height=24,
-    frame_count=3,
-    frames=[
-        _b("000000000000003e00007f0000ef8001d1c001a00001c0c001c0c001c1c000e380007f8007ff000828001018001019f0082a0807cc04000c04000a080009f0000800000000000000"),
-        _b("000000000000003e00007f0000ef8001d1c001a00001c0c001c0c001c1c000e380007f8007ff000828001018001019f0082a0807cc04000c04000a080009f0000800000000000000"),
-        _b("000000000000003e00007f0000ef8001d1c001a00001c0c001c0c001c1c000e380007f8007ff000828001018001019f0082a0807cc04000c04000a080009f0000800000000000000"),
-    ],
-)
-
-# 080
-FLOWER16 = Sprite(
-    width=16,
-    height=18,
-    frame_count=3,
-    frames=[
-        _b("088811441144394e4dd987f083e087f04dd939ce11c411c4088807f00080008000800000"),
-        _b("047808641ca22aa245de43e64ff933e13dd122aa229c13880f9000e00080008000800000"),
-        _b("04101c1c2632436141c15ffd23e25ffd41c143e126b21c9c049002a001c0008000800000"),
-    ],
-)
-
-# 081
-FLOWER24 = Sprite(
-    width=24,
-    height=24,
-    frame_count=3,
-    frames=[
-        _b("0000000000000077000088800114400114400394e004dd90087f08083e08087f0804dd90039ce0011c40011c40008880007f00000800000800000800000800000800000800000000"),
-        _b("00000000000000380000478000864001ca2002aa20045de0043e6004ff90033e1003dd10022aa00229c001388000f900000e00000800000800000800000800000800000800000000"),
-        _b("000000001c0000220000410001c1c0026320043610041c1005ffd0023e2005ffd0041c10043e10026b2001c9c0004900002a00001c00000800000800000800000800000800000000"),
-    ],
-)
-
-# 082
-BUTTERFLY20 = Sprite(
-    width=20,
-    height=20,
-    frame_count=2,
-    frames=[
-        _b("0000000000000000000f070010a88020704020704020704020704010a8800faf0008710010208010208010208008710007ae00000000000000000000"),
-        _b("0000000000000000000f070010a88020704020704020704020704010a8800faf0008710010208010208010208008710007ae00000000000000000000"),
-    ],
-)
-
-# 083
-BEE20 = Sprite(
-    width=20,
-    height=16,
-    frame_count=2,
-    frames=[
-        _b("08210008210008210009f9000ead001cdb00138d00208a80208880208880108900188b00068c0001f800000000000000"),
-        _b("08210008210008210009f9000ead001cdb00138d00208a80208880208880108900188b00068c0001f800000000000000"),
-    ],
-)
-
-# 084
-FISH20 = Sprite(
-    width=20,
-    height=16,
-    frame_count=3,
-    frames=[
-        _b("00000000000003c0200420600810a0081120108a20100c20100820100c20100a200811200810a004206003c020000000"),
-        _b("00000000000003c0200420600810a0081120108a20100c20100820100c20100a200811200810a004206003c020000000"),
-        _b("00000000000003c0200420600810a0081120108a20100c20100820100c20100a200811200810a004206003c020000000"),
-    ],
-)
-
-# 085
-BIRD20 = Sprite(
-    width=20,
-    height=16,
-    frame_count=3,
-    frames=[
-        _b("00000000000000000000f80001c4200222e00413e0080fe0080be00808e008082004100002200001e000000000000000"),
-        _b("00000000000000000000f80001c4200222e00413e0080fe0080be00808e008082004100002200001e000000000000000"),
-        _b("00000000000000000000f80001c4200222e00413e0080fe0080be00808e008082004100002200001e000000000000000"),
-    ],
-)
-
-# 086
-BUNNY20 = Sprite(
-    width=20,
-    height=20,
-    frame_count=3,
-    frames=[
-        _b("0000000c018012024012024021042021042021fc202707202904a01202403202602c01a022022020002010004008208006030001fc00000000000000"),
-        _b("0000000c018012024012024021042021042021fc202707202904a01202403202602c01a022022020002010004008208006030001fc00000000000000"),
-        _b("0000000c018012024012024021042021042021fc202707202904a01202403202602c01a022022020002010004008208006030001fc00000000000000"),
-    ],
-)
-
-# 087
-DOG20 = Sprite(
-    width=20,
-    height=20,
-    frame_count=3,
-    frames=[
-        _b("00000000000000000000000000000000f000030c000402000e03003e07c0c80110080100087100048a00048a00037c0000f000000000000000000000"),
-        _b("00000000000000000000000000000000f000030c000402000e03003e07c0c80110080100087100048a00048a00037c0000f000000000000000000000"),
-        _b("00000000000000000000000000000000f000030c000402000e03003e07c0c80110080100087100048a00048a00037c0000f000000000000000000000"),
-    ],
-)
-
-# 088
-GIFT16 = Sprite(
-    width=16,
-    height=16,
-    frame_count=3,
-    frames=[
-        _b("000000003e3e7ffd208420842ff43ffc0890089008900ff008900ff000000000"),
-        _b("000000003e3e7ffd208420842ff43ffc0890089008900ff008900ff000000000"),
-        _b("000000003e3e7ffd208420842ff43ffc0890089008900ff008900ff000000000"),
-    ],
-)
-
-# 089
-GIFT24 = Sprite(
-    width=24,
-    height=24,
-    frame_count=3,
-    frames=[
-        _b("00000000000001c1c00222200414100808080008003ffffc2008042008042ffff43ffffc0808100808100808100ffff00808100808100808100808100808100ffff0000000000000"),
-        _b("00000000000001c1c00222200414100808080008003ffffc2008042008042ffff43ffffc0808100808100808100ffff00808100808100808100808100808100ffff0000000000000"),
-        _b("00000000000001c1c00222200414100808080008003ffffc2008042008042ffff43ffffc0808100808100808100ffff00808100808100808100808100808100ffff0000000000000"),
-    ],
-)
-
-# 090
-CAKE20 = Sprite(
-    width=20,
-    height=20,
-    frame_count=3,
-    frames=[
-        _b("00200000200000200000200001f8000108000108000108000108000108000fff000801000801000801000fff000801000fff00000000000000000000"),
-        _b("00200000200000200000200001f8000108000108000108000108000108000fff000801000801000801000fff000801000fff00000000000000000000"),
-        _b("00200000200000200000200001f8000108000108000108000108000108000fff000801000801000801000fff000801000fff00000000000000000000"),
-    ],
-)
-
-# 091
-RING16 = Sprite(
-    width=16,
-    height=18,
-    frame_count=3,
-    frames=[
-        _b("00000000008001400220041008081004080804100ff871478ff88ff870070ff800000000"),
-        _b("00000000008001400220041008081004080804100ff871478ff88ff870070ff800000000"),
-        _b("00000000008001400220041008081004080804100ff871478ff88ff870070ff800000000"),
-    ],
-)
-
-# 092
-RING24 = Sprite(
-    width=24,
-    height=24,
-    frame_count=3,
-    frames=[
-        _b("000000000000000800001400002200004100008080010040008080004100007f000194c0020820043e10084108088088088088088088044110023e200180c0007f00000000000000"),
-        _b("000000000000000800001400002200004100008080010040008080004100007f000194c0020820043e10084108088088088088088088044110023e200180c0007f00000000000000"),
-        _b("000000000000000800001400002200004100008080010040008080004100007f000194c0020820043e10084108088088088088088088044110023e200180c0007f00000000000000"),
-    ],
-)
-
-# 093
-ENVELOPE_HEART20 = Sprite(
-    width=20,
-    height=16,
-    frame_count=3,
-    frames=[
-        _b("0000000000000000000000000000003fffc03801c024524023fc4020f84023fc403fffc0000000000000000000000000"),
-        _b("0000000000000000000000000000003fffc03801c024524023fc4020f84023fc403fffc0000000000000000000000000"),
-        _b("0000000000000000000000000000003fffc03801c024524023fc4020f84023fc403fffc0000000000000000000000000"),
-    ],
-)
-
-# 094
-ENVELOPE_HEART24 = Sprite(
-    width=24,
-    height=18,
-    frame_count=3,
-    frames=[
-        _b("0000000000000000000000000000003ffffc38001c2600242114c420ff04203e04203e0427c9e43ffffc000000000000000000000000"),
-        _b("0000000000000000000000000000003ffffc38001c2600242114c420ff04203e04203e0427c9e43ffffc000000000000000000000000"),
-        _b("0000000000000000000000000000003ffffc38001c2600242114c420ff04203e04203e0427c9e43ffffc000000000000000000000000"),
-    ],
-)
-
-# 095
-MUSIC20 = Sprite(
-    width=20,
-    height=20,
-    frame_count=3,
-    frames=[
-        _b("0000000001c0001e4000e040008040008040008040008040008040008040008740008fc00e9fc01f9fc03f8f803f87001f00000e0000000000000000"),
-        _b("0000000001c0001e4000e040008040008040008040008040008040008040008740008fc00e9fc01f9fc03f8f803f87001f00000e0000000000000000"),
-        _b("0000000001c0001e4000e040008040008040008040008040008040008040008740008fc00e9fc01f9fc03f8f803f87001f00000e0000000000000000"),
-    ],
-)
-
-# 096
-MUSIC24 = Sprite(
-    width=24,
-    height=24,
-    frame_count=3,
-    frames=[
-        _b("0000000000700007900038100020100020100020100020100020100020100020100020100020100020100021d00023f003a7f007e7f00fe3e00fe1c007c000038000000000000000"),
-        _b("0000000000700007900038100020100020100020100020100020100020100020100020100020100020100021d00023f003a7f007e7f00fe3e00fe1c007c000038000000000000000"),
-        _b("0000000000700007900038100020100020100020100020100020100020100020100020100020100020100021d00023f003a7f007e7f00fe3e00fe1c007c000038000000000000000"),
-    ],
-)
-
-# 097
-SMILEY16 = Sprite(
-    width=16,
-    height=16,
-    frame_count=2,
-    frames=[
-        _b("0000000003c00c30100818082004200420042004100810080c3023c230060c18"),
-        _b("0000000003c00c30100818082004200420042004100810080c3023c230060c18"),
-    ],
-)
-
-# 098
-SMILEY24 = Sprite(
-    width=24,
-    height=24,
-    frame_count=2,
-    frames=[
-        _b("000000000000007e000181800200400400200800101000081000082080842000042000042000042000042000041000081000080a003007006002c1c001bf80007e00000000000000"),
-        _b("000000000000007e000181800200400400200800101000081000082080842000042000042000042000042000041000081000080a003007006002c1c001bf80007e00000000000000"),
-    ],
-)
-
-# 099
-LOCK16 = Sprite(
-    width=16,
-    height=18,
-    frame_count=2,
-    frames=[
-        _b("0000000003e007f00c18180c380e3006ffff000000000000000000000080ffff00800080"),
-        _b("0000000003e007f00c18180c380e3006ffff000000000000000000000080ffff00800080"),
-    ],
-)
-
-# 100
-LOCK24 = Sprite(
-    width=24,
-    height=24,
-    frame_count=2,
-    frames=[
-        _b("000000000000003e00007f0000e38001c1c00180c00380e00300600300600300601ffffc1000041000041000041000041000041008041008041008041008041ffffc000800000000"),
-        _b("000000000000003e00007f0000e38001c1c00180c00380e00300600300600300601ffffc1000041000041000041000041000041008041008041008041008041ffffc000800000000"),
-    ],
-)
-
-# 101
-KEY20 = Sprite(
-    width=20,
-    height=16,
-    frame_count=2,
-    frames=[
-        _b("00000000000000000000000007000018c000104000202000203fc020290010490018c900070800000000000000000000"),
-        _b("00000000000000000000000007000018c000104000202000203fc020290010490018c900070800000000000000000000"),
-    ],
-)
-
-# 102
-NFC20 = Sprite(
-    width=20,
-    height=20,
-    frame_count=3,
-    frames=[
-        _b("1800c020002040001082020084010009fc80110440118c40210420230620230620230620210420118c4011044009fc80840100820200400010200020"),
-        _b("1800c020002040001082020084010009fc80110440118c40210420230620230620230620210420118c4011044009fc80840100820200400010200020"),
-        _b("1800c020002040001082020084010009fc80110440118c40210420230620230620230620210420118c4011044009fc80840100820200400010200020"),
-    ],
-)
-
-# 103
-NFC24 = Sprite(
-    width=24,
-    height=24,
-    frame_count=3,
-    frames=[
-        _b("000000000000060030080008100004208082210042427f2144411184631088410888c18888c18888c188884108846310444111427f21210042208082100004080008060030000000"),
-        _b("000000000000060030080008100004208082210042427f2144411184631088410888c18888c18888c188884108846310444111427f21210042208082100004080008060030000000"),
-        _b("000000000000060030080008100004208082210042427f2144411184631088410888c18888c18888c188884108846310444111427f21210042208082100004080008060030000000"),
-    ],
-)
-
-# 104
-BATTERY20 = Sprite(
-    width=20,
-    height=12,
-    frame_count=4,
-    frames=[
-        _b("0000003fff002001002e01002e01c02e01c02e01c02e01c02e01c02e01002001003fff00"),
-        _b("0000003fff002001002f81002f81c02f81c02f81c02f81c02f81c02f81002001003fff00"),
-        _b("0000003fff002001002fe1002fe1c02fe1c02fe1c02fe1c02fe1c02fe1002001003fff00"),
-        _b("0000003fff002001002ffd002ffdc02ffdc02ffdc02ffdc02ffdc02ffd002001003fff00"),
-    ],
-)
-
-# 105
-ROCKET24 = Sprite(
-    width=24,
-    height=24,
-    frame_count=3,
-    frames=[
-        _b("00000000080000080000140000140000240000220000220000410000410000410000808001ffc00100c0010040011c4003226003ffe003aae007ddf00708700c0818100804000800"),
-        _b("00000000080000080000140000140000240000220000220000410000410000410000808001ffc00100c0010040011c4003226003ffe003aae007ddf00708700c0818100804000000"),
-        _b("00000000080000080000140000140000240000220000220000410000410000410000808001ffc00100c0010040011c4003226003ffe003aae007ddf00708700c0818100804000800"),
-    ],
-)
-
-# 106
-UFO24 = Sprite(
-    width=24,
-    height=18,
-    frame_count=3,
-    frames=[
-        _b("000000000000003e0000c18003006002002004001004001004ff100700e01b007820c184203e042008041800180700e038ff1c060060"),
-        _b("000000000000003e0000c18003006002002004001004001004ff100700e01b007820c184203e042008041800180700e038ff1c060060"),
-        _b("000000000000003e0000c18003006002002004001004001004ff100700e01b007820c184203e042008041800180700e038ff1c060060"),
-    ],
-)
-
-# 107
-PLANET24 = Sprite(
-    width=24,
-    height=24,
-    frame_count=3,
-    frames=[
-        _b("000000000000000000000000000000003e0000ff800700e00a003032002c24001404001004001004001004001002002022002431004c08c190073ee000ff00000000000000000000"),
-        _b("000000000000000000000000000000003e0000ff800700e00a003032002c24001404001004001004001004001002002022002431004c08c190073ee000ff00000000000000000000"),
-        _b("000000000000000000000000000000003e0000ff800700e00a003032002c24001404001004001004001004001002002022002431004c08c190073ee000ff00000000000000000000"),
-    ],
-)
-
-# 108
-HOUSE24 = Sprite(
-    width=24,
-    height=24,
-    frame_count=2,
-    frames=[
-        _b("0000000000000000000008000014000022000041000080800100800200400400200800101ffff8040020040020047f2004412004412004432004412004412007ffe0000000000000"),
-        _b("0000000000000000000008000014000022000041000080800100800200400400200800101ffff8040020040020047f2004412004412004432004412004412007ffe0000000000000"),
-    ],
-)
-
-# 109
-TREE20 = Sprite(
-    width=20,
-    height=22,
-    frame_count=2,
-    frames=[
-        _b("00000000000000200000500000500000a800015800019400028c000506000606000fff000801000800801000803fffc000f80000f80000f80000f80000f800000000"),
-        _b("00000000000000200000500000500000a800015800019400028c000506000606000fff000801000800801000803fffc000f80000f80000f80000f80000f800000000"),
-    ],
-)
-
-# 110
-TREE24 = Sprite(
-    width=24,
-    height=24,
-    frame_count=2,
-    frames=[
-        _b("0000000000000008000014000024000022000049000095000122800242400281200500a00ffff00200200400100800101000083ffffc003e00003e00003e00003e00003e00000000"),
-        _b("0000000000000008000014000024000022000049000095000122800242400281200500a00ffff00200200400100800101000083ffffc003e00003e00003e00003e00003e00000000"),
-    ],
-)
-
-# 111
-COFFEE20 = Sprite(
-    width=20,
-    height=18,
-    frame_count=3,
-    frames=[
-        _b("0000000000000333000000000000000000000ff8000808000809800808400808400808200808200ff8203fffc0000040000180000000"),
-        _b("0000000000000222000111000000000000000ff8000808000809800808400808400808200808200ff8203fffc0000040000180000000"),
-        _b("0000000000000333000000000000000000000ff8000808000809800808400808400808200808200ff8203fffc0000040000180000000"),
-    ],
-)
-
-# 112
-PIZZA20 = Sprite(
-    width=20,
-    height=20,
-    frame_count=2,
-    frames=[
-        _b("00000000000000200000600000500000900000880001080001040002040003fc000606000402000801001801801100801fff80000000000000000000"),
-        _b("00000000000000200000600000500000900000880001080001040002040003fc000606000402000801001801801100801fff80000000000000000000"),
-    ],
-)
-
-# 113
-MAGIC_STAR20 = Sprite(
-    width=20,
-    height=20,
-    frame_count=3,
-    frames=[
-        _b("00000000000000200000200000200000200002220001240000a8000070003fffe000700000a800012400022200002000002000002000002000000000"),
-        _b("00000000200000200000200000200000200002220001240000a8000070007ffff000700000a800012400022200002000002000002000002000002000"),
-        _b("00000000000000200000200000200000200002220001240000a8000070003fffe000700000a800012400022200002000002000002000002000000000"),
-    ],
-)
-
-# 114
-WISH_STAR24 = Sprite(
-    width=24,
-    height=24,
-    frame_count=3,
-    frames=[
-        _b("000000000000000800000800001c00001c00001c00001c00003e001ffffc0ffff803ffe001ffc000ff8000ff8000ff8000ff8001f7c001c1c00180c0010040000000000000000000"),
-        _b("000000000800000800001c00001c00003e00003e00007f00007f003ffffe1ffffc07fff003ffe001ffc001ffc001ffc001ffc003ffe003e3e00380e0020020000000000000000000"),
-        _b("000000000000000800000800001c00001c00001c00001c00003e001ffffc0ffff803ffe001ffc000ff8000ff8000ff8000ff8001f7c001c1c00180c0010040000000000000000000"),
-    ],
-)
-
-# 115
-DATE_NIGHT24 = Sprite(
-    width=24,
-    height=24,
-    frame_count=3,
-    frames=[
-        _b("00000000000000700001e00003c0000780000f80001f00001f00003f00003f00003f00003f00003f00003f80001f80001fc0000fe00007f00003fc0001ff80007e00000000000000"),
-        _b("00000000000000780001f00003e00007c0000fc0001f80001f80003f80003f80003f80003f80003f80003fc0001fc0001fe0000ff00007f80003fe0001ff80007e00000000000000"),
-        _b("000000000000007c0001f80003f00007e0000fe0001fc0001fc0003fc0003fc0003fc0003fc0003fc0003fe0001fe0001ff0000ff80007fc0003fe0001ff80007e00000000000000"),
-    ],
-)
-
-# 116
-KISS_MARK16 = Sprite(
-    width=16,
-    height=14,
-    frame_count=3,
-    frames=[
-        _b("0000000000000f781ffc1ffc1ffc1ffc1ffc0ff807f001c001c00080"),
-        _b("000000000e381f7c3ffe3ffe3ffe3ffe1ffc0ff807f003e001c00080"),
-        _b("0000000000000f781ffc1ffc1ffc1ffc1ffc0ff807f001c001c00080"),
-    ],
-)
-
-# 117
-KISS_MARK20 = Sprite(
-    width=20,
-    height=16,
-    frame_count=3,
-    frames=[
-        _b("000000000000000000038e000fdf800fff800fff800fff800fff8007ff0007ff0001fc0000f800007000002000000000"),
-        _b("0000000000000000000fdf800fff801fffc01fffc01fffc01fffc00fff8007ff0003fe0001fc0000f800007000002000"),
-        _b("000000000000000000038e000fdf800fff800fff800fff800fff8007ff0007ff0001fc0000f800007000002000000000"),
-    ],
-)
-
-# 118
-CROWN20 = Sprite(
-    width=20,
-    height=16,
-    frame_count=3,
-    frames=[
-        _b("0000000000000020000020000020000070000fff8003fe0000f80000f80000f80001dc00018c00010400000000000000"),
-        _b("00000000200000200000700000700000f8001fffc00fff8003fe0001fc0001fc0001fc0003de00030600020200000000"),
-        _b("0000000000000020000020000020000070000fff8003fe0000f80000f80000f80001dc00018c00010400000000000000"),
-    ],
-)
-
-# 119
-DIAMOND20 = Sprite(
-    width=20,
-    height=20,
-    frame_count=3,
-    frames=[
-        _b("00000000000000200000200000700000700000700000f8001fffc00fff8003fe0001fc0001fc0001fc0003de00030600020200000000000000000000"),
-        _b("00000000200000200000700000700000700000f80000f8003fffe01fffc007ff0003fe0003fe0003fe0003fe00078f00070700040100000000000000"),
-        _b("00000000000000200000200000700000700000700000f8001fffc00fff8003fe0001fc0001fc0001fc0003de00030600020200000000000000000000"),
-    ],
-)
-
-# 120
-COMET24 = Sprite(
-    width=24,
-    height=16,
-    frame_count=3,
-    frames=[
-        _b("000000000000000800000800000800001e0003ffe01eff80e0fe00013e00063e0018770020e300034100040000080000"),
-        _b("000000000800000800001c00001c00003e0007fff01fffe0e0ff80017f00067f00187f0020f78003c180048080080000"),
-        _b("000000000000000800000800000800001e0003ffe01eff80e0fe00013e00063e0018770020e300034100040000080000"),
-    ],
-)
-
-# 121
-WAVE24 = Sprite(
-    width=24,
-    height=12,
-    frame_count=3,
-    frames=[
-        _b("03ffc007ffe00ffff00ffff01ffff81ffff81ffff81ffff81ffff80ffff00ffff00ffff0"),
-        _b("01ffc003ffe007fff007fff00ffff80ffff80ffff80ffff80ffff80ffff00ffff00ffff0"),
-        _b("03ffc007ffe00ffff00ffff01ffff81ffff81ffff81ffff81ffff80ffff00ffff00ffff0"),
-    ],
-)
-
-# 122
-UMBRELLA20 = Sprite(
-    width=20,
-    height=20,
-    frame_count=3,
-    frames=[
-        _b("00600000f00001f80001f80003fe0007ff000fff000fff801fff801fff801fff801fff801fff800fff800fff000fff000fff000fff00000000000000"),
-        _b("00600000f00001f80001f80003fe0007ff0007ff000fff800fff800fff800fff800fff800fff800fff800fff000fff000fff000fff00000000000000"),
-        _b("00600000f00001f80001f80003fe0007ff000fff000fff801fff801fff801fff801fff801fff800fff800fff000fff000fff000fff00000000000000"),
-    ],
-)
-
-# 123
-BOOK20 = Sprite(
-    width=20,
-    height=16,
-    frame_count=2,
-    frames=[
-        _b("0000000000000000000000000000003fffc03801c024524023fc4020f84023fc403fffc0000000000000000000000000"),
-        _b("0000000000000000000000000000003fffc03801c024524023fc4020f84023fc403fffc0000000000000000000000000"),
-    ],
-)
-
-# 124
-CAMERA20 = Sprite(
-    width=20,
-    height=16,
-    frame_count=2,
-    frames=[
-        _b("00000000000000f80001fc000306000603000c01807ffff04c01904000104000104000104000107ffff0002000002000"),
-        _b("00000000000000f80001fc000306000603000c01807ffff04c01904000104000104000104000107ffff0002000002000"),
-    ],
-)
-
-# 125
-GAMEPAD24 = Sprite(
-    width=24,
-    height=16,
-    frame_count=4,
-    frames=[
-        _b("0000000000000000003ffff02000102f00102f001c2f001c2f001c2f001c2f001c2f00102000103ffff0000000000000"),
-        _b("0000000000000000003ffff02000102fe0102fe01c2fe01c2fe01c2fe01c2fe01c2fe0102000103ffff0000000000000"),
-        _b("0000000000000000003ffff02000102ffc102ffc1c2ffc1c2ffc1c2ffc1c2ffc1c2ffc102000103ffff0000000000000"),
-        _b("0000000000000000003ffff02000102fffd02fffdc2fffdc2fffdc2fffdc2fffdc2fffd02000103ffff0000000000000"),
-    ],
-)
-
-# 126
-DICE16 = Sprite(
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000703c00"
+            "000001fcff00000003ffff80000007ffff80000007ffffc000000fffffc000000fffffc000000fffffc000000fffffc0"
+            "003f0fffffc0007fdfffffc000ffffffff8001ffffffff8001ffffffff0001ffffffff0001fffffffe0001fffffffc00"
+            "01fffffff80001fffffff00001ffffffc00000ffffff800000fffff10000007ffff00000007fffe00000003fffe00000"
+            "001fffc00000000fff8000000007ff0020000003fe0020000001f800700000007001fc00000000007000000000002000"
+            "000000002000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "00000000000000000000000000000000000000000000000000000000000000800000000000800000000001c000000000"
+            "07f00000000001c000fcfc00008001fffe00008003ffff00000003ffff00000003ffff80003e03ffff8000ff8fffff80"
+            "01ffffffff8003ffffffff0003ffffffff0007fffffffe0007fffffffe0007fffffffc0007fffffff80007fffffff000"
+            "07ffffffe00007ffffffc00003ffffff800003fffffc000003fffffc000001fffff8000000fffff8000000fffff00000"
+            "007fffe00000003fffe00000001fffc00000000fff8000000007fe0000000003fc0000000000f8000000000060000000"
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000100"
+            "000000f87f80000001feffe0000003ffff80000007ffff80000007ffff80000007ffff80000007ffff80003e07ffff80"
+            "00ff9fffff8001ffffffff8001ffffffff8003ffffffff0003ffffffff0003fffffffe0003fffffffc0003fffffff800"
+            "03fffffff00003ffffffe00003ffffffc00001ffffff000001fffff8000000fffff8000000fffff00000007fffe00000"
+            "003fffe00000001fffc00000000fff8000000007ff0000000003fc0000000000f8000000000060000000000000000000"
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        ),
+    ],
+)
+
+# 102 CONFETTI_BURST_16 (16x16, 4 frames)
+CONFETTI_BURST_16 = Sprite(
     width=16,
     height=16,
     frame_count=4,
     frames=[
-        _b("000000003e3e7ffd208420842ff43ffc0890089008900ff008900ff000000000"),
-        _b("000000003e3e7ffd208420842ff43ffc0890089008900ff008900ff000000000"),
-        _b("000000003e3e7ffd208420842ff43ffc0890089008900ff008900ff000000000"),
-        _b("000000003e3e7ffd208420842ff43ffc0890089008900ff008900ff000000000"),
+        _b("00000000000000000000000000a001c001e001c0014000000000000000000000"),
+        _b("0000000000000000010001480710060000100010062002400220000000000000"),
+        _b("0000000001000120010008020c04100000040000000008040208022002100000"),
+        _b("0100012001000000200010012000400000000000000000002002000404000420"),
     ],
 )
 
-# 127
-CANDLE16 = Sprite(
-    width=16,
-    height=20,
-    frame_count=3,
+# 103 CONFETTI_BURST_24 (24x24, 4 frames)
+CONFETTI_BURST_24 = Sprite(
+    width=24,
+    height=24,
+    frame_count=4,
     frames=[
-        _b("00800080008000800180018001800180018001800ff00810081008100ff008100ff0000000000000"),
-        _b("00800080008000800180018001800180018001800ff00810081008100ff008100ff0000000000000"),
-        _b("00800080008000800180018001800180018001800ff00810081008100ff008100ff0000000000000"),
+        _b(
+            "000000000000000000000000000000000000000000000000000800000880000d00003f00003e00003c00001400001200"
+            "001100000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "00000000000000000000000000000000100000100000120000102000d04000c08001200000004000000000202000a040"
+            "002080002200002100000080000000000000000000000000"
+        ),
+        _b(
+            "000000000000001000001000001100001000001004040008020010030000040000080000000008000000000000000000"
+            "000008048010008020008000008100008080000040000000"
+        ),
+        _b(
+            "002000002100002000002000000000100000080001040002100000200000400000000000000001000000000000000000"
+            "000000000000000002100004010008010000010000010100"
+        ),
     ],
 )
+
+# 104 STAR_SINGLE_32 (32x32, 4 frames)
+STAR_SINGLE_32 = Sprite(
+    width=32,
+    height=32,
+    frame_count=4,
+    frames=[
+        _b(
+            "000000000000000000000000000000000000000000000000000000000001800000018000000180000003c0000003c000"
+            "0003c00001ffff8000ffff00003ffc00001ff800000ff000000ff000001ff800001ff800001c38000018180000200400"
+            "0000000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "00000000000000000000000000000000000000000001800000018000000180000003c0000003c0000007e0000007e000"
+            "07ffffe003ffffc001ffff8000ffff00003ffc00001ff800001ff800001ff800003ffc00003ffc00003c3c0000781e00"
+            "0060060000400200000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "0000000000000000000000000001800000018000000180000003c0000003c0000003c0000007e0000007e00003ffffc0"
+            "0ffffff007ffffe003ffffc001ffff80007ffe00003ffc00003ffc00003ffc00003ffc00007ffe00007e7e00007c3e00"
+            "00700e0000e00700008001000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "00000000000000000000000000000000000000000000000000018000000180000003c0000003c0000003c0000007e000"
+            "07ffffe003ffffc000ffff00007ffe00003ffc00001ff800001ff800001ff800001ff800003e7c00003c3c0000300c00"
+            "0040020000000000000000000000000000000000000000000000000000000000"
+        ),
+    ],
+)
+
+# 105 STAR_CLUSTER_48 (48x48, 4 frames)
+STAR_CLUSTER_48 = Sprite(
+    width=48,
+    height=48,
+    frame_count=4,
+    frames=[
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000800000000000800"
+            "000000000800003000007f00003000007f00003000003e0001fe00003e0000fc00003600007800000000007c00000000"
+            "00cc01800000000001800000000001800000000003c00000000003c00000000003c000000001ffff800000007ffe0000"
+            "00003ffc000000001ff8000000000ff0000000000ff0000000001ff8000000001e78040000001c380400000010080400"
+            "000020040e0000000000ffe0004000007f8001f000001f0000e000001f0000e000001f00008000003180000000000080"
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000800"
+            "000000000800003000001800003000007f00007800001c0001fe00001c0000fc0000220000780000000000fc01800000"
+            "00cc01800000008001800000000003c00000000003c00000000007e000000007ffffe0000001ffff80000000ffff0000"
+            "00007ffe000000003ffc000000001ff8000000001ff8000000001ff8000000001ff8000000003e7c04000000381c0400"
+            "0000300c0e0000400000ffc0004000003f8003f800001f0000f000001f0000e000001b0000a000003100000000000000"
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000800"
+            "000000000800000000000800003000003e00003000001c0001fe00001c0000fc00002200007801800000007801800000"
+            "00cc01800000000003c00000000003c00000000003c00000000007e000000007ffffe0000003ffffc0000001ffff8000"
+            "00007ffe000000003ffc000000001ff8000000001ff8000000001ff8000000003ffc040000003e7c040000003c3c0c00"
+            "0000300c0e0000406006ffe0004000007fc003f800003f0001f000001f0000e000003f0000b000003180000000002080"
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000800"
+            "000000000800000000001c00003000007f00003000001c0001fe00003e0000fc00003600007800000000007800000000"
+            "008401800000000001800000000003c00000000003c00000000003c0000000003ffc00000001ffff80000000ffff0000"
+            "00007ffe000000001ff8000000000ff0000000001ff8000000001ff8040000001ff8040000001c3804000000381c0e00"
+            "000020040e0000400000ffe0004000007fc003f800003f8000e000001f0000e000003f80008000003380000000002080"
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        ),
+    ],
+)
+
+# 106 NESTED_HEART_32 (32x32, 3 frames)
+NESTED_HEART_32 = Sprite(
+    width=32,
+    height=32,
+    frame_count=3,
+    frames=[
+        _b(
+            "00000000000000000000000000700e0003fc3fc007ffffe00703c0e00e0000700e3e7c701c73ce381cc003381cc00338"
+            "1c8661380c8ff1300c8ff1300ccff3300ec7e3700647e2600723c4e003318cc00198198000ce73000063c60000399c00"
+            "001c3800000e70000003c0000001800000000000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000001f00f8007fe7fe00fdffbf01e0180781c000038187e7e1838f3cf1c39c0039c3980019c3180018c"
+            "310e708c390ff09c198ff198198ff1981c8ff1380cc7e3300e43c2700621846003300cc0039819c001c6638000e3c700"
+            "00718e00003c3c00000e70000007e00000018000000000000000000000000000"
+        ),
+        _b(
+            "00000000000000000000000001f81f8007fe7fe00f87e1f00e0180701c1c38381c7ffe3818e1871818c0031819800198"
+            "198e7198198ff198198ff1980c8ff1300ccff3300e47e2700663c66003318cc0039819c001cc338000e6670000718e00"
+            "00381c00001e78000007e0000003c00000018000000000000000000000000000"
+        ),
+    ],
+)
+
+# 107 NESTED_HEART_48 (48x48, 3 frames)
+NESTED_HEART_48 = Sprite(
+    width=48,
+    height=48,
+    frame_count=3,
+    frames=[
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000001ff00ff800007ffc3ffe0000fffe7fff00"
+            "01fc0ff03f8003f3fbdfcfc003effffff7c007dffffffbe007be03c07de007bc799e3de00779fe7f9ee0077bc3c3dee0"
+            "07738001cee007731e78cee007773bdceee0077660066ee0077660066ee0077646626ee007f247e24fe003b367e6cdc0"
+            "03bb27e4ddc001d9b3cd9b8001dd9189bb8000eec813770000fe66667f00007733ccee00003b9819dc00003dce73bc00"
+            "001ee7e77800000f799ef0000007bc3de0000003ce73c0000001f7ef800000007bde000000003e7c000000001ff80000"
+            "000007e00000000003c00000000001800000000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000000000000000000000000003fe007fc0000fff81fff0001fffe7fff8003f81ff81fc007e1c7e387e0"
+            "0f8ff99ff1f00f1ffe7ff8f01f3f0ff0fcf81e7c03c03e781ef0f81f0f781cf1fe7f8f381ce3c3c3c7381ce70180e738"
+            "1dc60c3063b81dce3ffc73b81dcc618633b81dcc400233b81cccc24333381eecc7e337780ee44ff227700ee64ff26770"
+            "0f6647e266f0077323c4cee007b3318ccde003b998199dc003dccc333bc001cee667738000ee718e770000f71818ef00"
+            "007b8e71de00003de7e7bc00001ef18f7800000f381cf00000079e79e0000003eff7c0000001f3cf80000000799e0000"
+            "00003e7c000000000ff00000000007e00000000003c00000000001800000000000000000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000000000000000000000000000000000000001fe007f800007ff81ffe0001fffe7fff8001fc1ff83f80"
+            "03e1e3c787c007cffdbff3e0079ffe7ff9e00fbf07e0fdf00f3c01803cf00f78fc3f1ef00e71ffff8e700ef38181cf70"
+            "0ee70000e7700ee63e7c67700ee6318c67700ee6600667700ee6400267700f66466266f0077647e26ee0077647e26ee0"
+            "07b327e4cde003bb23c4ddc003d991899bc001dd8811bb8001eec423778000ee63c677000077399cee00003b9c39dc00"
+            "003dc663bc00001ef3cf7800000f799ef00000079e79e0000003eff7c0000001f3cf80000000799e000000003e7c0000"
+            "00000ff00000000007e00000000003c00000000000000000000000000000000000000000000000000000000000000000"
+        ),
+    ],
+)
+
+# 108 NESTED_HEART_64 (64x64, 3 frames)
+NESTED_HEART_64 = Sprite(
+    width=64,
+    height=64,
+    frame_count=3,
+    frames=[
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+            "00007f0000fe00000003ffe007ffc000000ffff81ffff000001ff9fc3f9ff800003f801e7801fc00007e3fe7e7fc7e00"
+            "007cfff99fff3e0000f9fffe7fff9f0000f3f81ff81fcf0001e7e3e7e7c7e78001ef8ff99ff1f78001cf9ffe7ff9f380"
+            "03cf3f9ff9fcf3c003de7c03c03e7bc003def8fdbf1f7bc003def3fe7fcf7bc0039ce7c7e3e739c0039de70180e7b9c0"
+            "039dee1c3877b9c003ddee7ffe77bbc003ddcc600633bbc001ddccc00333bb8001dcecc663373b8001deeccff3377b80"
+            "01eeeccff337778000eee64ff267770000ef7647e26ef70000777727e4eeee000077bb33ccddee00003bb998199ddc00"
+            "003bddcc33bbdc00001dcee66773b800001eef718ef77800000e77b81dee700000077bce73dee0000007bde7e7bde000"
+            "0003def3cf7bc0000001ef7c3ef780000000f79e79ef000000007beff7de000000003df3cfbc000000001e799e780000"
+            "00000fbe7df00000000007cff3e00000000001e7e7800000000000fbdf0000000000007c3e0000000000001e78000000"
+            "0000000ff000000000000003c00000000000000180000000000000000000000000000000000000000000000000000000"
+            "0000000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "00000000000000000000000000000000000000000000000000001000000800000003ff8001ffc000001fffe007fff800"
+            "003ffff81ffffc00007f807c3e01fe0000fc000e70003f0001f87fe7e7fe1f8003e1fff99fff87c003e7fffc3fffe7c0"
+            "07cff01e780ff3e0079f8007e001f9e00f9f0ff18ff0f9f00f3e3ffc3ffc7cf00f3c7ffe7ffe3cf00e7cfc07e03f3e70"
+            "0e79f001800f9e700e79e1fc3f879e701e73c7fe7fe3ce781e73cf83c1f3ce780e738e018071ce700e739c181839ce70"
+            "0e739c7e7e39ce700e7398e18719ce700e7398c00319ce700e7398800119ce700f7399866199cef0077b998ff199dee0"
+            "073b988ff119dce007b9cc8ff1339de0039dcccff333b9c0039cee47e27739c001dee663c6677b8001ce73318cce7380"
+            "00ef739819cef70000f7398c319cef0000739cc7e339ce00003bce718e73dc00003def381cf7bc00001cf79c39ef3800"
+            "000e73c7e3ce7000000f3de3c7bcf00000079e799e79e0000003cf3c3cf3c0000001e79ff9e780000000f3e7e7cf0000"
+            "000079f3cf9e000000003e799e7c000000000f3e7cf000000000078ff1e00000000003e7e7c00000000001f3cf800000"
+            "0000007dbe0000000000003e7c0000000000000ff000000000000007e000000000000003c00000000000000180000000"
+            "0000000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000ff0000ff0000"
+            "0007ffe007ffe000001ffff81ffff800003fe0fc3f07fc00007f001e7800fe0000fc3fc7e3fc3f0000f8fff99fff1f00"
+            "01f3fffc3fffcf8001e7f83e7c1fe78003cfc007e003f3c003cf8ff99ff1f3c0039f3ffc3ffcf9c0079e7ffffffe79e0"
+            "07befc07e03f7de007bcf8718e1f3de0073df3fc3fcfbce00739e7ffffe79ce00739c70180e39ce00739ce0000739ce0"
+            "0739cc3e7c339ce00739dc73ce3b9ce007b9dcc0033b9de003b9dcc0033b9dc003bddc86613bbdc0039dcc8ff133b9c0"
+            "03ddcc8ff133bbc001dceccff3373b8001cee647e267738000ee6667e666770000e77323c4cee70000773b1008dcee00"
+            "0073b988119dce00003bdcc6633bdc00003dce63c673bc00001cef318cf73800000ef79c39ef7000000f7bce73def000"
+            "0007bde3c7bde0000003de799e7bc0000001cf3c3cf380000000f79e79ef000000007be7e7de000000003cf3cf3c0000"
+            "00001e7dbe78000000000f3e7cf00000000007cff3e00000000001e7e7800000000000f99f0000000000007c3e000000"
+            "0000001e780000000000000ff000000000000003c0000000000000018000000000000000000000000000000000000000"
+            "0000000000000000000000000000000000000000000000000000000000000000"
+        ),
+    ],
+)
+
+# 109 LOVE_BANNER_96X24 (96x24, 3 frames)
+LOVE_BANNER_96X24 = Sprite(
+    width=96,
+    height=24,
+    frame_count=3,
+    frames=[
+        _b(
+            "00000000000000000000000000000000000000000000000000000000000000000000000001ffffffffffffffffffff80"
+            "0700000000000000000000e00900006001f86067fe0000903100006001f86067fe00008c410000600606606600000082"
+            "21000060060660660000008411660060060660660000cc88097e0060060660660000fc90057e006006066067f800fca0"
+            "037e006006066067f800fcc0053c006006061986000078a0091800600606198600003090110000600606198600000088"
+            "2100006006061986000000846100007fe1f80607fe0000861900007fe1f80607fe0000980700000000000000000000e0"
+            "01ffffffffffffffffffff80000000000000000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+            "01ffffffffffffffffffff800700006001f86067fe0000e00900006001f86067fe00009031000060060660660000008c"
+            "41660060060660660000cc8221ff0060060660660001fe8419ff0060060660660001fe9805ff006006066067f801fea0"
+            "03ff006006066067f801fec0057e0060060619860000fca0193c00600606198600007898211800600606198600003084"
+            "6100006006061986000000861900007fe1f80607fe0000980700007fe1f80607fe0000e001ffffffffffffffffffff80"
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "00000000000000000000000000000000000000000000000001ffffffffffffffffffff800700000000000000000000e0"
+            "0900000000000000000000903100006001f86067fe00008c4100006001f86067fe000082210000600606606600000084"
+            "11660060060660660000cc8811ff0060060660660001fe8809ff0060060660660001fe9005ff006006066067f801fea0"
+            "037e006006066067f800fcc0057e0060060619860000fca0093c00600606198600007890090000600606198600000090"
+            "1100006006061986000000882100007fe1f80607fe0000846100007fe1f80607fe000086190000000000000000000098"
+            "0700000000000000000000e001ffffffffffffffffffff80000000000000000000000000000000000000000000000000"
+        ),
+    ],
+)
+
+# 110 FOREVER_BANNER_112X24 (112x24, 3 frames)
+FOREVER_BANNER_112X24 = Sprite(
+    width=112,
+    height=24,
+    frame_count=3,
+    frames=[
+        _b(
+            "00000000000000000000000000000000000000000000000000000000000000000000000000000000000001ffffffffff"
+            "ffffffffffffff8007000000000000000000000000e00901ff87e1fe1ff9819ff9fe00903101ff87e1fe1ff9819ff9fe"
+            "008c41018018198198018198018180822101801819819801819801818084116780181981980181980181cc88097f8018"
+            "1981980181980181fc90057ffe1819fe1fe1819fe1fefca0037ffe1819fe1fe1819fe1fefcc0053d8018199818006618"
+            "019878a00919801819981800661801983090110180181986180066180186008821018018198618006618018600846101"
+            "8007e1819ff8181ff981808619018007e1819ff8181ff981809807000000000000000000000000e001ffffffffffffff"
+            "ffffffffff80000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+            "000000000000000001ffffffffffffffffffffffff800701ff87e1fe1ff9819ff9fe00e00901ff87e1fe1ff9819ff9fe"
+            "0090310180181981980181980181808c416780181981980181980181cc8221ff80181981980181980181fe8419ff8018"
+            "1981980181980181fe9805fffe1819fe1fe1819fe1fffea003fffe1819fe1fe1819fe1fffec0057f8018199818006618"
+            "0198fca0193d801819981800661801987898211980181986180066180186308461018018198618006618018600861901"
+            "8007e1819ff8181ff981809807018007e1819ff8181ff98180e001ffffffffffffffffffffffff800000000000000000"
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "0000000000000000000000000000000000000000000000000000000001ffffffffffffffffffffffff80070000000000"
+            "00000000000000e009000000000000000000000000903101ff87e1fe1ff9819ff9fe008c4101ff87e1fe1ff9819ff9fe"
+            "00822101801819819801819801818084116780181981980181980181cc8811ff80181981980181980181fe8809ff8018"
+            "1981980181980181fe9005fffe1819fe1fe1819fe1fffea0037ffe1819fe1fe1819fe1fefcc0057f8018199818006618"
+            "0198fca0093d801819981800661801987890090180181986180066180186009011018018198618006618018600882101"
+            "8007e1819ff8181ff981808461018007e1819ff8181ff981808619000000000000000000000000980700000000000000"
+            "0000000000e001ffffffffffffffffffffffff8000000000000000000000000000000000000000000000000000000000"
+        ),
+    ],
+)
+
+# 111 TOGETHER_BANNER_128X24 (128x24, 3 frames)
+TOGETHER_BANNER_128X24 = Sprite(
+    width=128,
+    height=24,
+    frame_count=3,
+    frames=[
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+            "01ffffffffffffffffffffffffffff80070000000000000000000000000000e009007fe1f81fe7fe7fe6067fe7f80090"
+            "311c7fe1f81fe7fe7fe6067fe7f8388c411c0606066006000606066006063882210e0606066006000606066006067084"
+            "110e0606066006000606066006067088090e0606066006000606066006067090050706060667e7f80607fe7f87f8e0a0"
+            "030706060667e7f80607fe7f87f8e0c00503860606606600060606600661c0a00903860606606600060606600661c090"
+            "1103860606606600060606600619c0882101c6060660660006060660061b80846101c601f81fe7fe0606067fe6078086"
+            "19000601f81fe7fe0606067fe6060098070000000000000000000000000000e001ffffffffffffffffffffffffffff80"
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+            "0000000000000000000000000000000001ffffffffffffffffffffffffffff8007007fe1f81fe7fe7fe6067fe7f800e0"
+            "09007fe1f81fe7fe7fe6067fe7f80090311c060606600600060606600606388c411c0606066006000606066006063882"
+            "210e0606066006000606066006067084190e0606066006000606066006067098050706060667e7f80607fe7f87f8e0a0"
+            "030706060667e7f80607fe7f87f8e0c00503860606606600060606600661c0a01903860606606600060606600661c098"
+            "2101c6060660660006060660061b80846101c6060660660006060660061b808619000601f81fe7fe0606067fe6060098"
+            "07000601f81fe7fe0606067fe60600e001ffffffffffffffffffffffffffff8000000000000000000000000000000000"
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000001ffffffffffffffffffffffffffff80"
+            "070000000000000000000000000000e009000000000000000000000000000090311c7fe1f81fe7fe7fe6067fe7f8388c"
+            "411c7fe1f81fe7fe7fe6067fe7f83882210e0606066006000606066006067084110e0606066006000606066006067088"
+            "110e06060660060006060660060670880907060606600600060606600606e090050706060667e7f80607fe7f87f8e0a0"
+            "030706060667e7f80607fe7f87f8e0c00507060606606600060606600660e0a00903860606606600060606600661c090"
+            "0903860606606600060606600619c0901103860606606600060606600619c0882101c601f81fe7fe0606067fe6078084"
+            "6101c601f81fe7fe0606067fe607808619000000000000000000000000000098070000000000000000000000000000e0"
+            "01ffffffffffffffffffffffffffff800000000000000000000000000000000000000000000000000000000000000000"
+        ),
+    ],
+)
+
+# 112 HAPPY_BANNER_96X24 (96x24, 3 frames)
+HAPPY_BANNER_96X24 = Sprite(
+    width=96,
+    height=24,
+    frame_count=3,
+    frames=[
+        _b(
+            "00000000000000000000000000000000000000000000000000000000000000000000000001ffffffffffffffffffff80"
+            "0700000000000000000000e0090018187e1fe1fe18180090310018187e1fe1fe1818008c410018198198198198180082"
+            "21001819819819819818008411001819819819818660008809001819819819818660209005041ff9ff9fe1fe018070a0"
+            "030e1ff9ff9fe1fe0180f8c00504181981980180018070a0090018198198018001802090110018198198018001800088"
+            "2100181981980180018000846100181981980180018000861900181981980180018000980700000000000000000000e0"
+            "01ffffffffffffffffffff80000000000000000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+            "01ffffffffffffffffffff80070018187e1fe1fe181800e0090018187e1fe1fe1818009031001819819819819818008c"
+            "410018198198198198180082210018198198198186600084190418198198198186600098050e1ff9ff9fe1fe018020a0"
+            "031f1ff9ff9fe1fe018070c0050e181981980180018020a0190418198198018001800098210018198198018001800084"
+            "6100181981980180018000861900181981980180018000980700181981980180018000e001ffffffffffffffffffff80"
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "00000000000000000000000000000000000000000000000001ffffffffffffffffffff800700000000000000000000e0"
+            "090000000000000000000090310018187e1fe1fe1818008c410018187e1fe1fe18180082210018198198198198180084"
+            "11001819819819819818008811001819819819818660008809001819819819818660209005041ff9ff9fe1fe018070a0"
+            "030e1ff9ff9fe1fe0180f8c00504181981980180018070a0090018198198018001802090090018198198018001800090"
+            "110018198198018001800088210018198198018001800084610018198198018001800086190000000000000000000098"
+            "0700000000000000000000e001ffffffffffffffffffff80000000000000000000000000000000000000000000000000"
+        ),
+    ],
+)
+
+# 113 I_LOVE_YOU_BANNER_128X24 (128x24, 3 frames)
+I_LOVE_YOU_BANNER_128X24 = Sprite(
+    width=128,
+    height=24,
+    frame_count=3,
+    frames=[
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+            "01ffffffffffffffffffffffffffff80070000000000000000000000000000e0097fe006001f86067fe006061f860690"
+            "317fe006001f86067fe006061f86068c4106000600606606600006066066068221060006006066066000060660660684"
+            "110600060060660660000198606606880906000600606606600001986066069005060006006066067f800060606606a0"
+            "03060006006066067f800060606606c0050600060060619860000060606606a009060006006061986000006060660690"
+            "1106000600606198600000606066068821060006006061986000006060660684617fe007fe1f80607fe000601f81f886"
+            "197fe007fe1f80607fe000601f81f898070000000000000000000000000000e001ffffffffffffffffffffffffffff80"
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+            "0000000000000000000000000000000001ffffffffffffffffffffffffffff80077fe006001f86067fe006061f8606e0"
+            "097fe006001f86067fe006061f8606903106000600606606600006066066068c41060006006066066000060660660682"
+            "210600060060660660000198606606841906000600606606600001986066069805060006006066067f800060606606a0"
+            "03060006006066067f800060606606c0050600060060619860000060606606a019060006006061986000006060660698"
+            "2106000600606198600000606066068461060006006061986000006060660686197fe007fe1f80607fe000601f81f898"
+            "077fe007fe1f80607fe000601f81f8e001ffffffffffffffffffffffffffff8000000000000000000000000000000000"
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000001ffffffffffffffffffffffffffff80"
+            "070000000000000000000000000000e009000000000000000000000000000090317fe006001f86067fe006061f86068c"
+            "417fe006001f86067fe006061f8606822106000600606606600006066066068411060006006066066000060660660688"
+            "110600060060660660000198606606880906000600606606600001986066069005060006006066067f800060606606a0"
+            "03060006006066067f800060606606c0050600060060619860000060606606a009060006006061986000006060660690"
+            "0906000600606198600000606066069011060006006061986000006060660688217fe007fe1f80607fe000601f81f884"
+            "617fe007fe1f80607fe000601f81f88619000000000000000000000000000098070000000000000000000000000000e0"
+            "01ffffffffffffffffffffffffffff800000000000000000000000000000000000000000000000000000000000000000"
+        ),
+    ],
+)
+
+# 114 MISS_YOU_BANNER_128X24 (128x24, 3 frames)
+MISS_YOU_BANNER_128X24 = Sprite(
+    width=128,
+    height=24,
+    frame_count=3,
+    frames=[
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+            "01ffffffffffffffffffffffffffff80070000000000000000000000000000e009001819ff87f87f8018187e18180090"
+            "31001819ff87f87f8018187e1818008c41001e7818180180001819819818008221001e78181801800018198198180084"
+            "1100199818180180000661819818008809001998181801800006618198180090050019981807e07e00018181981800a0"
+            "030019981807e07e00018181981800c0050018181800180180018181981800a009001818180018018001818198180090"
+            "110018181800180180018181981800882100181818001801800181819818008461001819ff9fe1fe0001807e07e00086"
+            "19001819ff9fe1fe0001807e07e00098070000000000000000000000000000e001ffffffffffffffffffffffffffff80"
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+            "0000000000000000000000000000000001ffffffffffffffffffffffffffff8007001819ff87f87f8018187e181800e0"
+            "09001819ff87f87f8018187e1818009031001e7818180180001819819818008c41001e78181801800018198198180082"
+            "2100199818180180000661819818008419001998181801800006618198180098050019981807e07e00018181981800a0"
+            "030019981807e07e00018181981800c0050018181800180180018181981800a019001818180018018001818198180098"
+            "210018181800180180018181981800846100181818001801800181819818008619001819ff9fe1fe0001807e07e00098"
+            "07001819ff9fe1fe0001807e07e000e001ffffffffffffffffffffffffffff8000000000000000000000000000000000"
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000001ffffffffffffffffffffffffffff80"
+            "070000000000000000000000000000e00900000000000000000000000000009031001819ff87f87f8018187e1818008c"
+            "41001819ff87f87f8018187e1818008221001e7818180180001819819818008411001e78181801800018198198180088"
+            "1100199818180180000661819818008809001998181801800006618198180090050019981807e07e00018181981800a0"
+            "030019981807e07e00018181981800c0050018181800180180018181981800a009001818180018018001818198180090"
+            "090018181800180180018181981800901100181818001801800181819818008821001819ff9fe1fe0001807e07e00084"
+            "61001819ff9fe1fe0001807e07e0008619000000000000000000000000000098070000000000000000000000000000e0"
+            "01ffffffffffffffffffffffffffff800000000000000000000000000000000000000000000000000000000000000000"
+        ),
+    ],
+)
+
+# 115 HEART_TEXT_BANNER_128X24 (128x24, 3 frames)
+HEART_TEXT_BANNER_128X24 = Sprite(
+    width=128,
+    height=24,
+    frame_count=3,
+    frames=[
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+            "01fffe7ffe7ffe7ffe7ffe7ffe7fff80070003c003c003c003c003c003c000e009000180018001800180018001800090"
+            "3100000000000000000000000000008c4100000000000000000000000000008221000000000000000000000000000084"
+            "1166000000000000000000000000cc88097e000000000000000000000000fc90057e000000000000000000000000fca0"
+            "037e000000000000000000000000fcc0053c00000000000000000000000078a009180000000000000000000000003090"
+            "110000000000000000000000000000882100000240024002400240024002408461000003c003c003c003c003c003c086"
+            "19000001800180018001800180018098070000000000000000000000000000e001ffffffffffffffffffffffffffff80"
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+            "0000000000000000000000000000000001ffff9fff9fff9fff9fff9fff9fff80070000f000f000f000f000f000f000e0"
+            "090000600060006000600060006000903100000000000000000000000000008c4166000000000000000000000000cc82"
+            "21ff000000000000000000000001fe8419ff000000000000000000000001fe9805ff000000000000000000000001fea0"
+            "03ff000000000000000000000001fec0057e000000000000000000000000fca0193c0000000000000000000000007898"
+            "2118000090009000900090009000908461000000f000f000f000f000f000f08619000000600060006000600060006098"
+            "070000000000000000000000000000e001ffffffffffffffffffffffffffff8000000000000000000000000000000000"
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000001ffffe7ffe7ffe7ffe7ffe7ffffff80"
+            "0700003c003c003c003c003c000000e0090000180018001800180018000000903100000000000000000000000000008c"
+            "41000000000000000000000000000082210000000000000000000000000000841166000000000000000000000000cc88"
+            "11ff000000000000000000000001fe8809ff000000000000000000000001fe9005ff000000000000000000000001fea0"
+            "037e000000000000000000000000fcc0057e000000000000000000000000fca0093c0000000000000000000000007890"
+            "090000000000000000000000000000901100000000000000000000000000008821000000240024002400240024000084"
+            "610000003c003c003c003c003c00008619000000180018001800180018000098070000000000000000000000000000e0"
+            "01ffffffffffffffffffffffffffff800000000000000000000000000000000000000000000000000000000000000000"
+        ),
+    ],
+)
+
+# 116 RIBBON_TEXT_BANNER_128X24 (128x24, 3 frames)
+RIBBON_TEXT_BANNER_128X24 = Sprite(
+    width=128,
+    height=24,
+    frame_count=3,
+    frames=[
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+            "01ffffffffffffffffffffffffffff80070000000000000000000000000000e009000000000000000000000000000090"
+            "311c000000000000000000000000388c411c0000000000000000000000003882210e0000000000000000000000007084"
+            "110e0000000000000000000000007088090e00000000000000000000000070900507000000000000000000000000e0a0"
+            "0307000000000000000000000000e0c00503800000000000000000000001c0a00903800000000000000000000001c090"
+            "1103800000000000000000000001c0882101c0000000000000000000000380846101c000000000000000000000038086"
+            "19000000000000000000000000000098070000000000000000000000000000e001ffffffffffffffffffffffffffff80"
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+            "0000000000000000000000000000000001ffffffffffffffffffffffffffff80070000000000000000000000000000e0"
+            "09000000000000000000000000000090311c000000000000000000000000388c411c0000000000000000000000003882"
+            "210e0000000000000000000000007084190e00000000000000000000000070980507000000000000000000000000e0a0"
+            "0307000000000000000000000000e0c00503800000000000000000000001c0a01903800000000000000000000001c098"
+            "2101c0000000000000000000000380846101c00000000000000000000003808619000000000000000000000000000098"
+            "070000000000000000000000000000e001ffffffffffffffffffffffffffff8000000000000000000000000000000000"
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000001ffffffffffffffffffffffffffff80"
+            "070000000000000000000000000000e009000000000000000000000000000090311c000000000000000000000000388c"
+            "411c0000000000000000000000003882210e0000000000000000000000007084110e0000000000000000000000007088"
+            "110e00000000000000000000000070880907000000000000000000000000e0900507000000000000000000000000e0a0"
+            "0307000000000000000000000000e0c00507000000000000000000000000e0a00903800000000000000000000001c090"
+            "0903800000000000000000000001c0901103800000000000000000000001c0882101c000000000000000000000038084"
+            "6101c00000000000000000000003808619000000000000000000000000000098070000000000000000000000000000e0"
+            "01ffffffffffffffffffffffffffff800000000000000000000000000000000000000000000000000000000000000000"
+        ),
+    ],
+)
+
+# 117 SPARKLE_TEXT_BANNER_128X24 (128x24, 3 frames)
+SPARKLE_TEXT_BANNER_128X24 = Sprite(
+    width=128,
+    height=24,
+    frame_count=3,
+    frames=[
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+            "01ffffffffffffffffffffffffffff80070000000000000000000000000000e009000008000008000008000008000090"
+            "3100001c00001c00001c00001c00008c4100000800000800000800000800008221000000000000000000000000000084"
+            "1100000000000000000000000000008809000000000000000000000000002090050400000000000000000000000070a0"
+            "030e000000000000000000000000f8c0050400000000000000000000000070a009000000000000000000000000002090"
+            "11000000000000000000000000000088210000080000080000080000080000846100001c00001c00001c00001c000086"
+            "19000008000008000008000008000098070000000000000000000000000000e001ffffffffffffffffffffffffffff80"
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+            "0000000000000000000000000000000001ffffffffffffffffffffffffffff80070000000000000000000000000000e0"
+            "0900000080000080000080000000009031000001c00001c00001c0000000008c41000000800000800000800000000082"
+            "2100000000000000000000000000008419040000000000000000000000000098050e00000000000000000000000020a0"
+            "031f00000000000000000000000070c0050e00000000000000000000000020a019040000000000000000000000000098"
+            "21000000000080000080000080000084610000000001c00001c00001c000008619000000000080000080000080000098"
+            "070000000000000000000000000000e001ffffffffffffffffffffffffffff8000000000000000000000000000000000"
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000001ffffffffffffffffffffffffffff80"
+            "070000000000000000000000000000e009000000080000080000080000000090310000001c00001c00001c000000008c"
+            "410000000800000800000800000000822100000000000000000000000000008411000000000000000000000000000088"
+            "1100000000000000000000000000008809000000000000000000000000002090050400000000000000000000000070a0"
+            "030e000000000000000000000000f8c0050400000000000000000000000070a009000000000000000000000000002090"
+            "090000000000000000000000000000901100000000000000000000000000008821000000000800000800000800000084"
+            "61000000001c00001c00001c0000008619000000000800000800000800000098070000000000000000000000000000e0"
+            "01ffffffffffffffffffffffffffff800000000000000000000000000000000000000000000000000000000000000000"
+        ),
+    ],
+)
+
+# 118 NESTED_HEART_40 (40x40, 3 frames)
+NESTED_HEART_40 = Sprite(
+    width=40,
+    height=40,
+    frame_count=3,
+    frames=[
+        _b(
+            "0000000000000000000000000000000000000000003e007c0000ffc3ff0001ffe7ff8003f07e0fc007c21843e0079fe7"
+            "f9e0073ffffce00f78181ef00e70810e700e63ffc6700e661866700ee40027700e6c243670066c7e36600764ff26e007"
+            "64ff26e003367e6cc003b23c4dc0019b18d98001d9819b8000ecc3370000e6666700007318ce000039c39c00001ee778"
+            "00000f3cf000000799e0000001e780000000ff000000007e000000001800000000000000000000000000000000000000"
+            "0000000000000000"
+        ),
+        _b(
+            "00000000000000000000000000000000ff81ff0003ffc3ffc007ffffffe007c07e03e00f0718e0f01e3fc3fc781e7fff"
+            "fe781c70180e381ce00007381cc3e7c3381dc61863b81dcc0033b81dc80013b81dc86613b81cc8ff13381cc8ff13380c"
+            "c8ff13300ee47e277006647e266007723c4ee0033300ccc003998199c001ccc3338000e63c670000f318cf000079c39e"
+            "00003ce73c00001e3c7800000799e0000003c3c0000001e7800000007e000000003c0000000018000000000000000000"
+            "0000000000000000"
+        ),
+        _b(
+            "000000000000000000000000000000000c00300000ff81ff0001ffe7ff8003f9ff9fc007c03c03e0078f99f1e00f3fe7"
+            "fcf00e7c3c3e700e70180e701ee1c387781ee7ffe7781cc60063380ccc0033300ecc6633700eccff33700eccff337006"
+            "64ff266007647e26e007367e6ce003b23c4dc003990099c001dcc33b8000ee66770000773cee00007b81de00003ce73c"
+            "00001e7e7800000f3cf0000003c3c0000001e780000000ff000000003c00000000180000000000000000000000000000"
+            "0000000000000000"
+        ),
+    ],
+)
+
+# 119 GIFT_32 (32x32, 3 frames)
+GIFT_32 = Sprite(
+    width=32,
+    height=32,
+    frame_count=3,
+    frames=[
+        _b(
+            "00000000000000000000000000000000000000000000000000000000000e700000218400004242000042420000218400"
+            "01ffff80010080800100808001008080010080800100808001ffff80010240800103c0800103c0800101808001008080"
+            "010080800100808001008080010080800100808001ffff800000000000000000"
+        ),
+        _b(
+            "00000000000000000000000000000000000000000000000000000000001c380000418200008181000081810000418200"
+            "01ffff80010080800100808001008080010080800100808001fe7f800107e0800107e0800103c0800101808001008080"
+            "010080800100808001008080010080800100808001ffff800000000000000000"
+        ),
+        _b(
+            "0000000000000000000000000000000000000000000000000000000000381c0000824100010180800101808000824100"
+            "01ffff80010080800100808001008080010080800100808001fe7f800107e0800107e0800103c0800103c08001008080"
+            "010080800100808001008080010080800100808001ffff800000000000000000"
+        ),
+    ],
+)
+
+# 120 ROSE_BOUQUET_32 (32x32, 3 frames)
+ROSE_BOUQUET_32 = Sprite(
+    width=32,
+    height=32,
+    frame_count=3,
+    frames=[
+        _b(
+            "000000000000000000000000000000000007e000000c300000cc300001fc3f00018661800187e1800085a10000c8b300"
+            "00309e00001084000010840000088800000888000004900000049000000490000002a0000002a000000ff8000005d000"
+            "0005d0000002a0000002a0000001400000014000000080000000000000000000"
+        ),
+        _b(
+            "0000000000000000000000000000000000066000000ff200000fff8000dfff8001ffff8001ffff8001ffbf0000fc9e00"
+            "00f884000070840000108800001088000008880000089000000490000004a0000002a0000002a000000ff8000005d000"
+            "0005d0000002a0000002a0000001400000014000000080000000000000000000"
+        ),
+        _b(
+            "00000000000000000000000000024000000ff300000fff80000fff80000fff8000cfff8001ffff0001ff9e0001fe8c00"
+            "01fc840000fc880000788800001088000010900000089000000890000004a0000004a0000002a000000ff8000005d000"
+            "0005d0000002a0000002a0000001400000014000000080000000000000000000"
+        ),
+    ],
+)
+
+# 121 RING_BOX_32 (32x32, 3 frames)
+RING_BOX_32 = Sprite(
+    width=32,
+    height=32,
+    frame_count=3,
+    frames=[
+        _b(
+            "00000000000000000000000000000000000180000007e40000081e0000100c000010080000300c0000308c0000114800"
+            "00162800000818000017e4000061820000ffff0000800100008241000087e1000087e1000087e1000083c10000ffff00"
+            "0000000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "000000000000000000000000000180000007e40000081e0000101f0000100e0000300c0000300c000010880000114800"
+            "000e3000000ff800001184000060020000ffff0000800100008661000087e1000087e1000087e1000083c10000ffff00"
+            "0000000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "0000000000000000000180000007e4000008140000100e0000103f8000300e0000300c0000100c000010880000095000"
+            "0007e00000099800001004000060020000ffff0000800100008661000087e1000087e1000087e1000083c10000ffff00"
+            "0000000000000000000000000000000000000000000000000000000000000000"
+        ),
+    ],
+)
+
+# 122 ENVELOPE_HEART_32 (32x32, 3 frames)
+ENVELOPE_HEART_32 = Sprite(
+    width=32,
+    height=32,
+    frame_count=3,
+    frames=[
+        _b(
+            "0000000000000000000000000000000000000000000000000000000000000000000000000000000007ffffc005800340"
+            "04600c40041a70400407c0400403c040040de04004701c400580034007ffffc000000000000000000000000000000000"
+            "0000000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "0000000000000000000000000000000000000000000000000000000000000000000000000000000007ffffc0070001c0"
+            "04c246400427e840041ff0400407c04004038040041c704005e00f4007ffffc000000000000000000000000000000000"
+            "0000000000000000000000000000000000000000000000000000000000000000"
+        ),
+        _b(
+            "0000000000000000000000000000000000000000000000000000000000000000000000000000000007ffffc0070001c0"
+            "048242400467ec400417f040040be0400407c0400407c04004f83e4007ffffc000000000000000000000000000000000"
+            "0000000000000000000000000000000000000000000000000000000000000000"
+        ),
+    ],
+)
+
+# 123 FIREWORK_HEART_40 (40x40, 3 frames)
+FIREWORK_HEART_40 = Sprite(
+    width=40,
+    height=40,
+    frame_count=3,
+    frames=[
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004000"
+            "000000e00000000040000000000008000000008880000000490000000049000000046e100000037e60000000ff800000"
+            "00ff0000000ffef80000007e00000000fd8000000322600000042a100000004900000000490000000088800000000800"
+            "000000000000000000020000000007000000000200000000000000000000000000000000000000000000000000000000"
+            "0000000000000000"
+        ),
+        _b(
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000080000000208"
+            "200000010840000001084000004088800000e088800000404901000030410600000c6618000003ff60000000ff000000"
+            "00ff000000fe7e3f8000007e000000003c00000003006000000c00180000304106000040490100000088820000008887"
+            "000001084200000108400000020820000000080000000000000000000000000000000000000000000000000000000000"
+            "0000000000000000"
+        ),
+        _b(
+            "000000000000000000000000000000000008000000000800000008080800000408100000040810000002082000000208"
+            "2000000108400000010840000400888010030080806000c0000180007000060000ec6618000040ff00000000ff000000"
+            "00ff00001ff8ff0ffc00007e000000003c00000000180000000c001800003000060000c0000780030080826004008880"
+            "100001084000000108400000020820000002082000000408100000040810000008080800000008000000000800000000"
+            "0000000000000000"
+        ),
+    ],
+)
+
+# 124 BG_HEART_BORDER_128X64 (128x64, 3 frames)
+BG_HEART_BORDER_128X64 = Sprite(
+    width=128,
+    height=64,
+    frame_count=3,
+    frames=[
+        _b(
+            "ffffffffffffffffffffffffffffffff8660066006600660066006600660066187e007e007e007e007e007e007e007e1"
+            "9ffffffffffffffffffffffffffffff997e007e007e007e007e007e007e007e993c003c003c003c003c003c003c003c9"
+            "91800180018001800180018001800189e6000000000000000000000000000009fe000000000000000000000000000009"
+            "fe000000000000000000000000000009fe000000000000000000000000000009bc000000000000000000000000000009"
+            "980000000000000000000000000000cd900000000000000000000000000001ff900000000000000000000000000001ff"
+            "900000000000000000000000000001ff900000000000000000000000000000fd900000000000000000000000000000fd"
+            "900000000000000000000000000000799000000000000000000000000000000990000000000000000000000000000009"
+            "e6000000000000000000000000000009fe000000000000000000000000000009fe000000000000000000000000000009"
+            "fe000000000000000000000000000009bc000000000000000000000000000009980000000000000000000000000000cd"
+            "900000000000000000000000000001ff900000000000000000000000000001ff900000000000000000000000000001ff"
+            "900000000000000000000000000000fd900000000000000000000000000000fd90000000000000000000000000000079"
+            "9000000000000000000000000000000990000000000000000000000000000009e6000000000000000000000000000009"
+            "fe000000000000000000000000000009fe000000000000000000000000000009fe000000000000000000000000000009"
+            "bc000000000000000000000000000009980000000000000000000000000000cd900000000000000000000000000001ff"
+            "900000000000000000000000000001ff900000000000000000000000000001ff900000000000000000000000000000fd"
+            "900000000000000000000000000000fd9000000000000000000000000000007990000000000000000000000000000009"
+            "90000000000000000000000000000009e6000000000000000000000000000009fe000000000000000000000000000009"
+            "fe000000000000000000000000000009fe000000000000000000000000000009bc000000000000000000000000000009"
+            "980000000000000000000000000000cd700660066006600660066006600661fef00ff00ff00ff00ff00ff00ff00ff1ff"
+            "f00ff00ff00ff00ff00ff00ff00ff1fff00ff00ff00ff00ff00ff00ff00ff0fff007e007e007e007e007e007e007e0ff"
+            "ffffffffffffffffffffffffffffffffc003c003c003c003c003c003c003c00380000000000000000000000000000001"
+            "ffffffffffffffffffffffffffffffff"
+        ),
+        _b(
+            "ffffffffffffffffffffffffffffffff80660066006600660066006600660067807e007e007e007e007e007e007e007f"
+            "9fffffffffffffffffffffffffffffff907e007e007e007e007e007e007e007f903c003c003c003c003c003c003c003d"
+            "901800180018001800180018001800199000000000000000000000000000000990000000000000000000000000000009"
+            "e6000000000000000000000000000009fe000000000000000000000000000009fe000000000000000000000000000009"
+            "fe000000000000000000000000000009bc000000000000000000000000000009980000000000000000000000000000cd"
+            "900000000000000000000000000001ff900000000000000000000000000001ff900000000000000000000000000001ff"
+            "900000000000000000000000000000fd900000000000000000000000000000fd90000000000000000000000000000079"
+            "9000000000000000000000000000000990000000000000000000000000000009e6000000000000000000000000000009"
+            "fe000000000000000000000000000009fe000000000000000000000000000009fe000000000000000000000000000009"
+            "bc000000000000000000000000000009980000000000000000000000000000cd900000000000000000000000000001ff"
+            "900000000000000000000000000001ff900000000000000000000000000001ff900000000000000000000000000000fd"
+            "900000000000000000000000000000fd9000000000000000000000000000007990000000000000000000000000000009"
+            "90000000000000000000000000000009e6000000000000000000000000000009fe000000000000000000000000000009"
+            "fe000000000000000000000000000009fe000000000000000000000000000009bc000000000000000000000000000009"
+            "980000000000000000000000000000cd900000000000000000000000000001ff900000000000000000000000000001ff"
+            "900000000000000000000000000001ff900000000000000000000000000000fd900000000000000000000000000000fd"
+            "900000000000000000000000000000799000000000000000000000000000000990000000000000000000000000000009"
+            "e6000000000000000000000000000009fe000000000000000000000000000009fe000000000000000000000000000009"
+            "fe000000000000000000000000000009fe006600660066006600660066006609ff00ff00ff00ff00ff00ff00ff00ffcd"
+            "ff00ff00ff00ff00ff00ff00ff00ffffff00ff00ff00ff00ff00ff00ff00fffffe007e007e007e007e007e007e007fff"
+            "fffffffffffffffffffffffffffffffdbc003c003c003c003c003c003c003cfd80000000000000000000000000000079"
+            "ffffffffffffffffffffffffffffffff"
+        ),
+        _b(
+            "ffffffffffffffffffffffffffffffffe007e007e007e007e007e007e007e007f00ff00ff00ff00ff00ff00ff00ff00f"
+            "fffffffffffffffffffffffffffffffff007e007e007e007e007e007e007e00fd003c003c003c003c003c003c003c00b"
+            "900180018001800180018001800180099000000000000000000000000000000990000000000000000000000000000009"
+            "9000000000000000000000000000000990000000000000000000000000000009e6000000000000000000000000000009"
+            "fe000000000000000000000000000009fe000000000000000000000000000009fe000000000000000000000000000009"
+            "bc000000000000000000000000000009980000000000000000000000000000cd900000000000000000000000000001ff"
+            "900000000000000000000000000001ff900000000000000000000000000001ff900000000000000000000000000000fd"
+            "900000000000000000000000000000fd9000000000000000000000000000007990000000000000000000000000000009"
+            "90000000000000000000000000000009e6000000000000000000000000000009fe000000000000000000000000000009"
+            "fe000000000000000000000000000009fe000000000000000000000000000009bc000000000000000000000000000009"
+            "980000000000000000000000000000cd900000000000000000000000000001ff900000000000000000000000000001ff"
+            "900000000000000000000000000001ff900000000000000000000000000000fd900000000000000000000000000000fd"
+            "900000000000000000000000000000799000000000000000000000000000000990000000000000000000000000000009"
+            "e6000000000000000000000000000009fe000000000000000000000000000009fe000000000000000000000000000009"
+            "fe000000000000000000000000000009bc000000000000000000000000000009980000000000000000000000000000cd"
+            "900000000000000000000000000001ff900000000000000000000000000001ff900000000000000000000000000001ff"
+            "900000000000000000000000000000fd900000000000000000000000000000fd90000000000000000000000000000079"
+            "9000000000000000000000000000000990000000000000000000000000000009e6000000000000000000000000000009"
+            "fe000000000000000000000000000009fe400240024002400240024002400249ffe007e007e007e007e007e007e007e9"
+            "bff00ff00ff00ff00ff00ff00ff00ff99ff00ff00ff00ff00ff00ff00ff00ffd97e007e007e007e007e007e007e007ff"
+            "9fffffffffffffffffffffffffffffff818001800180018001800180018001ff800000000000000000000000000000fd"
+            "ffffffffffffffffffffffffffffffff"
+        ),
+    ],
+)
+
+# 125 BG_STAR_BORDER_128X64 (128x64, 3 frames)
+BG_STAR_BORDER_128X64 = Sprite(
+    width=128,
+    height=64,
+    frame_count=3,
+    frames=[
+        _b(
+            "ffffffffffffffffffffffffffffffff8000000000000000000000000000000182000800200080020008002000800201"
+            "9ffffffffffffffffffffffffffffff99f803e00f803e00f803e00f803e00f8997001c007001c007001c007001c00709"
+            "960008002000800200080020008002299e0000000000000000000000000000799f0000000000000000000000000000f9"
+            "9e0000000000000000000000000000799400000000000000000000000000002990000000000000000000000000000009"
+            "900000000000000000000000000000099000000000000000000000000000000990000000000000000000000000000009"
+            "900000000000000000000000000000099000000000000000000000000000000990000000000000000000000000000009"
+            "940000000000000000000000000000299e0000000000000000000000000000799f0000000000000000000000000000f9"
+            "9e0000000000000000000000000000799400000000000000000000000000002990000000000000000000000000000009"
+            "900000000000000000000000000000099000000000000000000000000000000990000000000000000000000000000009"
+            "900000000000000000000000000000099000000000000000000000000000000990000000000000000000000000000009"
+            "940000000000000000000000000000299e0000000000000000000000000000799f0000000000000000000000000000f9"
+            "9e0000000000000000000000000000799400000000000000000000000000002990000000000000000000000000000009"
+            "900000000000000000000000000000099000000000000000000000000000000990000000000000000000000000000009"
+            "900000000000000000000000000000099000000000000000000000000000000990000000000000000000000000000009"
+            "940000000000000000000000000000299e0000000000000000000000000000799f0000000000000000000000000000f9"
+            "9e0000000000000000000000000000799400000000000000000000000000002990000000000000000000000000000009"
+            "900000000000000000000000000000099000000000000000000000000000000990000000000000000000000000000009"
+            "900000000000000000000000000000099000000000000000000000000000000990000000000000000000000000000009"
+            "940000000000000000000000000000299e0000000000000000000000000000799f0000000000000000000000000000f9"
+            "9e00000000000000000000000000007994200080020008002000800200080029907001c007001c007001c007001c0079"
+            "9ffffffffffffffffffffffffffffff98000000000000000000000000000000180000000000000000000000000000001"
+            "ffffffffffffffffffffffffffffffff"
+        ),
+        _b(
+            "ffffffffffffffffffffffffffffffff8020008002000800200080020008002180200080020008002000800200080021"
+            "9ffffffffffffffffffffffffffffff991fc07f01fc07f01fc07f01fc07f01fd907001c007001c007001c007001c0079"
+            "90200080020008002000800200080079942000800200080020008002000800f99e000000000000000000000000000079"
+            "9f0000000000000000000000000000299e00000000000000000000000000000994000000000000000000000000000009"
+            "900000000000000000000000000000099000000000000000000000000000000990000000000000000000000000000009"
+            "900000000000000000000000000000099000000000000000000000000000000990000000000000000000000000000029"
+            "90000000000000000000000000000079940000000000000000000000000000f99e000000000000000000000000000079"
+            "9f0000000000000000000000000000299e00000000000000000000000000000994000000000000000000000000000009"
+            "900000000000000000000000000000099000000000000000000000000000000990000000000000000000000000000009"
+            "900000000000000000000000000000099000000000000000000000000000000990000000000000000000000000000029"
+            "90000000000000000000000000000079940000000000000000000000000000f99e000000000000000000000000000079"
+            "9f0000000000000000000000000000299e00000000000000000000000000000994000000000000000000000000000009"
+            "900000000000000000000000000000099000000000000000000000000000000990000000000000000000000000000009"
+            "900000000000000000000000000000099000000000000000000000000000000990000000000000000000000000000029"
+            "90000000000000000000000000000079940000000000000000000000000000f99e000000000000000000000000000079"
+            "9f0000000000000000000000000000299e00000000000000000000000000000994000000000000000000000000000009"
+            "900000000000000000000000000000099000000000000000000000000000000990000000000000000000000000000009"
+            "900000000000000000000000000000099000000000000000000000000000000990000000000000000000000000000029"
+            "90000000000000000000000000000079940000000000000000000000000000f99e000000000000000000000000000079"
+            "9f0008002000800200080020008002299f001c007001c007001c007001c007099f803e00f803e00f803e00f803e00f89"
+            "9ffffffffffffffffffffffffffffff98200080020008002000800200080020180000000000000000000000000000001"
+            "ffffffffffffffffffffffffffffffff"
+        ),
+        _b(
+            "ffffffffffffffffffffffffffffffff8000000000000000000000000000000180020008002000800200080020008003"
+            "9fffffffffffffffffffffffffffffff900f803e00f803e00f803e00f803e02f9007001c007001c007001c007001c07f"
+            "900200080020008002000800200080fb9000000000000000000000000000007994000000000000000000000000000029"
+            "9e0000000000000000000000000000099f0000000000000000000000000000099e000000000000000000000000000009"
+            "940000000000000000000000000000099000000000000000000000000000000990000000000000000000000000000009"
+            "900000000000000000000000000000099000000000000000000000000000002990000000000000000000000000000079"
+            "900000000000000000000000000000f99000000000000000000000000000007994000000000000000000000000000029"
+            "9e0000000000000000000000000000099f0000000000000000000000000000099e000000000000000000000000000009"
+            "940000000000000000000000000000099000000000000000000000000000000990000000000000000000000000000009"
+            "900000000000000000000000000000099000000000000000000000000000002990000000000000000000000000000079"
+            "900000000000000000000000000000f99000000000000000000000000000007994000000000000000000000000000029"
+            "9e0000000000000000000000000000099f0000000000000000000000000000099e000000000000000000000000000009"
+            "940000000000000000000000000000099000000000000000000000000000000990000000000000000000000000000009"
+            "900000000000000000000000000000099000000000000000000000000000002990000000000000000000000000000079"
+            "900000000000000000000000000000f99000000000000000000000000000007994000000000000000000000000000029"
+            "9e0000000000000000000000000000099f0000000000000000000000000000099e000000000000000000000000000009"
+            "940000000000000000000000000000099000000000000000000000000000000990000000000000000000000000000009"
+            "900000000000000000000000000000099000000000000000000000000000002990000000000000000000000000000079"
+            "900000000000000000000000000000f99000000000000000000000000000007994000000000000000000000000000029"
+            "9e000000000000000000000000000009bf008002000800200080020008002009fe01c007001c007001c007001c007009"
+            "bffffffffffffffffffffffffffffff98000000000000000000000000000000180000000000000000000000000000001"
+            "ffffffffffffffffffffffffffffffff"
+        ),
+    ],
+)
+
+# 126 BG_RIBBON_BORDER_128X64 (128x64, 3 frames)
+BG_RIBBON_BORDER_128X64 = Sprite(
+    width=128,
+    height=64,
+    frame_count=3,
+    frames=[
+        _b(
+            "fffffffffffffffffffffffffffffffff800f800f800f800f800f800f800f801f800f800f800f800f800f800f800f801"
+            "fffffffffffffffffffffffffffffffff000000000000000000000000000000f9000000000000000000000000000000f"
+            "9000000000000000000000000000000f9401000000000000000000000000802f930600000000000000000000000060c9"
+            "90f80000000000000000000000001f0990700000000000000000000000000e0990f80000000000000000000000001f09"
+            "930600000000000000000000000060c99401000000000000000000000000802990000000000000000000000000000009"
+            "90000000000000000000000000000009f0000000000000000000000000000009f0000000000000000000000000000009"
+            "f0000000000000000000000000000009f000000000000000000000000000000ff000000000000000000000000000000f"
+            "9000000000000000000000000000000f9000000000000000000000000000000f9000000000000000000000000000000f"
+            "900000000000000000000000000000099000000000000000000000000000000990000000000000000000000000000009"
+            "900000000000000000000000000000099000000000000000000000000000000990000000000000000000000000000009"
+            "9000000000000000000000000000000990000000000000000000000000000009f0000000000000000000000000000009"
+            "f0000000000000000000000000000009f0000000000000000000000000000009f000000000000000000000000000000f"
+            "f000000000000000000000000000000f9000000000000000000000000000000f9000000000000000000000000000000f"
+            "9000000000000000000000000000000f9000000000000000000000000000000990000000000000000000000000000009"
+            "900000000000000000000000000000099000000000000000000000000000000990000000000000000000000000000009"
+            "900000000000000000000000000000099000000000000000000000000000000990000000000000000000000000000009"
+            "f0000000000000000000000000000009f0000000000000000000000000000009f4010000000000000000000000008029"
+            "f30600000000000000000000000060cff0f80000000000000000000000001f0f90700000000000000000000000000e0f"
+            "90f80000000000000000000000001f0f930600000000000000000000000060cf94010000000000000000000000008029"
+            "900000000000000000000000000000099000000000000000000000000000000990000000000000000000000000000009"
+            "9ffffffffffffffffffffffffffffff99f001f001f001f001f001f001f001f019f001f001f001f001f001f001f001f01"
+            "ffffffffffffffffffffffffffffffff"
+        ),
+        _b(
+            "ffffffffffffffffffffffffffffffff803e003e003e003e003e003e003e003f803e003e003e003e003e003e003e003f"
+            "9fffffffffffffffffffffffffffffff9000000000000000000000000000000990000000000000000000000000000009"
+            "9000000000000000000000000000000994010000000000000000000000008029930600000000000000000000000060c9"
+            "90f80000000000000000000000001f09f0700000000000000000000000000e09f0f80000000000000000000000001f09"
+            "f30600000000000000000000000060c9f401000000000000000000000000802ff000000000000000000000000000000f"
+            "9000000000000000000000000000000f9000000000000000000000000000000f9000000000000000000000000000000f"
+            "900000000000000000000000000000099000000000000000000000000000000990000000000000000000000000000009"
+            "900000000000000000000000000000099000000000000000000000000000000990000000000000000000000000000009"
+            "9000000000000000000000000000000990000000000000000000000000000009f0000000000000000000000000000009"
+            "f0000000000000000000000000000009f0000000000000000000000000000009f000000000000000000000000000000f"
+            "f000000000000000000000000000000f9000000000000000000000000000000f9000000000000000000000000000000f"
+            "9000000000000000000000000000000f9000000000000000000000000000000990000000000000000000000000000009"
+            "900000000000000000000000000000099000000000000000000000000000000990000000000000000000000000000009"
+            "900000000000000000000000000000099000000000000000000000000000000990000000000000000000000000000009"
+            "f0000000000000000000000000000009f0000000000000000000000000000009f0000000000000000000000000000009"
+            "f000000000000000000000000000000ff000000000000000000000000000000f9000000000000000000000000000000f"
+            "9000000000000000000000000000000f9000000000000000000000000000000f94010000000000000000000000008029"
+            "930600000000000000000000000060c990f80000000000000000000000001f0990700000000000000000000000000e09"
+            "90f80000000000000000000000001f09930600000000000000000000000060c994010000000000000000000000008029"
+            "90000000000000000000000000000009f0000000000000000000000000000009f0000000000000000000000000000009"
+            "fffffffffffffffffffffffffffffffff007c007c007c007c007c007c007c00ff007c007c007c007c007c007c007c00f"
+            "ffffffffffffffffffffffffffffffff"
+        ),
+        _b(
+            "ffffffffffffffffffffffffffffffff8f800f800f800f800f800f800f800f818f800f800f800f800f800f800f800f81"
+            "9ffffffffffffffffffffffffffffff9f0000000000000000000000000000009f0000000000000000000000000000009"
+            "f0000000000000000000000000000009f401000000000000000000000000802ff30600000000000000000000000060cf"
+            "90f80000000000000000000000001f0f90700000000000000000000000000e0f90f80000000000000000000000001f0f"
+            "930600000000000000000000000060c99401000000000000000000000000802990000000000000000000000000000009"
+            "900000000000000000000000000000099000000000000000000000000000000990000000000000000000000000000009"
+            "9000000000000000000000000000000990000000000000000000000000000009f0000000000000000000000000000009"
+            "f0000000000000000000000000000009f0000000000000000000000000000009f000000000000000000000000000000f"
+            "f000000000000000000000000000000f9000000000000000000000000000000f9000000000000000000000000000000f"
+            "9000000000000000000000000000000f9000000000000000000000000000000990000000000000000000000000000009"
+            "900000000000000000000000000000099000000000000000000000000000000990000000000000000000000000000009"
+            "900000000000000000000000000000099000000000000000000000000000000990000000000000000000000000000009"
+            "f0000000000000000000000000000009f0000000000000000000000000000009f0000000000000000000000000000009"
+            "f000000000000000000000000000000ff000000000000000000000000000000f9000000000000000000000000000000f"
+            "9000000000000000000000000000000f9000000000000000000000000000000f90000000000000000000000000000009"
+            "900000000000000000000000000000099000000000000000000000000000000990000000000000000000000000000009"
+            "900000000000000000000000000000099000000000000000000000000000000994010000000000000000000000008029"
+            "930600000000000000000000000060c9f0f80000000000000000000000001f09f0700000000000000000000000000e09"
+            "f0f80000000000000000000000001f09f30600000000000000000000000060cff401000000000000000000000000802f"
+            "9000000000000000000000000000000f9000000000000000000000000000000f9000000000000000000000000000000f"
+            "9ffffffffffffffffffffffffffffff981f001f001f001f001f001f001f001f181f001f001f001f001f001f001f001f1"
+            "ffffffffffffffffffffffffffffffff"
+        ),
+    ],
+)
+
+# 127 BG_CONFETTI_FULL_128X64 (128x64, 4 frames)
+BG_CONFETTI_FULL_128X64 = Sprite(
+    width=128,
+    height=64,
+    frame_count=4,
+    frames=[
+        _b(
+            "c0000000000000000000000000000000c000000000000000000000000000000000000000000000000000000000000800"
+            "00000000000000000000000000001000000000c0000000002000000000002000000000c0000000002000000000000000"
+            "000000000000000020000000300000800000000000000000200000003000008000003000000000002800000000000080"
+            "00800c0000000000100000000000008001c0000002000000200000000000008000800000040000000000000000000000"
+            "000000000800000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+            "000000000000000000000002000000000000000000000000000000870000000000000000000000000000010200000000"
+            "020000000003000000000200000000000200000000030000000000000000000002000000000000800000000000000c00"
+            "02000000000000800000000000000c000e00000000000080000000000000000003000000008000800000000000000000"
+            "0000000031c000800000000000000000000000000c800000000000000000000000000000000000000000000000000000"
+            "000000000000000000000000000000000000000000300000000000000000000000000000002c00000000000000000000"
+            "0000000000700000c0002000000000000000000000280000300040000000000000000000001c00000000800080000000"
+            "000000000008000000000000800000000002000c0000000000000000800000000002000c000000000000000080000000"
+            "000e00000000000000000000800000000003000000000000000000000000000000020000030000000000000000000000"
+            "0000000000c0000000000000000000000000000000000000000000000000000800000000000000000000000000000008"
+            "0000000000000000000000000000000800080000000000000000000000000008001c000000000000000000002000c008"
+            "002800000000000000000000400030000070000000000000000800008000000000200000000000000010000000000000"
+            "000000000000000000200030000000200000000000000000000000300000002000000000000000000000000000000020"
+            "000000000000000000000000000000200000000000000000000000000000002000000000000000000000000000000000"
+            "000008c0000000000000000000000000000008c000000000000000000000000000000800000000000000000003000000"
+            "080008000000000000000000030000001c80080000000300000000000000000009000000000000c00000000000000002"
+            "020000000000000000000000000200070000000000000000000000000004000200000000000300000000000000080000"
+            "00000000000300000000000000000000"
+        ),
+        _b(
+            "000000000006000000000000000400030000000000060000000000000008000100000000000000000000000000000001"
+            "000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000"
+            "00000000000000004000000000000400000000c0000000004000000000000800000000c0000000004000000000001100"
+            "000000000000000040000000300001000000000000000000500000003000010000000000000000002000000000000100"
+            "0080180004000000400000000000010001c0060008000000000000000000000000800000100000000000000000000000"
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+            "000000000000000000000000000000000000000000000000000000810000000000000000000600000000010380000000"
+            "000000000006000000000201000000000100000000000000000000000000180001000000000000000000000000001800"
+            "010000000000004000000000000000000d00000001000040000000000000000003000000038000400000000000000000"
+            "00000000310000400000000000000000000000000c000040000000000000000000000000000000000000000000000000"
+            "000000000000000000000000000000000000000000000000000000000000000000000000003800000000400000000000"
+            "000000000076000000008000000000000000000000280000600100000000000000000000001c00001800000080000000"
+            "0000000000080000000000008000000000020000000000000000000080000000001a0006000000000000000080000000"
+            "000600060000000000000000800000000002000006000000000000000000000000020000018000000000000000000000"
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004"
+            "00100000000000000000000000000004003800000000000000000000000000040050000000000000000000000000c004"
+            "00e000000000000000000000100030040040000000000000000000002000000000000000000000000004000040000040"
+            "000000000000000000080030000000400000000000000000001000300000004000000000000000000000000000000040"
+            "000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000000"
+            "000008000000000000000000000000000000086000000000000000000000000000000860000000000000000000000000"
+            "00000800000006000000000001800000048008000000018000000000018000000f000000000000000000000000000000"
+            "06000000000000000000000000000000"
+        ),
+        _b(
+            "00800000000000000000000000c0000003000000000000000000000000c0000007000000000c00000000000000020000"
+            "82000000000c00000000000000040000c000000000000000000000000008000380000000000000000000000000000003"
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000008000000000000000"
+            "00000000000000008000000000000000000000c0000000008000000000000200000000c0000000008000000000000600"
+            "0000000000000000a000000030000a000000000000000000400000003000020000000000080000008000000000000200"
+            "0080000010000000000000000000000001c00c0020000000000000000000000000800300000000000000000000000000"
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+            "0000000000000000000000000000000000000000000c0000000000800000000000000000000c00000000010080000000"
+            "000000000000000000000201c00030000000000000000000000000008000300000800000000000000000000000000000"
+            "008000000200000000000000000000000c80000007000020000000000000000003800000020000200000000000000000"
+            "00800000300000200000000000000000000000000c000020000000000000000000000000000000200000000000000000"
+            "000000000000000000000000000000000000000000000000000080000000000000000000002000000001000000000000"
+            "00000000007c0000000200000000000000000000002b0000000000000000000000000000001c00003000000080000000"
+            "00000000000800000c0000008000000000320000000000000000000080000000000e0000000000000000000080000000"
+            "000200030c00000000000000800000000002000303000000000000000000000000020000000000000000000000000000"
+            "000000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000"
+            "0070000000000000000000000000000200a0000000000000000000000000000201c0000000000000000000000000c002"
+            "008000000000000000000000000030020000000000000000000000000800008200000000000000000000000010000080"
+            "000000000000000000020030200000800000000000000000000400300000008000000000000000000008000000000080"
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+            "00000800000000000000000000000000000008000000000000000000000000000000083000000c000000000000000000"
+            "00000830000003000000000000000000"
+        ),
+        _b(
+            "000008000000180000000000000000000000080000000600000000000000000000000818000000000000000000000000"
+            "008008180000000000000000000000000100000000180000000000000060000003000000001800000000000000620000"
+            "0380000000000000000000000004000641000000000000000000000000080006e0000000000000000000000000000000"
+            "400000000000000000000000000000000000000000000001000000000000000000000000000000010000000000000000"
+            "00000000000000010000000000000400000000c0000000010000000000000400000000c0000000014000000000000500"
+            "000000000000000080000000300006000000000010000001000000003000040000000000200000000000000000000000"
+            "0080000040000000000000000000000001c0000000000000000000000000000000800600000000000000000000000000"
+            "000001800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+            "000000000018000000000000000000000000000000180000000000800000000000000000000000000000010000006000"
+            "00000000000000000000020040006000000000000000000000000000e000000000000000040000000000000040000000"
+            "004000000e00000000000000000000000c40000004000000000000000000000003400000000000100000000000000000"
+            "00400000300000100000000000000000004000000c000010000000000000000000000000000000100000000000000000"
+            "000000000000001000010000000000000000000000000000000200000000000000000000002000000004000000000000"
+            "0000000000700000000000000000000000000000002e0000000000000000000000000000001d80000000000080000000"
+            "00600000000800001800000080000000001a000000000000060000008000000000020000180000000000000080000000"
+            "000200000600000000000000800000000002000180000000000000000000000000020001800000000000000000000000"
+            "000000000000000000000000000000000040000000000000000000000000000000e00000000000000000000000000000"
+            "01400000000000000000000000000000038000000000000000000000000000010100000000000000000000000000c001"
+            "000000000000000000000000000031010000000000000000000000000000010100000000000000000000000004000101"
+            "000000000000000000000030080001000000000000000000000100301000010000000000000000000002000000000000"
+            "000000000000000000040000000000000000000000000000000000000000000000000000000000000000000000000000"
+            "00000000000000000000000000000000"
+        ),
+    ],
+)
+
 
 SPRITE_NAMES = {
-    0: "HEART12",
-    1: "HEART14",
-    2: "HEART16",
-    3: "HEART18",
-    4: "HEART20",
-    5: "HEART22",
-    6: "HEART24",
-    7: "HEART28",
-    8: "HEART32",
-    9: "OUTLINE_HEART16",
-    10: "OUTLINE_HEART20",
-    11: "OUTLINE_HEART24",
-    12: "BROKEN_HEART16",
-    13: "BROKEN_HEART20",
-    14: "BROKEN_HEART24",
-    15: "DOUBLE_HEART16",
-    16: "DOUBLE_HEART20",
-    17: "DOUBLE_HEART24",
-    18: "HEART_ARROW16",
-    19: "HEART_ARROW20",
-    20: "HEART_ARROW24",
-    21: "HEART_LOCK16",
-    22: "HEART_LOCK20",
-    23: "HEART_LOCK24",
-    24: "HEART_KEY16",
-    25: "HEART_KEY20",
-    26: "HEART_KEY24",
-    27: "SPARKLE_HEART16",
-    28: "SPARKLE_HEART20",
-    29: "SPARKLE_HEART24",
-    30: "TINY_HEART_PAIR16",
-    31: "LOVE_BADGE24",
-    32: "CAT_2D_WALK_32",
-    33: "CAT_2D_WALK_64",
-    34: "CAT_GOLD_WALK_64",
-    35: "CAT_FIGHTER_64",
-    36: "CAT_FACE24",
-    37: "CAT_FACE28",
-    38: "CAT_FACE32",
-    39: "CAT_WINK24",
-    40: "CAT_SLEEPY24",
-    41: "CAT_SAD24",
-    42: "CAT_SURPRISE24",
-    43: "CAT_BLUSH24",
-    44: "CAT_LOVE24",
-    45: "CAT_GRUMPY24",
-    46: "SITTING_CAT18",
-    47: "SITTING_CAT20",
-    48: "SITTING_CAT24",
-    49: "SITTING_CAT28",
-    50: "SITTING_CAT32",
-    51: "CAT_TAIL24",
-    52: "CAT_WALK24",
-    53: "CAT_HEART24",
-    54: "CAT_LOAF24",
-    55: "CAT_STRETCH24",
-    56: "CAT_PAW24",
-    57: "CAT_FISH24",
-    58: "CAT_MOON24",
-    59: "CAT_STAR24",
-    60: "CAT_BOX24",
-    61: "CAT_GIFT24",
-    62: "CAT_CROWN24",
-    63: "CAT_ROCKET24",
-    64: "CAT_UFO24",
-    65: "CAT_BOOK24",
-    66: "CAT_COFFEE24",
-    67: "CAT_RAIN24",
-    68: "STAR16",
-    69: "STAR20",
-    70: "STAR24",
-    71: "SPARKLE16",
-    72: "SPARKLE20",
-    73: "MOON16",
-    74: "MOON24",
-    75: "SUN20",
-    76: "CLOUD20",
-    77: "RAIN_CLOUD24",
-    78: "ROSE16",
-    79: "ROSE24",
-    80: "FLOWER16",
-    81: "FLOWER24",
-    82: "BUTTERFLY20",
-    83: "BEE20",
-    84: "FISH20",
-    85: "BIRD20",
-    86: "BUNNY20",
-    87: "DOG20",
-    88: "GIFT16",
-    89: "GIFT24",
-    90: "CAKE20",
-    91: "RING16",
-    92: "RING24",
-    93: "ENVELOPE_HEART20",
-    94: "ENVELOPE_HEART24",
-    95: "MUSIC20",
-    96: "MUSIC24",
-    97: "SMILEY16",
-    98: "SMILEY24",
-    99: "LOCK16",
-    100: "LOCK24",
-    101: "KEY20",
-    102: "NFC20",
-    103: "NFC24",
-    104: "BATTERY20",
-    105: "ROCKET24",
-    106: "UFO24",
-    107: "PLANET24",
-    108: "HOUSE24",
-    109: "TREE20",
-    110: "TREE24",
-    111: "COFFEE20",
-    112: "PIZZA20",
-    113: "MAGIC_STAR20",
-    114: "WISH_STAR24",
-    115: "DATE_NIGHT24",
-    116: "KISS_MARK16",
-    117: "KISS_MARK20",
-    118: "CROWN20",
-    119: "DIAMOND20",
-    120: "COMET24",
-    121: "WAVE24",
-    122: "UMBRELLA20",
-    123: "BOOK20",
-    124: "CAMERA20",
-    125: "GAMEPAD24",
-    126: "DICE16",
-    127: "CANDLE16",
+    0: "PIXEL_CAT_00",
+    1: "PIXEL_CAT_01",
+    2: "PIXEL_CAT_02",
+    3: "PIXEL_CAT_03",
+    4: "PIXEL_CAT_04",
+    5: "PIXEL_CAT_05",
+    6: "PIXEL_CAT_06",
+    7: "PIXEL_CAT_07",
+    8: "PIXEL_CAT_08",
+    9: "PIXEL_CAT_09",
+    10: "PIXEL_CAT_10",
+    11: "PIXEL_CAT_11",
+    12: "PIXEL_CAT_12",
+    13: "PIXEL_CAT_13",
+    14: "PIXEL_CAT_14",
+    15: "PIXEL_CAT_15",
+    16: "PIXEL_CAT_16",
+    17: "PIXEL_CAT_17",
+    18: "PIXEL_CAT_18",
+    19: "PIXEL_CAT_19",
+    20: "PIXEL_CAT_20",
+    21: "PIXEL_CAT_21",
+    22: "PIXEL_CAT_22",
+    23: "PIXEL_CAT_23",
+    24: "PIXEL_CAT_24",
+    25: "PIXEL_CAT_25",
+    26: "PIXEL_CAT_26",
+    27: "PIXEL_CAT_27",
+    28: "PIXEL_CAT_28",
+    29: "PIXEL_CAT_29",
+    30: "PIXEL_CAT_30",
+    31: "PIXEL_CAT_31",
+    32: "PIXEL_CAT_32",
+    33: "PIXEL_CAT_33",
+    34: "PIXEL_CAT_34",
+    35: "PIXEL_CAT_35",
+    36: "PIXEL_CAT_36",
+    37: "PIXEL_CAT_37",
+    38: "PIXEL_CAT_38",
+    39: "PIXEL_CAT_39",
+    40: "PIXEL_CAT_40",
+    41: "PIXEL_CAT_41",
+    42: "PIXEL_CAT_42",
+    43: "PIXEL_CAT_43",
+    44: "PIXEL_CAT_44",
+    45: "PIXEL_CAT_45",
+    46: "PIXEL_CAT_46",
+    47: "PIXEL_CAT_47",
+    48: "PIXEL_CAT_48",
+    49: "PIXEL_CAT_49",
+    50: "PIXEL_CAT_50",
+    51: "PIXEL_CAT_51",
+    52: "PIXEL_CAT_52",
+    53: "PIXEL_CAT_53",
+    54: "PIXEL_CAT_54",
+    55: "PIXEL_CAT_55",
+    56: "PIXEL_CAT_56",
+    57: "PIXEL_CAT_57",
+    58: "PIXEL_CAT_58",
+    59: "PIXEL_CAT_59",
+    60: "PIXEL_CAT_60",
+    61: "PIXEL_CAT_61",
+    62: "PIXEL_CAT_62",
+    63: "PIXEL_CAT_63",
+    64: "PIXEL_CAT_64",
+    65: "PIXEL_CAT_65",
+    66: "HEART_SOLID_08",
+    67: "HEART_SOLID_10",
+    68: "HEART_SOLID_12",
+    69: "HEART_SOLID_14",
+    70: "HEART_SOLID_16",
+    71: "HEART_SOLID_18",
+    72: "HEART_SOLID_20",
+    73: "HEART_SOLID_24",
+    74: "HEART_SOLID_28",
+    75: "HEART_SOLID_32",
+    76: "HEART_SOLID_40",
+    77: "HEART_SOLID_48",
+    78: "HEART_SOLID_56",
+    79: "HEART_SOLID_64",
+    80: "HEART_OUTLINE_16",
+    81: "HEART_OUTLINE_20",
+    82: "HEART_OUTLINE_24",
+    83: "HEART_OUTLINE_28",
+    84: "HEART_OUTLINE_32",
+    85: "HEART_OUTLINE_40",
+    86: "HEART_OUTLINE_48",
+    87: "HEART_OUTLINE_56",
+    88: "HEART_OUTLINE_64",
+    89: "HEART_SPARKLE_16",
+    90: "HEART_SPARKLE_20",
+    91: "HEART_SPARKLE_24",
+    92: "HEART_SPARKLE_28",
+    93: "HEART_SPARKLE_32",
+    94: "HEART_SPARKLE_40",
+    95: "HEART_SPARKLE_48",
+    96: "HEART_SPARKLE_64",
+    97: "DOUBLE_HEART_24",
+    98: "DOUBLE_HEART_28",
+    99: "DOUBLE_HEART_32",
+    100: "DOUBLE_HEART_40",
+    101: "DOUBLE_HEART_48",
+    102: "CONFETTI_BURST_16",
+    103: "CONFETTI_BURST_24",
+    104: "STAR_SINGLE_32",
+    105: "STAR_CLUSTER_48",
+    106: "NESTED_HEART_32",
+    107: "NESTED_HEART_48",
+    108: "NESTED_HEART_64",
+    109: "LOVE_BANNER_96X24",
+    110: "FOREVER_BANNER_112X24",
+    111: "TOGETHER_BANNER_128X24",
+    112: "HAPPY_BANNER_96X24",
+    113: "I_LOVE_YOU_BANNER_128X24",
+    114: "MISS_YOU_BANNER_128X24",
+    115: "HEART_TEXT_BANNER_128X24",
+    116: "RIBBON_TEXT_BANNER_128X24",
+    117: "SPARKLE_TEXT_BANNER_128X24",
+    118: "NESTED_HEART_40",
+    119: "GIFT_32",
+    120: "ROSE_BOUQUET_32",
+    121: "RING_BOX_32",
+    122: "ENVELOPE_HEART_32",
+    123: "FIREWORK_HEART_40",
+    124: "BG_HEART_BORDER_128X64",
+    125: "BG_STAR_BORDER_128X64",
+    126: "BG_RIBBON_BORDER_128X64",
+    127: "BG_CONFETTI_FULL_128X64",
 }
 
 BUILTIN_SPRITES = [globals()[SPRITE_NAMES[index]] for index in range(len(SPRITE_NAMES))]
 
 SPRITE_IDS = {name: index for index, name in SPRITE_NAMES.items()}
 
-# Friendly aliases for names most likely to be typed by hand in .pxla files.
-SPRITE_IDS.update({
-    "HEART": SPRITE_IDS["HEART24"],
-    "LOVE": SPRITE_IDS["HEART24"],
-    "BROKEN_HEART": SPRITE_IDS["BROKEN_HEART24"],
-    "DOUBLE_HEART": SPRITE_IDS["DOUBLE_HEART24"],
-    "HEART_ARROW": SPRITE_IDS["HEART_ARROW24"],
-    "HEART_LOCK": SPRITE_IDS["HEART_LOCK24"],
-    "HEART_KEY": SPRITE_IDS["HEART_KEY24"],
-    "CAT": SPRITE_IDS["CAT_FACE24"],
-    "CAT_FACE": SPRITE_IDS["CAT_FACE24"],
-    "SITTING_CAT": SPRITE_IDS["SITTING_CAT24"],
-    "LOVE_CAT": SPRITE_IDS["CAT_LOVE24"],
-    "SPARKLE": SPRITE_IDS["SPARKLE20"],
-    "STAR": SPRITE_IDS["STAR20"],
-    "MOON": SPRITE_IDS["MOON24"],
-    "ROSE": SPRITE_IDS["ROSE24"],
-    "FLOWER": SPRITE_IDS["FLOWER24"],
-    "GIFT": SPRITE_IDS["GIFT24"],
-    "RING": SPRITE_IDS["RING24"],
-    "MAIL": SPRITE_IDS["ENVELOPE_HEART24"],
-    "NFC": SPRITE_IDS["NFC24"],
-    "ROCKET": SPRITE_IDS["ROCKET24"],
-    "UFO": SPRITE_IDS["UFO24"],
-    "PLANET": SPRITE_IDS["PLANET24"],
-    "COFFEE": SPRITE_IDS["COFFEE20"],
-})
+# Friendly aliases for names commonly used in .pxla files.
+SPRITE_IDS.update(
+    {
+        "CAT": SPRITE_IDS["PIXEL_CAT_00"],
+        "PIXEL_CAT": SPRITE_IDS["PIXEL_CAT_00"],
+        "HEART": SPRITE_IDS["HEART_SOLID_32"],
+        "LOVE": SPRITE_IDS["HEART_SOLID_32"],
+        "BIG_HEART": SPRITE_IDS["HEART_SOLID_64"],
+        "SMALL_HEART": SPRITE_IDS["HEART_SOLID_16"],
+        "ANNIVERSARY": SPRITE_IDS["NESTED_HEART_48"],
+        "BANNER": SPRITE_IDS["HEART_TEXT_BANNER_128X24"],
+        "LOVE_BANNER": SPRITE_IDS["LOVE_BANNER_96X24"],
+        "STAR": SPRITE_IDS["STAR_SINGLE_32"],
+        "CONFETTI": SPRITE_IDS["CONFETTI_BURST_24"],
+        "BACKGROUND_HEARTS": SPRITE_IDS["BG_HEART_BORDER_128X64"],
+        "BACKGROUND_STARS": SPRITE_IDS["BG_STAR_BORDER_128X64"],
+        "BACKGROUND_CONFETTI": SPRITE_IDS["BG_CONFETTI_FULL_128X64"],
+    }
+)
