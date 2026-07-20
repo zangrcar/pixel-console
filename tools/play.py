@@ -34,11 +34,11 @@ def framebuffer_to_surface(fb):
     return pygame.transform.scale(surface, (WIDTH * SCALE, HEIGHT * SCALE))
 
 
-def play(input_arg: str):
+def collect_frames(input_arg: str, max_frames=120, max_steps=5000):
     input_path, _ = resolve_input_and_output(input_arg)
 
     source = input_path.read_text(encoding="utf-8")
-    code = assemble_text(source)
+    code = assemble_text(source, source_name=str(input_path))
 
     sprites = load_program_sprites(input_path)
     program = wrap_program(code, sprites=sprites)
@@ -64,7 +64,19 @@ def play(input_arg: str):
         on_frame=on_frame,
         on_wait=on_wait,
     )
-    vm.run(loaded_code, max_frames=120, max_steps=5000)
+    vm.run(loaded_code, max_frames=max_frames, max_steps=max_steps)
+
+    return input_path, frames
+
+
+def should_close(event) -> bool:
+    return event.type == pygame.QUIT or (
+        event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE
+    )
+
+
+def play(input_arg: str):
+    input_path, frames = collect_frames(input_arg)
 
     if not frames:
         print("No frames produced. Add SHOW or FRAME instructions.")
@@ -87,13 +99,9 @@ def play(input_arg: str):
 
         while time.time() - start < duration:
             for event in pygame.event.get():
-                if event.type == pygame.QUIT:
+                if should_close(event):
                     running = False
                     break
-
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_ESCAPE:
-                        running = False
 
             screen.blit(surfaces[index], (0, 0))
             pygame.display.flip()

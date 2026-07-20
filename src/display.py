@@ -5,38 +5,60 @@ from PIL import Image
 from src.framebuffer import HEIGHT, WIDTH, FrameBuffer
 
 
+class DisplayError(Exception):
+    pass
+
+
 class Display:
     def __init__(self):
-        import board
-        import busio
-        import adafruit_ssd1306
+        try:
+            from src.vendor.waveshare_OLED import OLED_2in42
 
-        i2c = busio.I2C(board.SCL, board.SDA)
+            self.display = OLED_2in42.OLED_2in42()
+            result = self.display.Init()
 
-        self.display = adafruit_ssd1306.SSD1306_I2C(
-            WIDTH,
-            HEIGHT,
-            i2c,
-        )
+            if result not in (None, 0):
+                raise RuntimeError(f"Waveshare Init returned {result}")
 
-        self.display.fill(0)
-        self.display.show()
+            actual_size = (self.display.width, self.display.height)
+            expected_size = (WIDTH, HEIGHT)
 
-    def framebuffer_to_image(self, fb: FrameBuffer) -> Image.Image:
-        img = Image.new("1", (WIDTH, HEIGHT), 0)
+            if actual_size != expected_size:
+                raise ValueError(
+                    f"Expected display size {expected_size}, got {actual_size}"
+                )
 
-        for y in range(HEIGHT):
-            for x in range(WIDTH):
-                if fb.pixels[y][x]:
-                    img.putpixel((x, y), 1)
+            self.display.clear()
+        except Exception as error:
+            raise DisplayError("Failed to initialize Waveshare OLED_2in42 SSD1309") from error
 
-        return img
+    @staticmethod
+    def framebuffer_to_image(fb: FrameBuffer) -> Image.Image:
+        # The Waveshare driver treats black source pixels as lit OLED pixels:
+        # getbuffer() clears their bits and ShowImage() inverts those bits again.
+        image = Image.new("1", (WIDTH, HEIGHT), 1)
+
+        image.putdata([
+            0 if pixel else 255
+            for row in fb.pixels
+            for pixel in row
+        ])
+
+        return image
 
     def show(self, fb: FrameBuffer) -> None:
-        img = self.framebuffer_to_image(fb)
-        self.display.image(img)
-        self.display.show()
+        try:
+            image = self.framebuffer_to_image(fb)
+            buffer = self.display.getbuffer(image)
+            self.display.ShowImage(buffer)
+        except Exception as error:
+            raise DisplayError("Failed to show SSD1309 OLED frame") from error
 
     def clear(self) -> None:
-        self.display.fill(0)
-        self.display.show()
+        try:
+            self.display.clear()
+        except Exception as error:
+            raise DisplayError("Failed to clear SSD1309 OLED") from error
+
+    def blank(self) -> None:
+        self.clear()

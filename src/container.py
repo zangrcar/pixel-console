@@ -3,11 +3,24 @@ from __future__ import annotations
 from src.sprite import Sprite
 
 MAGIC = b"PXL1"
-HEADER_SIZE = 10
+FORMAT_VERSION = 1
+VERSION_OFFSET = 4
+TOTAL_LENGTH_OFFSET = 5
+SPRITE_BANK_LENGTH_OFFSET = 7
+CRC_OFFSET = 9
+HEADER_SIZE = 11
 MAX_NTAG216_BYTES = 888
 
 
 class ContainerError(Exception):
+    pass
+
+
+class UnsupportedVersionError(ContainerError):
+    pass
+
+
+class CRCError(ContainerError):
     pass
 
 
@@ -30,19 +43,38 @@ def pack_sprite_bank(sprites):
     if sprites is None:
         sprites = []
 
-    if len(sprites) > 127:
-        raise ValueError("Too many card sprites, max 127")
+    sprites = list(sprites)
+
+    if len(sprites) > 128:
+        raise ValueError("Too many card sprites, max 128")
 
     out = bytearray()
     out.append(len(sprites))
 
-    for sprite in sprites:
+    for index, sprite in enumerate(sprites):
+        if not 1 <= sprite.width <= 255 or not 1 <= sprite.height <= 255:
+            raise ValueError(f"Invalid dimensions for card sprite {128 + index}")
+
+        if not 1 <= sprite.frame_count <= 255:
+            raise ValueError(f"Invalid frame count for card sprite {128 + index}")
+
+        if sprite.frame_count != len(sprite.frames):
+            raise ValueError(f"Frame count mismatch for card sprite {128 + index}")
+
+        bytes_per_frame = ((sprite.width + 7) // 8) * sprite.height
+
+        if any(len(frame) != bytes_per_frame for frame in sprite.frames):
+            raise ValueError(f"Bad frame data length for card sprite {128 + index}")
+
         out.append(sprite.width)
         out.append(sprite.height)
         out.append(sprite.frame_count)
         out.append(0)  # encoding: 0 = raw
 
         frame_data = b"".join(sprite.frames)
+
+        if len(frame_data) > 0xFFFF:
+            raise ValueError(f"Sprite data too large for card sprite {128 + index}")
 
         out.extend(len(frame_data).to_bytes(2, "little"))
         out.extend(frame_data)
@@ -52,13 +84,16 @@ def pack_sprite_bank(sprites):
 
 def unpack_sprite_bank(data: bytes):
     if not data:
-        return []
+        raise ContainerError("Missing sprite bank")
 
     sprites = []
     pc = 0
 
     sprite_count = data[pc]
     pc += 1
+
+    if sprite_count > 128:
+        raise ContainerError("Too many card sprites")
 
     for _ in range(sprite_count):
         if pc + 6 > len(data):
@@ -109,6 +144,14 @@ def wrap_program(code: bytes, sprites=None) -> bytes:
     if sprites is None:
         sprites = []
 
+    try:
+        code = bytes(code)
+    except (TypeError, ValueError) as error:
+        raise ValueError(f"Invalid code data: {error}") from error
+
+    if not code:
+        raise ValueError("Code section cannot be empty")
+
     sprite_bank = pack_sprite_bank(sprites)
 
     total_len = HEADER_SIZE + len(sprite_bank) + len(code)
@@ -118,6 +161,7 @@ def wrap_program(code: bytes, sprites=None) -> bytes:
 
     out = bytearray()
     out.extend(MAGIC)
+    out.append(FORMAT_VERSION)
     out.extend(total_len.to_bytes(2, "little"))
     out.extend(len(sprite_bank).to_bytes(2, "little"))
     out.extend((0).to_bytes(2, "little"))  # CRC placeholder
@@ -125,27 +169,45 @@ def wrap_program(code: bytes, sprites=None) -> bytes:
     out.extend(code)
 
     crc_data = bytearray(out)
-    crc_data[8] = 0
-    crc_data[9] = 0
+    crc_data[CRC_OFFSET:CRC_OFFSET + 2] = b"\x00\x00"
 
     crc = crc16_ccitt(bytes(crc_data))
-    out[8:10] = crc.to_bytes(2, "little")
+    out[CRC_OFFSET:CRC_OFFSET + 2] = crc.to_bytes(2, "little")
 
     return bytes(out)
 
 
 def unwrap_program(data: bytes):
+    try:
+        data = bytes(data)
+    except (TypeError, ValueError) as error:
+        raise ContainerError(f"Invalid container data: {error}") from error
+
+    if len(data) > MAX_NTAG216_BYTES:
+        raise ContainerError("Input exceeds NTAG216 capacity")
+
     if len(data) < HEADER_SIZE:
         raise ContainerError("Container too short")
 
     if data[:4] != MAGIC:
         raise ContainerError("Bad magic")
 
-    total_len = int.from_bytes(data[4:6], "little")
-    sprite_bank_len = int.from_bytes(data[6:8], "little")
-    stored_crc = int.from_bytes(data[8:10], "little")
+    version = data[VERSION_OFFSET]
 
-    if total_len < HEADER_SIZE:
+    if version != FORMAT_VERSION:
+        raise UnsupportedVersionError(f"Unsupported PXL1 version: {version}")
+
+    total_len = int.from_bytes(
+        data[TOTAL_LENGTH_OFFSET:TOTAL_LENGTH_OFFSET + 2],
+        "little",
+    )
+    sprite_bank_len = int.from_bytes(
+        data[SPRITE_BANK_LENGTH_OFFSET:SPRITE_BANK_LENGTH_OFFSET + 2],
+        "little",
+    )
+    stored_crc = int.from_bytes(data[CRC_OFFSET:CRC_OFFSET + 2], "little")
+
+    if total_len < HEADER_SIZE + 1:
         raise ContainerError("Bad total length")
 
     if total_len > MAX_NTAG216_BYTES:
@@ -157,16 +219,18 @@ def unwrap_program(data: bytes):
     used = data[:total_len]
 
     crc_data = bytearray(used)
-    crc_data[8] = 0
-    crc_data[9] = 0
+    crc_data[CRC_OFFSET:CRC_OFFSET + 2] = b"\x00\x00"
 
     actual_crc = crc16_ccitt(bytes(crc_data))
 
     if actual_crc != stored_crc:
-        raise ContainerError("Bad CRC")
+        raise CRCError("Bad CRC")
 
     sprite_start = HEADER_SIZE
     sprite_end = sprite_start + sprite_bank_len
+
+    if sprite_bank_len < 1:
+        raise ContainerError("Bad sprite bank length")
 
     if sprite_end > total_len:
         raise ContainerError("Bad sprite bank length")

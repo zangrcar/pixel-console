@@ -1,4 +1,6 @@
-from src.container import wrap_program, unwrap_program
+import pytest
+
+from src.container import CRCError, unwrap_program, wrap_program
 
 
 def test_wrap_unwrap_program():
@@ -17,8 +19,5 @@ def test_crc_detects_corruption():
 
     program[-1] ^= 0xFF
 
-    try:
+    with pytest.raises(CRCError, match="Bad CRC"):
         unwrap_program(bytes(program))
-        assert False
-    except Exception:
-        assert True

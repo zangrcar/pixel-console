@@ -1,0 +1,16 @@
+; MOVE changes the drawing origin by signed pixel deltas.
+
+clear 0
+mode 1
+origin 8 8
+rect 0 0 20 14
+frame 12
+
+move 24 12
+rect 0 0 20 14
+frame 12
+
+move 24 12
+rect 0 0 20 14
+frame 12
+end

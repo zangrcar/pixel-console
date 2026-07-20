@@ -1,18 +1,18 @@
 clear 0
 mode 1
-spr 60 28 0 0
+spr 56 24 128 0
 frame 10
 clear 0
-spr 60 28 1 0
+spr 56 24 129 0
 frame 10
 clear 0
-spr 60 28 2 0
+spr 56 24 130 0
 frame 10
 clear 0
-spr 60 28 3 0
+spr 56 24 131 0
 frame 10
 clear 0
-spr 60 28 4 0
+spr 48 16 132 0
 frame 10
 clear 0
 end

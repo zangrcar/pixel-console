@@ -1,6 +1,6 @@
 # Pixel Assembly Language (PXLA) Specification v0.1
 
-**Status:** Draft (MVP)
+**Status:** Implemented MVP
 
 PXLA (Pixel Assembly Language) is a small assembly language for writing programs that run on the Pixel VM. It is designed to compile into compact bytecode that is stored on NFC cards and executed by the Raspberry Pi interpreter.
 
@@ -48,7 +48,8 @@ mode 1       // drawing mode
 frame 60     # wait one second
 ```
 
-Only the first occurring comment marker on a line is considered.
+Only the first occurring comment marker outside a quoted string is considered.
+For example, `text 0 0 "TI SI #1"` preserves the `#` character.
 
 ---
 
@@ -175,6 +176,40 @@ mode 1
 
 # Instructions
 
+The MVP opcode values are stable. Instruction sizes include the opcode byte.
+
+| Opcode | Instruction | Size |
+| ------ | ----------- | ---- |
+| `0x00` | `END` | 1 |
+| `0x01` | `NOP` | 1 |
+| `0x02` | `CLEAR` | 2 |
+| `0x03` | `MODE` | 2 |
+| `0x04` | `SHOW` | 1 |
+| `0x05` | `WAIT` | 2 |
+| `0x06` | `FRAME` | 2 |
+| `0x07` | `JMP` | 3 |
+| `0x08` | `SETV` | 3 |
+| `0x09` | `ADDV` | 3 |
+| `0x0A` | `RANDV` | 3 |
+| `0x0B` | `JNZ` | 4 |
+| `0x0C` | `JLT` | 5 |
+| `0x0D` | `DJNZ` | 4 |
+| `0x0E` | `ORIGIN` | 3 |
+| `0x0F` | `ORIGINV` | 2 |
+| `0x10` | `PSET` | 3 |
+| `0x11` | `LINE` | 5 |
+| `0x12` | `RECT` | 5 |
+| `0x13` | `FRECT` | 5 |
+| `0x14` | `INVRECT` | 5 |
+| `0x15` | `TEXT` | 4 + stored text bytes |
+| `0x16` | `FONT` | 3 |
+| `0x17` | `SPR` | 5 |
+| `0x18` | `SPRV` | 4 |
+| `0x19` | `MOVE` | 3 |
+
+Relative jump offsets are signed 16-bit values measured from the first byte
+after the complete jump instruction.
+
 ---
 
 ## END
@@ -259,6 +294,24 @@ Syntax
 
 ```asm
 show
+```
+
+---
+
+## WAIT
+
+Extends the display time of the current frame without emitting a new frame.
+
+Syntax
+
+```asm
+wait ticks
+```
+
+Example
+
+```asm
+wait 30
 ```
 
 ---
@@ -398,6 +451,24 @@ if V0 != 0:
 
 ---
 
+## JLT
+
+Jumps when a variable is less than an unsigned value.
+
+Syntax
+
+```asm
+jlt variable value label
+```
+
+Example
+
+```asm
+jlt 0 10 loop
+```
+
+---
+
 ## DJNZ
 
 Decrement variable then jump if not zero.
@@ -464,7 +535,7 @@ originv xVariable yVariable
 Example
 
 ```asm
-originv 0 1
+originv V0,V1
 ```
 
 Equivalent to
@@ -567,7 +638,7 @@ invrect 0 0 128 64
 
 ## TEXT
 
-Draws ASCII text.
+Draws text using the currently selected pixel font and scale.
 
 Syntax
 
@@ -581,25 +652,37 @@ Example
 text 10 10 "HELLO"
 ```
 
-Current implementation may temporarily use simplified syntax until string parsing is added.
+Source files are UTF-8. Supported Slovenian characters are stored as one byte:
+
+| Byte | Character |
+| ---- | --------- |
+| `0x80` | `Č` |
+| `0x81` | `Š` |
+| `0x82` | `Ž` |
+| `0x83` | `č` |
+| `0x84` | `š` |
+| `0x85` | `ž` |
 
 ---
 
 ## FONT
 
-Selects a font.
+Selects a pixel font and integer scale.
 
 Syntax
 
 ```asm
-font id
+font font_id scale
 ```
 
 Example
 
 ```asm
-font 0
+font 0 1
 ```
+
+`font_id` is `0..4`. Scale is `1..4`; one glyph pixel becomes a square
+of `scale` by `scale` display pixels.
 
 ---
 
@@ -639,6 +722,27 @@ sprv 0 1 0 0
 
 ---
 
+## MOVE
+
+Moves the current drawing origin by signed 8-bit deltas.
+
+Syntax
+
+```asm
+move dx dy
+```
+
+Example
+
+```asm
+move -2 3
+```
+
+The old assembler spelling `moveorig` is accepted as a compatibility alias,
+but new programs should use `move`.
+
+---
+
 # Complete Example
 
 ```asm
@@ -663,19 +767,8 @@ end
 
 ---
 
-# Future Features
+# Intentionally Outside the MVP
 
-Planned additions include:
-
-* Hexadecimal literals
-* Binary literals
-* Constants
-* Macros
-* Include files
-* Multiple fonts
-* Sprite banks
-* String tables
-* Compiler warnings
-* Better diagnostics
-
-These features are intentionally omitted from the MVP to keep both the assembler and the VM small and easy to understand.
+Hexadecimal and binary literals, constants, macros, include files, string
+tables, compression, subroutines, audio and networking are intentionally
+omitted to keep the assembler, container and VM small.

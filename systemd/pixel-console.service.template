@@ -1,0 +1,18 @@
+[Unit]
+Description=Raspberry Pi NFC Pixel Console
+After=local-fs.target
+
+[Service]
+Type=simple
+User=<USERNAME>
+WorkingDirectory=/home/<USERNAME>/pixel_console
+ExecStart=/home/<USERNAME>/pixel_console/.venv/bin/python -m src.device
+Environment=PYTHONUNBUFFERED=1
+Restart=on-failure
+RestartSec=2
+TimeoutStopSec=10
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

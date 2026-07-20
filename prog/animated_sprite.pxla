@@ -1,0 +1,19 @@
+; Four frames from the built-in PIXEL_CAT_00 sprite.
+
+clear 0
+mode 1
+spr 48 16 PIXEL_CAT_00 0
+frame 8
+
+clear 0
+spr 48 16 PIXEL_CAT_00 1
+frame 8
+
+clear 0
+spr 48 16 PIXEL_CAT_00 2
+frame 8
+
+clear 0
+spr 48 16 PIXEL_CAT_00 3
+frame 8
+end

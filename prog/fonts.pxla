@@ -1,0 +1,28 @@
+; All five built-in fonts and scales 1 through 4.
+
+clear 0
+mode 1
+font 0 1
+text 2 20 "CLASSIC ČŠŽ"
+frame 30
+
+clear 0
+font 1 2
+text 8 18 "TALL"
+frame 30
+
+clear 0
+font 2 1
+text 8 20 "WIDE čšž"
+frame 30
+
+clear 0
+font 3 3
+text 34 16 "IT"
+frame 30
+
+clear 0
+font 4 4
+text 52 16 "B"
+frame 30
+end

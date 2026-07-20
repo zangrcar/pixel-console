@@ -22,7 +22,7 @@ def preview(input_arg: str, output_arg: str | None = None) -> None:
     preview_dir.mkdir(parents=True, exist_ok=True)
 
     source = input_path.read_text(encoding="utf-8")
-    code = assemble_text(source)
+    code = assemble_text(source, source_name=str(input_path))
 
     sprites = load_program_sprites(input_path)
     program = wrap_program(code, sprites=sprites)
@@ -37,20 +37,38 @@ def preview(input_arg: str, output_arg: str | None = None) -> None:
     validate_program(loaded_code, loaded_sprites)
 
     frames = []
+    last_frame_index = None
 
-    def on_frame(framebuffer):
-        frames.append(framebuffer)
+    def on_frame(framebuffer, ticks):
+        nonlocal last_frame_index
+        frames.append([framebuffer, max(1, ticks)])
+        last_frame_index = len(frames) - 1
 
-    vm = PixelVM(card_sprites=loaded_sprites, on_frame=on_frame)
-    vm.run(loaded_code)
+    def on_wait(ticks):
+        if last_frame_index is not None:
+            frames[last_frame_index][1] += ticks
 
-    for index, framebuffer in enumerate(frames):
+    vm = PixelVM(
+        card_sprites=loaded_sprites,
+        on_frame=on_frame,
+        on_wait=on_wait,
+    )
+    vm.run(loaded_code, max_frames=120, max_steps=5000)
+
+    for index, (framebuffer, ticks) in enumerate(frames):
         path = preview_dir / f"frame_{index:04}.png"
         framebuffer.save_png(path, scale=8)
+        print(f"Saved {path} ({ticks} ticks)")
 
     print()
     print(f"Preview frames: {len(frames)}")
-    print(f"Saved to: {preview_dir}")
+
+    if frames:
+        print(f"Saved to: {preview_dir}")
+    else:
+        print("No frames produced. Add SHOW or FRAME instructions.")
+
+    return frames
 
 
 def main() -> None:

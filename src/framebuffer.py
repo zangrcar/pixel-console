@@ -1,4 +1,6 @@
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image
+
+from src.font import encode_text, get_font
 
 WIDTH = 128
 HEIGHT = 64
@@ -42,18 +44,45 @@ class FrameBuffer:
             for px in range(x, x + w):
                 self.pset(px, py, mode)
                 
-    def displayText(self, x, y, text, mode=1):
-        font = ImageFont.load_default()
+    def displayText(self, x, y, text, mode=1, font_id=0, scale=1):
+        if isinstance(text, str):
+            data = encode_text(text, replace_unknown=True)
+        else:
+            data = bytes(text)
 
-        img = Image.new("1", (WIDTH, HEIGHT), 0)
-        draw = ImageDraw.Draw(img)
+        font = get_font(font_id)
 
-        draw.text((x, y), text, font=font, fill=1)
+        if not 1 <= scale <= 4:
+            raise ValueError(f"Invalid font scale: {scale}")
 
-        for py in range(HEIGHT):
-            for px in range(WIDTH):
-                if img.getpixel((px, py)):
-                    self.pset(px, py, mode)
+        start_x = x
+        cursor_x = x
+        cursor_y = y
+        fallback = font.glyphs[ord("?")]
+
+        for byte in data:
+            if byte == 0x0A:
+                cursor_x = start_x
+                cursor_y += (font.height + font.line_spacing) * scale
+                continue
+
+            glyph = font.glyphs.get(byte, fallback)
+
+            for glyph_y, row in enumerate(glyph):
+                for glyph_x in range(font.width):
+                    bit = 1 << (font.width - glyph_x - 1)
+
+                    if not row & bit:
+                        continue
+
+                    pixel_x = cursor_x + glyph_x * scale
+                    pixel_y = cursor_y + glyph_y * scale
+
+                    for scale_y in range(scale):
+                        for scale_x in range(scale):
+                            self.pset(pixel_x + scale_x, pixel_y + scale_y, mode)
+
+            cursor_x += (font.width + font.spacing) * scale
         
     def line(self, x0, y0, x1, y1, mode=1):
         dx = abs(x1 - x0)

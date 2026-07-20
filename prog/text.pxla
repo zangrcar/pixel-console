@@ -1,6 +1,8 @@
-clear 1
-mode 0
-text 0 0 "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-text 0 12 "0123456789"
+clear 0
+mode 1
+font 0 1
+text 25 12 "PIXEL CONSOLE"
+text 34 30 "ČŠŽ čšž"
+text 34 48 "0123456789"
 show
 end

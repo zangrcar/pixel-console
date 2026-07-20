@@ -48,7 +48,7 @@ def build_and_run(input_path: Path, output_path: Path | None = None) -> None:
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
     source = input_path.read_text(encoding="utf-8")
-    code = assemble_text(source)
+    code = assemble_text(source, source_name=str(input_path))
 
     sprites = load_program_sprites(input_path)
     program = wrap_program(code, sprites=sprites)

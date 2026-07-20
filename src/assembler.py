@@ -1,5 +1,28 @@
 from pathlib import Path
+from src.font import FONTS, encode_text
 from src.sprite import SPRITE_IDS
+
+
+class AssemblerError(ValueError):
+    def __init__(self, message, source_name="<source>", line_number=None, source_line=None):
+        self.message = message
+        self.source_name = source_name
+        self.line_number = line_number
+        self.source_line = source_line
+        super().__init__(self.__str__())
+
+    def __str__(self):
+        location = self.source_name
+
+        if self.line_number is not None:
+            location += f": Line {self.line_number}"
+
+        result = f"{location}: {self.message}"
+
+        if self.source_line is not None:
+            result += f"\n    {self.source_line.rstrip()}"
+
+        return result
 
 OPCODES = {
     "end": 0x00,
@@ -54,7 +77,7 @@ FORMATS = {
     "frect": ["u8", "u8", "u8", "u8"],
     "invrect": ["u8", "u8", "u8", "u8"],
     "text": ["u8", "u8", "string"],
-    "font": ["u8"],
+    "font": ["font", "scale"],
     "spr": ["u8", "u8", "sprite", "u8"],
     "sprv": ["varpair", "sprite", "u8"],
     "move": ["i8", "i8"],
@@ -63,14 +86,24 @@ FORMATS = {
 
 
 def remove_comment(line):
-    cut = len(line)
+    in_string = False
+    index = 0
 
-    for marker in (";", "//", "#"):
-        index = line.find(marker)
-        if index != -1:
-            cut = min(cut, index)
+    while index < len(line):
+        char = line[index]
 
-    return line[:cut].strip()
+        if char == '"':
+            in_string = not in_string
+            index += 1
+            continue
+
+        if not in_string:
+            if char in (";", "#") or line.startswith("//", index):
+                return line[:index].strip()
+
+        index += 1
+
+    return line.strip()
 
 
 def parse_line(line):
@@ -115,12 +148,12 @@ def instruction_size(mnemonic, args):
     size = 1  # opcode
 
     for kind, arg in zip(FORMATS[mnemonic], args):
-        if kind in ("u8", "i8", "var", "varpair", "sprite"):
+        if kind in ("u8", "i8", "var", "varpair", "sprite", "font", "scale"):
             size += 1
         elif kind == "rel16":
             size += 2
         elif kind == "string":
-            size += 1 + len(arg.encode("ascii"))
+            size += 1 + len(encode_text(arg))
         else:
             raise ValueError(f"Unknown argument kind: {kind}")
 
@@ -185,7 +218,7 @@ def emit_i16(value):
 
 
 def emit_string(value):
-    data = value.encode("ascii")
+    data = encode_text(value)
 
     if len(data) > 64:
         raise ValueError("text too long, max 64 bytes")
@@ -193,31 +226,61 @@ def emit_string(value):
     return [len(data), *data]
 
 
-def collect_labels(parsed_lines):
+def emit_font_id(value):
+    font_id = int(value)
+
+    if font_id not in FONTS:
+        raise ValueError(f"font id must be 0..4, got {font_id}")
+
+    return [font_id]
+
+
+def emit_scale(value):
+    scale = int(value)
+
+    if not 1 <= scale <= 4:
+        raise ValueError(f"font scale must be 1..4, got {scale}")
+
+    return [scale]
+
+
+def _line_error(error, source_name, line_number, source_line):
+    raise AssemblerError(
+        str(error),
+        source_name=source_name,
+        line_number=line_number,
+        source_line=source_line,
+    ) from error
+
+
+def collect_labels(parsed_lines, source_name="<source>"):
     labels = {}
     pc = 0
 
-    for kind, name, args in parsed_lines:
-        if kind == "label":
-            if not name:
-                raise ValueError("empty label")
+    for kind, name, args, line_number, source_line in parsed_lines:
+        try:
+            if kind == "label":
+                if not name:
+                    raise ValueError("empty label")
 
-            if name in labels:
-                raise ValueError(f"duplicate label: {name}")
+                if name in labels:
+                    raise ValueError(f"duplicate label: {name}")
 
-            labels[name] = pc
-            continue
+                labels[name] = pc
+                continue
 
-        if name not in OPCODES:
-            raise ValueError(f"unknown instruction: {name}")
+            if name not in OPCODES:
+                raise ValueError(f"unknown instruction: {name}")
 
-        expected = len(FORMATS[name])
-        actual = len(args)
+            expected = len(FORMATS[name])
+            actual = len(args)
 
-        if expected != actual:
-            raise ValueError(f"{name} expects {expected} args, got {actual}")
+            if expected != actual:
+                raise ValueError(f"{name} expects {expected} args, got {actual}")
 
-        pc += instruction_size(name, args)
+            pc += instruction_size(name, args)
+        except (TypeError, ValueError) as error:
+            _line_error(error, source_name, line_number, source_line)
 
     return labels
 
@@ -249,6 +312,12 @@ def emit_arg(kind, arg, labels, pc_after_instruction):
 
     if kind == "string":
         return emit_string(arg)
+
+    if kind == "font":
+        return emit_font_id(arg)
+
+    if kind == "scale":
+        return emit_scale(arg)
 
     if kind == "rel16":
         if arg not in labels:
@@ -282,27 +351,32 @@ def assemble_instruction(mnemonic, args, labels, pc):
     return output
 
 
-def assemble_text(text):
+def assemble_text(text, source_name="<source>"):
     parsed_lines = []
 
     for line_number, line in enumerate(text.splitlines(), start=1):
         try:
             parsed = parse_line(line)
-            if parsed is not None:
-                parsed_lines.append(parsed)
-        except Exception as e:
-            raise ValueError(f"Line {line_number}: {e}")
 
-    labels = collect_labels(parsed_lines)
+            if parsed is not None:
+                parsed_lines.append((*parsed, line_number, line))
+        except (TypeError, ValueError) as error:
+            _line_error(error, source_name, line_number, line)
+
+    labels = collect_labels(parsed_lines, source_name)
 
     output = []
     pc = 0
 
-    for kind, mnemonic, args in parsed_lines:
+    for kind, mnemonic, args, line_number, source_line in parsed_lines:
         if kind == "label":
             continue
 
-        assembled = assemble_instruction(mnemonic, args, labels, pc)
+        try:
+            assembled = assemble_instruction(mnemonic, args, labels, pc)
+        except (TypeError, ValueError) as error:
+            _line_error(error, source_name, line_number, source_line)
+
         output.extend(assembled)
         pc += len(assembled)
 
@@ -312,7 +386,7 @@ def assemble_file(input_path, output_path):
     with open(input_path, "r", encoding="utf-8") as f:
         source = f.read()
 
-    bytecode = assemble_text(source)
+    bytecode = assemble_text(source, source_name=str(input_path))
 
     output_path = Path(output_path)
     output_path.parent.mkdir(parents=True, exist_ok=True)

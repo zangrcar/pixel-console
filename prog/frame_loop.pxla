@@ -1,0 +1,11 @@
+; A finite six-frame loop.
+
+setv 0 6
+mode 1
+
+loop:
+clear 0
+rect 16 12 96 40
+frame 5
+djnz 0 loop
+end

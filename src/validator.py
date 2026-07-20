@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from src.font import FONTS, is_text_byte_supported
+from src.sprite import BUILTIN_SPRITES
 from src.vm import (
     OP_END,
     OP_NOP,
@@ -77,6 +79,16 @@ def _check_varpair(value: int) -> None:
 
 def _check_sprite(sprite_id: int, frame: int, card_sprites) -> None:
     if sprite_id < 128:
+        if sprite_id >= len(BUILTIN_SPRITES):
+            raise ValidationError(f"Invalid built-in sprite id: {sprite_id}")
+
+        sprite = BUILTIN_SPRITES[sprite_id]
+
+        if frame >= sprite.frame_count:
+            raise ValidationError(
+                f"Invalid frame {frame} for built-in sprite {sprite_id}"
+            )
+
         return
 
     card_index = sprite_id - 128
@@ -87,7 +99,9 @@ def _check_sprite(sprite_id: int, frame: int, card_sprites) -> None:
     sprite = card_sprites[card_index]
 
     if frame >= sprite.frame_count:
-        raise ValidationError(f"Invalid sprite frame: {frame}")
+        raise ValidationError(
+            f"Invalid frame {frame} for card sprite {sprite_id}"
+        )
 
 
 def validate_program(code: bytes, card_sprites=None) -> None:
@@ -108,8 +122,30 @@ def validate_program(code: bytes, card_sprites=None) -> None:
         if opcode in (OP_END, OP_NOP, OP_SHOW):
             pass
 
-        elif opcode in (OP_CLEAR, OP_MODE, OP_WAIT, OP_FRAME, OP_FONT):
+        elif opcode == OP_CLEAR:
+            color, pc = _read_u8(code, pc)
+
+            if color not in (0, 1):
+                raise ValidationError(f"Invalid clear color: {color}")
+
+        elif opcode == OP_MODE:
+            mode, pc = _read_u8(code, pc)
+
+            if not 0 <= mode <= 3:
+                raise ValidationError(f"Invalid draw mode: {mode}")
+
+        elif opcode in (OP_WAIT, OP_FRAME):
             _arg, pc = _read_u8(code, pc)
+
+        elif opcode == OP_FONT:
+            font_id, pc = _read_u8(code, pc)
+            scale, pc = _read_u8(code, pc)
+
+            if font_id not in FONTS:
+                raise ValidationError(f"Invalid font id: {font_id}")
+
+            if not 1 <= scale <= 4:
+                raise ValidationError(f"Invalid font scale: {scale}")
 
         elif opcode == OP_JMP:
             offset, pc = _read_i16(code, pc)
@@ -168,10 +204,8 @@ def validate_program(code: bytes, card_sprites=None) -> None:
 
             text_data = code[pc:pc + length]
 
-            try:
-                text_data.decode("ascii")
-            except UnicodeDecodeError:
-                raise ValidationError("Text is not ASCII")
+            if not all(is_text_byte_supported(byte) for byte in text_data):
+                raise ValidationError("Text contains an unsupported byte")
 
             pc += length
 
@@ -215,3 +249,8 @@ def validate_program(code: bytes, card_sprites=None) -> None:
             raise ValidationError(
                 f"Jump from {instruction.start} targets invalid address {instruction.jump_target}"
             )
+
+    if instructions[-1].opcode not in (OP_END, OP_JMP):
+        raise ValidationError(
+            f"Program can fall past end of code after byte {instructions[-1].start}"
+        )

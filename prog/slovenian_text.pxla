@@ -1,0 +1,20 @@
+; Srečen rojstni dan!
+; Želim ti vse najboljše!
+; ČŠŽ čšž
+
+clear 0
+mode 1
+font 0 1
+
+text 7 2 "Srečen rojstni dan!"
+
+; The second line is split into words to fit 128 pixels without clipping.
+text 2 22 "Želim"
+text 34 22 "ti"
+text 48 22 "vse"
+text 68 22 "najboljše!"
+
+text 43 42 "ČŠŽ čšž"
+show
+wait 120
+end
