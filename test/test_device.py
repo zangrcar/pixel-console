@@ -6,13 +6,16 @@ from src.device import (
     BOOT_SECONDS,
     ERROR_SECONDS,
     LAST_FRAME_SECONDS,
+    MAX_FRAMES,
     STATE_BOOT,
     STATE_ERROR,
     STATE_IDLE,
     STATE_PLAYING,
     STATE_READING,
     make_idle_frame,
+    load_card,
     run_console,
+    run_program,
 )
 from src.error_screen import make_error_frame
 from src.framebuffer import FrameBuffer, WIDTH
@@ -37,6 +40,14 @@ class FakeDisplay:
     def blank(self):
         self.events.append("blank")
         self.blank_calls += 1
+
+
+class CountingDisplay:
+    def __init__(self):
+        self.frame_count = 0
+
+    def show(self, _framebuffer):
+        self.frame_count += 1
 
 
 class FakeNFC:
@@ -124,6 +135,34 @@ def test_success_flow_plays_frames_waits_for_removal_and_returns_idle():
     assert display.frames[4].pixels[1][1] == 1
     assert pixels(display.frames[-1]) == pixels(make_idle_frame())
     assert display.blank_calls == 1
+
+
+def test_raspberry_pi_load_does_not_apply_ntag216_capacity_limit():
+    code = bytes([0x01]) * 900 + bytes([0x00])
+    container = wrap_program(code, max_size=None)
+
+    loaded_code, loaded_sprites = load_card(container)
+
+    assert len(container) > 888
+    assert loaded_code == code
+    assert loaded_sprites == []
+
+
+def test_production_program_is_not_cut_off_after_1000_frames():
+    code = bytes([0x06, 0x00]) * 1001 + bytes([0x00])
+    display = CountingDisplay()
+
+    emitted = run_program(
+        display,
+        code,
+        [],
+        sleep_fn=lambda _seconds: None,
+        max_steps=2000,
+    )
+
+    assert MAX_FRAMES is None
+    assert emitted == 1001
+    assert display.frame_count == 1001
 
 
 def test_invalid_card_shows_error_then_waits_for_removal_and_returns_idle(capsys):

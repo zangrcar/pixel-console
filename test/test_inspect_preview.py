@@ -31,6 +31,20 @@ def test_inspector_reports_v1_crc_size_and_card_sprite(capsys):
     assert "Code size: 1 bytes" in output
 
 
+def test_inspector_ignores_capacity_bytes_after_used_container(capsys):
+    program = wrap_program(bytes([0x00]))
+    larger_card_read = program + bytes(MAX_NTAG216_BYTES + 100)
+
+    inspect_bytes(larger_card_read)
+    output = capsys.readouterr().out
+
+    assert f"Total size: {len(program)} bytes" in output
+    assert f"Input size: {len(larger_card_read)} bytes" in output
+    assert "Fits NTAG216: yes" in output
+    assert "PXL1 container: yes" in output
+    assert "CRC status: ok" in output
+
+
 def test_inspector_reports_bad_crc(capsys):
     program = bytearray(wrap_program(bytes([0x00])))
     program[-1] ^= 0xFF
@@ -64,6 +78,18 @@ def test_png_preview_preserves_show_wait_and_frame_ticks(tmp_path, monkeypatch, 
     assert (tmp_path / "output" / "timing_preview" / "frame_0001.png").exists()
     assert "frame_0000.png (4 ticks)" in output
     assert "frame_0001.png (2 ticks)" in output
+
+
+def test_png_preview_frame_limit_is_configurable(tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    source = write_program(
+        tmp_path / "loop.pxla",
+        "loop:\nframe 1\njmp loop\n",
+    )
+
+    frames = preview(source, max_frames=3, max_steps=100)
+
+    assert len(frames) == 3
 
 
 def test_preview_without_frames_has_clear_message(tmp_path, monkeypatch, capsys):

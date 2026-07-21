@@ -27,7 +27,7 @@ def inspect_bytes(data):
     data = bytes(data)
     declared_size = _declared_size(data)
     used_size = declared_size if declared_size is not None else len(data)
-    fits = used_size <= MAX_NTAG216_BYTES and len(data) <= MAX_NTAG216_BYTES
+    fits = used_size <= MAX_NTAG216_BYTES
 
     print(f"Total size: {used_size} bytes")
 

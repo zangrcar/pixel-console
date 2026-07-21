@@ -48,6 +48,15 @@ izvedi v VM-ju:
 .venv/bin/python run.py slovenian_text
 ```
 
+Če želiš program samo prevesti in validirati, brez izvajanja:
+
+```bash
+.venv/bin/python run.py slovenian_text --build-only
+```
+
+Ukaz ustvari `output/slovenian_text.bin`, preveri PXL1 in bytecode, vendar ne
+zažene VM-ja in ne ustvari frameov.
+
 Pot in lasten output:
 
 ```bash
@@ -61,11 +70,17 @@ PNG preview:
 ```
 
 PNG-ji in trajanje frameov se shranijo v `output/slovenian_text_preview/`.
+Preview ima zaradi neskončnih programov privzeti limit 120 frameov. Za daljši
+program ga zvišaj eksplicitno:
+
+```bash
+.venv/bin/python tools/preview.py animated_sprite --max-frames 5000 --max-steps 200000
+```
 
 Pygame preview, ki ga zapreš z `ESC`:
 
 ```bash
-.venv/bin/python tools/play.py slovenian_text
+.venv/bin/python tools/play.py slovenian_text --max-frames 5000 --max-steps 200000
 ```
 
 Inspector `.bin` datoteke:
@@ -141,8 +156,11 @@ Privzete produkcijske omejitve:
 - error zaslon: 5 sekund;
 - dodatni hold zadnjega framea: 1 sekunda;
 - 60 tickov na sekundo;
-- največ 1000 frameov;
+- brez produkcijskega frame limita;
 - največ 100000 VM korakov.
+
+Konzola zato ne prekine veljavne daljše animacije samo zaradi števila frameov.
+`MAX_STEPS` ostane zaščita pred poškodovanim ali neskončnim programom.
 
 `SIGTERM`, `Ctrl+C` in normalen shutdown poskusijo blankati OLED.
 
@@ -245,8 +263,22 @@ Header je dolg 11 bajtov:
 | `9–10` | CRC-16-CCITT, little-endian |
 
 CRC uporablja polinom `0x1021` in začetno vrednost `0xFFFF`; CRC polje je med
-izračunom nič. Container je omejen na 888 bajtov. Ničelni padding do fizične
-kapacitete NTAG216 se pri branju ignorira.
+izračunom nič. Privzeti build limit je 888 bajtov za trenutno kartico NTAG216.
+To je avtorsko preverjanje in ga lahko za drugo kartico spremeniš:
+
+```bash
+.venv/bin/python run.py program --max-size 2048
+```
+
+`unwrap_program()` in Raspberry Pi validator ne uporabljata NTAG216 capacity
+limita. Upoštevata deklarirani PXL1 `total length`, zato veljaven večji
+container ni zavrnjen samo zato, ker presega 888 bajtov. Formatno polje podpira
+do 65535 uporabljenih bajtov. Trenutni PN532 reader/writer je še vedno
+namenjen NTAG216, zato bere in zapisuje 888 uporabniških bajtov ter pravilno
+zavrne večji zapis. Pri prihodnji kartici je treba prilagoditi samo hardware
+read/write obseg, ne PXL1 validatorja.
+
+Ničelni padding za dodatno fizično kapaciteto se pri branju ignorira.
 
 ## Error kode
 

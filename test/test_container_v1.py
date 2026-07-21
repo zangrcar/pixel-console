@@ -94,7 +94,7 @@ def test_bad_magic_and_crc_are_rejected():
         unwrap_program(bytes(bad_crc))
 
 
-def test_truncated_and_oversized_input_are_rejected():
+def test_truncated_input_is_rejected_and_extra_card_capacity_is_ignored():
     program = make_container()
 
     with pytest.raises(ContainerError, match="Container too short"):
@@ -103,8 +103,11 @@ def test_truncated_and_oversized_input_are_rejected():
     with pytest.raises(ContainerError, match="Truncated container"):
         unwrap_program(program[:-1])
 
-    with pytest.raises(ContainerError, match="exceeds NTAG216"):
-        unwrap_program(program + bytes(MAX_NTAG216_BYTES - len(program) + 1))
+    padded_for_larger_card = program + bytes(MAX_NTAG216_BYTES + 100)
+    code, sprites = unwrap_program(padded_for_larger_card)
+
+    assert code == b"\x00"
+    assert sprites == []
 
 
 def test_bad_total_and_sprite_bank_lengths_are_rejected():
@@ -130,6 +133,20 @@ def test_exact_ntag216_limit_is_allowed_and_one_more_is_rejected():
 
     with pytest.raises(ValueError, match="too large for NTAG216"):
         wrap_program(code_at_limit + b"\x00")
+
+    larger_card_program = wrap_program(code_at_limit + b"\x00", max_size=None)
+
+    assert len(larger_card_program) == MAX_NTAG216_BYTES + 1
+    assert unwrap_program(larger_card_program)[0] == code_at_limit + b"\x00"
+
+
+def test_author_can_select_a_different_card_capacity():
+    code = bytes(900)
+
+    assert len(wrap_program(code, max_size=1024)) <= 1024
+
+    with pytest.raises(ValueError, match="configured card capacity: 900 bytes"):
+        wrap_program(code, max_size=900)
 
 
 def test_sprite_bank_supports_count_for_ids_128_through_255():

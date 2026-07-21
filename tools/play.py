@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from src.assembler import assemble_text
-from src.container import wrap_program, unwrap_program
+from src.container import MAX_NTAG216_BYTES, wrap_program, unwrap_program
 from src.vm import PixelVM
 from run import load_program_sprites, resolve_input_and_output
 from src.validator import validate_program
@@ -34,14 +34,19 @@ def framebuffer_to_surface(fb):
     return pygame.transform.scale(surface, (WIDTH * SCALE, HEIGHT * SCALE))
 
 
-def collect_frames(input_arg: str, max_frames=120, max_steps=5000):
+def collect_frames(
+    input_arg: str,
+    max_frames=120,
+    max_steps=5000,
+    max_size=MAX_NTAG216_BYTES,
+):
     input_path, _ = resolve_input_and_output(input_arg)
 
     source = input_path.read_text(encoding="utf-8")
     code = assemble_text(source, source_name=str(input_path))
 
     sprites = load_program_sprites(input_path)
-    program = wrap_program(code, sprites=sprites)
+    program = wrap_program(code, sprites=sprites, max_size=max_size)
 
     loaded_code, loaded_sprites = unwrap_program(program)
     
@@ -75,8 +80,18 @@ def should_close(event) -> bool:
     )
 
 
-def play(input_arg: str):
-    input_path, frames = collect_frames(input_arg)
+def play(
+    input_arg: str,
+    max_frames=120,
+    max_steps=5000,
+    max_size=MAX_NTAG216_BYTES,
+):
+    input_path, frames = collect_frames(
+        input_arg,
+        max_frames=max_frames,
+        max_steps=max_steps,
+        max_size=max_size,
+    )
 
     if not frames:
         print("No frames produced. Add SHOW or FRAME instructions.")
@@ -119,9 +134,22 @@ def play(input_arg: str):
 def main():
     parser = argparse.ArgumentParser(description="Play Pixel Console animation preview")
     parser.add_argument("input", help="Program name or path to .pxla file")
+    parser.add_argument("--max-frames", type=int, default=120, help="Preview frame limit")
+    parser.add_argument("--max-steps", type=int, default=5000, help="VM instruction limit")
+    parser.add_argument(
+        "--max-size",
+        type=int,
+        default=MAX_NTAG216_BYTES,
+        help="Author-side card capacity limit in bytes",
+    )
     args = parser.parse_args()
 
-    play(args.input)
+    play(
+        args.input,
+        max_frames=args.max_frames,
+        max_steps=args.max_steps,
+        max_size=args.max_size,
+    )
 
 
 if __name__ == "__main__":

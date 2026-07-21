@@ -24,8 +24,10 @@ BOOT_SECONDS = 2.0
 ERROR_SECONDS = 5.0
 LAST_FRAME_SECONDS = 1.0
 TICKS_PER_SECOND = 60
-MAX_FRAMES = 1000
-MAX_STEPS = 100000
+# Production programs are not cut off by frame count. MAX_STEPS remains the
+# safety limit for damaged or infinite programs.
+MAX_FRAMES = None
+MAX_STEPS = 500000
 
 
 def _text_x(text: str) -> int:

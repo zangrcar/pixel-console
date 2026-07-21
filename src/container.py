@@ -140,7 +140,7 @@ def unpack_sprite_bank(data: bytes):
     return sprites
 
 
-def wrap_program(code: bytes, sprites=None) -> bytes:
+def wrap_program(code: bytes, sprites=None, max_size=MAX_NTAG216_BYTES) -> bytes:
     if sprites is None:
         sprites = []
 
@@ -156,8 +156,13 @@ def wrap_program(code: bytes, sprites=None) -> bytes:
 
     total_len = HEADER_SIZE + len(sprite_bank) + len(code)
 
-    if total_len > MAX_NTAG216_BYTES:
-        raise ValueError("Program is too large for NTAG216")
+    if total_len > 0xFFFF:
+        raise ValueError("Program is too large for PXL1 length field")
+
+    if max_size is not None and total_len > max_size:
+        if max_size == MAX_NTAG216_BYTES:
+            raise ValueError("Program is too large for NTAG216")
+        raise ValueError(f"Program exceeds configured card capacity: {max_size} bytes")
 
     out = bytearray()
     out.extend(MAGIC)
@@ -183,9 +188,6 @@ def unwrap_program(data: bytes):
     except (TypeError, ValueError) as error:
         raise ContainerError(f"Invalid container data: {error}") from error
 
-    if len(data) > MAX_NTAG216_BYTES:
-        raise ContainerError("Input exceeds NTAG216 capacity")
-
     if len(data) < HEADER_SIZE:
         raise ContainerError("Container too short")
 
@@ -209,9 +211,6 @@ def unwrap_program(data: bytes):
 
     if total_len < HEADER_SIZE + 1:
         raise ContainerError("Bad total length")
-
-    if total_len > MAX_NTAG216_BYTES:
-        raise ContainerError("Container too large")
 
     if total_len > len(data):
         raise ContainerError("Truncated container")

@@ -4,7 +4,7 @@ import argparse
 from pathlib import Path
 
 from src.assembler import assemble_text
-from src.container import wrap_program, unwrap_program
+from src.container import MAX_NTAG216_BYTES, wrap_program, unwrap_program
 from src.vm import PixelVM
 from src.inspect import inspect_bytes
 from src.validator import validate_program
@@ -41,7 +41,12 @@ def load_program_sprites(input_path: Path):
 
     return namespace.get("SPRITES", [])
 
-def build_and_run(input_path: Path, output_path: Path | None = None) -> None:
+def build_and_run(
+    input_path: Path,
+    output_path: Path | None = None,
+    max_size=MAX_NTAG216_BYTES,
+    execute=True,
+) -> bytes:
     if output_path is None:
         output_path = Path.cwd() / "output" / f"{input_path.stem}.bin"
 
@@ -51,7 +56,7 @@ def build_and_run(input_path: Path, output_path: Path | None = None) -> None:
     code = assemble_text(source, source_name=str(input_path))
 
     sprites = load_program_sprites(input_path)
-    program = wrap_program(code, sprites=sprites)
+    program = wrap_program(code, sprites=sprites, max_size=max_size)
 
     output_path.write_bytes(program)
     print(f"Wrote {len(program)} bytes to {output_path}")
@@ -62,18 +67,37 @@ def build_and_run(input_path: Path, output_path: Path | None = None) -> None:
     
     validate_program(loaded_code, loaded_sprites)
 
-    vm = PixelVM(card_sprites=loaded_sprites)
-    vm.run(loaded_code)
+    if execute:
+        vm = PixelVM(card_sprites=loaded_sprites)
+        vm.run(loaded_code)
+
+    return program
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Assemble and run a Pixel Console program")
     parser.add_argument("input", help="Program name or path to the .pxla source file")
     parser.add_argument("--output", help="Optional output path for the compiled .bin file")
+    parser.add_argument(
+        "--max-size",
+        type=int,
+        default=MAX_NTAG216_BYTES,
+        help="Author-side card capacity limit in bytes",
+    )
+    parser.add_argument(
+        "--build-only",
+        action="store_true",
+        help="Write and validate .bin without running the program",
+    )
     args = parser.parse_args()
 
     input_path, output_path = resolve_input_and_output(args.input, args.output)
-    build_and_run(input_path, output_path)
+    build_and_run(
+        input_path,
+        output_path,
+        max_size=args.max_size,
+        execute=not args.build_only,
+    )
 
 
 if __name__ == "__main__":

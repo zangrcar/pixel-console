@@ -8,14 +8,20 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from src.assembler import assemble_text
-from src.container import wrap_program, unwrap_program
+from src.container import MAX_NTAG216_BYTES, wrap_program, unwrap_program
 from src.inspect import inspect_bytes
 from src.vm import PixelVM
 from run import load_program_sprites, resolve_input_and_output
 from src.validator import validate_program
 
 
-def preview(input_arg: str, output_arg: str | None = None) -> None:
+def preview(
+    input_arg: str,
+    output_arg: str | None = None,
+    max_frames=120,
+    max_steps=5000,
+    max_size=MAX_NTAG216_BYTES,
+):
     input_path, output_path = resolve_input_and_output(input_arg, output_arg)
 
     preview_dir = Path.cwd() / "output" / f"{input_path.stem}_preview"
@@ -25,7 +31,7 @@ def preview(input_arg: str, output_arg: str | None = None) -> None:
     code = assemble_text(source, source_name=str(input_path))
 
     sprites = load_program_sprites(input_path)
-    program = wrap_program(code, sprites=sprites)
+    program = wrap_program(code, sprites=sprites, max_size=max_size)
 
     output_path.write_bytes(program)
 
@@ -53,7 +59,7 @@ def preview(input_arg: str, output_arg: str | None = None) -> None:
         on_frame=on_frame,
         on_wait=on_wait,
     )
-    vm.run(loaded_code, max_frames=120, max_steps=5000)
+    vm.run(loaded_code, max_frames=max_frames, max_steps=max_steps)
 
     for index, (framebuffer, ticks) in enumerate(frames):
         path = preview_dir / f"frame_{index:04}.png"
@@ -75,9 +81,23 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Preview a Pixel Console program")
     parser.add_argument("input", help="Program name or path to .pxla file")
     parser.add_argument("--output", help="Optional compiled .bin output path")
+    parser.add_argument("--max-frames", type=int, default=120, help="Preview frame limit")
+    parser.add_argument("--max-steps", type=int, default=5000, help="VM instruction limit")
+    parser.add_argument(
+        "--max-size",
+        type=int,
+        default=MAX_NTAG216_BYTES,
+        help="Author-side card capacity limit in bytes",
+    )
     args = parser.parse_args()
 
-    preview(args.input, args.output)
+    preview(
+        args.input,
+        args.output,
+        max_frames=args.max_frames,
+        max_steps=args.max_steps,
+        max_size=args.max_size,
+    )
 
 
 if __name__ == "__main__":
