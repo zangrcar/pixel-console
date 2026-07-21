@@ -17,16 +17,17 @@ class NFCReader:
     def __init__(self, pn532=None):
         try:
             if pn532 is None:
-                import board
-                import busio
+                import serial
+
                 from adafruit_pn532.uart import PN532_UART
 
-                uart = busio.UART(
-                    board.TX,
-                    board.RX,
+                uart = serial.Serial(
+                    port="/dev/serial0",
                     baudrate=PN532_UART_BAUDRATE,
                     timeout=PN532_UART_TIMEOUT,
+                    write_timeout=PN532_UART_TIMEOUT,
                 )
+
                 pn532 = PN532_UART(uart, debug=False)
 
             self.pn532 = pn532
