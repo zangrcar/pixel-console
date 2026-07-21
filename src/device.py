@@ -70,6 +70,7 @@ def run_program(
     code: bytes,
     sprites,
     sleep_fn=time.sleep,
+    clock_fn=time.monotonic,
     max_frames=MAX_FRAMES,
     max_steps=MAX_STEPS,
 ) -> int:
@@ -77,9 +78,12 @@ def run_program(
 
     def on_frame(fb, ticks=1):
         nonlocal emitted_frames
+        started = clock_fn()
         display.show(fb)
         emitted_frames += 1
-        sleep_fn(max(1, ticks) / TICKS_PER_SECOND)
+        target_seconds = max(1, ticks) / TICKS_PER_SECOND
+        display_seconds = max(0.0, clock_fn() - started)
+        sleep_fn(max(0.0, target_seconds - display_seconds))
 
     def on_wait(ticks):
         sleep_fn(max(1, ticks) / TICKS_PER_SECOND)
@@ -98,6 +102,7 @@ def run_card(
     display,
     raw_data: bytes,
     sleep_fn=time.sleep,
+    clock_fn=time.monotonic,
     max_frames=MAX_FRAMES,
     max_steps=MAX_STEPS,
 ) -> int:
@@ -107,6 +112,7 @@ def run_card(
         code,
         sprites,
         sleep_fn=sleep_fn,
+        clock_fn=clock_fn,
         max_frames=max_frames,
         max_steps=max_steps,
     )
@@ -116,6 +122,7 @@ def run_console(
     display=None,
     nfc=None,
     sleep_fn=time.sleep,
+    clock_fn=time.monotonic,
     max_cards=None,
     max_frames=MAX_FRAMES,
     max_steps=MAX_STEPS,
@@ -165,6 +172,7 @@ def run_console(
                     code,
                     sprites,
                     sleep_fn=sleep_fn,
+                    clock_fn=clock_fn,
                     max_frames=max_frames,
                     max_steps=max_steps,
                 )

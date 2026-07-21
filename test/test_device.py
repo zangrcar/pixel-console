@@ -117,6 +117,7 @@ def test_success_flow_plays_frames_waits_for_removal_and_returns_idle():
         display=display,
         nfc=nfc,
         sleep_fn=sleeps.append,
+        clock_fn=lambda: 0.0,
         max_cards=1,
     )
 
@@ -135,6 +136,24 @@ def test_success_flow_plays_frames_waits_for_removal_and_returns_idle():
     assert display.frames[4].pixels[1][1] == 1
     assert pixels(display.frames[-1]) == pixels(make_idle_frame())
     assert display.blank_calls == 1
+
+
+def test_frame_timing_includes_display_transfer_time():
+    code = assemble_text("frame 6\nend\n")
+    display = FakeDisplay()
+    sleeps = []
+    clock_values = iter([10.0, 10.04])
+
+    emitted = run_program(
+        display,
+        code,
+        [],
+        sleep_fn=sleeps.append,
+        clock_fn=lambda: next(clock_values),
+    )
+
+    assert emitted == 1
+    assert sleeps == pytest.approx([0.06])
 
 
 def test_raspberry_pi_load_does_not_apply_ntag216_capacity_limit():
