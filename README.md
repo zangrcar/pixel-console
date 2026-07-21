@@ -157,7 +157,7 @@ Privzete produkcijske omejitve:
 - dodatni hold zadnjega framea: 1 sekunda;
 - 60 tickov na sekundo;
 - brez produkcijskega frame limita;
-- največ 100000 VM korakov.
+- največ 500000 VM korakov.
 
 Konzola zato ne prekine veljavne daljše animacije samo zaradi števila frameov.
 `MAX_STEPS` ostane zaščita pred poškodovanim ali neskončnim programom.
