@@ -109,6 +109,10 @@ Kartica mora biti nezaklenjena NTAG216.
 
 ## Raspberry Pi hardware
 
+PINS:
+PN532: 2, 6, 8, 10, 38
+OLED:  1, 9, 13, 19, 22, 23, 24
+
 ### OLED
 
 Podprt je samo Waveshare 2.42inch OLED Module, 128×64, SSD1309, 4-wire SPI:
